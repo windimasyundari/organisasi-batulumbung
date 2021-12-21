@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Anggota extends Authenticatable
 {
+    use HasFactory;
+    
     protected $table = 'anggota';
 
     protected $fillable = [

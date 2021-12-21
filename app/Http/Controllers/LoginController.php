@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Auth;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -28,6 +28,7 @@ class LoginController extends Controller
     {
         //login anggota
         $emaillogin = Anggota::where('email', $request->email)->first();
+        // dd($emaillogin->password);
 
         if(!$emaillogin)
         {
@@ -38,19 +39,25 @@ class LoginController extends Controller
 
         if(!$passwordanggota)
         {
+            dd('password salah');
             return redirect()->back()->with('status', 'Password salah');
         }
 
         $loginanggota = Auth::guard('anggota')->attempt(['email' => $request->email, 'password' => $request->password]);
+        $id = Anggota::where('email', $request->email)->value('id');  
+                session([
+                    'idlogin' => $id,
+                    // 'namalogin' => $tampilnama, 
+                ]);
         
         if($loginanggota)
         {
             $request->session()->regenerate();
-            return redirect()->routed('/pengurus/dashboard');
+            return redirect()->intended('/pengurus/dashboard');
         }
         else
         {
-            return redirect()->back()->with(['status' => 'Akun tidak terdaftar']);
+            return redirect()->back()->with('status', 'Akun tidak terdaftar');
         }
 
     }

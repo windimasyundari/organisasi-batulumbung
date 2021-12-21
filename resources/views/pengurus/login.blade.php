@@ -31,7 +31,7 @@
 					</span>
 				</div>
 
-				<form class="login-form validate-form" method="post" action="{{ route ('dashboard')}}">
+				<form class="login-form validate-form" method="post" action="{{ route ('loginPost')}}">
 				@csrf
 					<div class="wrap-input100 validate-input m-b-24" data-validate="Username is required">
 						<span class="label-input100">Email</span>

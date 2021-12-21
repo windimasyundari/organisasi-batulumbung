@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 // Login
 Route::get('/login', 'App\Http\Controllers\LoginController@index');
-Route::post('/dashboard', 'App\Http\Controllers\LoginController@prosesLogin')->name('dashboard');
+Route::post('/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
 Route::get('/dashboard', 'App\Http\Controllers\LoginController@dashboardAnggota');
 
 //Register
