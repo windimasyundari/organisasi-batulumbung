@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Organisasi;
+use Illuminate\Http\Request;
+
+class OrganisasiController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $organisasi = Organisasi::all();
+        return view('pengurus.organisasi.organisasi', compact('organisasi'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('pengurus.organisasi.create-organisasi');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'jenis' => 'required'
+        ]);
+
+        Organisasi :: create([
+            'jenis' => $request->jenis
+        ]); 
+        
+        return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Ditambahkan!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Organisasi  $organisasi
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Organisasi $organisasi)
+    {
+        // return view('pengurus.organisasi.show-organisasi', compact('organisasi'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Organisasi  $organisasi
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Organisasi $organisasi)
+    {
+        return view('pengurus.organisasi.edit-organisasi', compact('organisasi'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Organisasi  $organisasi
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Organisasi $organisasi)
+    {
+        $request->validate([
+            'jenis' => 'required'
+        ]);
+        
+        Organisasi::where('id', $organisasi->id)
+                ->update([
+                    'jenis'=>$request->jenis
+                ]);
+
+            return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Diubah!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Organisasi  $organisasi
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Organisasi $organisasi)
+    {
+        Organisasi::destroy($organisasi -> id);
+
+        return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Dihapus!');
+    }
+}
