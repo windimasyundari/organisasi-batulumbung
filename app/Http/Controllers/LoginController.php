@@ -32,6 +32,7 @@ class LoginController extends Controller
 
         if(!$emaillogin)
         {
+            dd('email salah');
             return redirect()->back()->with('status', 'Email salah');
         }
 
