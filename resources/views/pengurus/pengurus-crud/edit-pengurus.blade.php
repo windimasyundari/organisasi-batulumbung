@@ -15,7 +15,7 @@
 
     <div class="container-fluid">
     <fieldset>
-        <form method="post" action="/pengurus/pengurus/{{ $pengurus->id }}" style="width:50%">
+        <form method="post" action="/pengurus/pengurus-crud/{{ $pengurus->id }}" style="width:50%">
         @method('patch')
         @csrf
             <div class="form-group">

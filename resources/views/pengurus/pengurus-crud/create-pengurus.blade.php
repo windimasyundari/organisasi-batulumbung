@@ -15,7 +15,7 @@
     </div>
     
     <div class="container-fluid">
-        <form method="post" action="/pengurus/pengurus/create-pengurus" style="width:50%">
+        <form method="post" action="/pengurus/pengurus-crud/create-pengurus" style="width:50%">
         @csrf
             <div class="form-group">
                 <label for="nama">Nama</label> 

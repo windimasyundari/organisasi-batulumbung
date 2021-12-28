@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota;
+use App\Models\Pengurus;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+//use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,13 +28,14 @@ class LoginController extends Controller
      */
     public function prosesLogin(Request $request)
     {
+        /*
         //login anggota
         $emaillogin = Anggota::where('email', $request->email)->first();
         // dd($emaillogin->password);
 
         if(!$emaillogin)
         {
-            dd('email salah');
+            //dd('email salah');
             return redirect()->back()->with('status', 'Email salah');
         }
 
@@ -40,7 +43,7 @@ class LoginController extends Controller
 
         if(!$passwordanggota)
         {
-            dd('password salah');
+            //dd('password salah');
             return redirect()->back()->with('status', 'Password salah');
         }
 
@@ -54,18 +57,21 @@ class LoginController extends Controller
         if($loginanggota)
         {
             $request->session()->regenerate();
+           
             return redirect()->intended('/pengurus/dashboard');
         }
         else
         {
             return redirect()->back()->with('status', 'Akun tidak terdaftar');
         }
-
+        */
     }
 
     public function dashboardAnggota()
     {
-        return view('pengurus/dashboard');
+        //$id = $request->session()->get('idlogin');
+        //$semua = Anggota::where('id', $id)->get(); 
+        return view('/pengurus/dashboard');
 
     }
 

@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tgl_lahir' => $request->tgl_lahir,
             'email' => $request->email,
-            'password' => bycript($request->password),
+            'password' => Hash::make($request->password),
             'no_telp' => $request->no_telp,
             'jenis_kelamin' => $request->jenis_kelamin,
             'pekerjaan' => $request->pekerjaan,
@@ -70,7 +70,7 @@ class RegisterController extends Controller
         ]); 
 
     //  dd ($request->all());
-        return redirect('/login')->with('status', 'Registrasi Berhasil!');
+        return redirect('pengurus/login')->with('status', 'Registrasi Berhasil!');
     }
 
     /**

@@ -135,7 +135,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus-crud"
                                 aria-expanded="false">
                                 <i class="fas fa-user mr-3" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengurus</span>

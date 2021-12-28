@@ -35,13 +35,13 @@
 				@csrf
 					<div class="wrap-input100 validate-input m-b-24" data-validate="Username is required">
 						<span class="label-input100">Email</span>
-						<input class="input100" type="text" name="email" placeholder="Enter email">
+						<input class="input100" type="text" name="email" placeholder="Enter email" required>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" placeholder="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Enter password" required>
 						<span class="focus-input100"></span>
 					</div>
 		
