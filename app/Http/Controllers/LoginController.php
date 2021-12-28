@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     public function prosesLogin(Request $request)
     {
-        /*
+        
         //login anggota
         $emaillogin = Anggota::where('email', $request->email)->first();
         // dd($emaillogin->password);
@@ -64,7 +64,7 @@ class LoginController extends Controller
         {
             return redirect()->back()->with('status', 'Akun tidak terdaftar');
         }
-        */
+        //*/
     }
 
     public function dashboardAnggota()

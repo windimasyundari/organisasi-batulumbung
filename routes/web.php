@@ -25,7 +25,7 @@ Route::get('/', function () {
 //     return view('pengurus/dashboard');
 // });
 
-Route::middleware(['guest'])->group(function (){
+//Route::middleware(['guest'])->group(function (){
     // Login
     Route::get('pengurus/login', 'App\Http\Controllers\LoginController@index');
     Route::post('pengurus/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
@@ -34,7 +34,7 @@ Route::middleware(['guest'])->group(function (){
     //Register
     Route::get('/register', 'App\Http\Controllers\RegisterController@index');
     Route::post('/register/store', 'App\Http\Controllers\RegisterController@store')->name('register');
-});
+//});
 
 
 //Route::group(['middleware' => ['auth:anggota']], function (){
