@@ -38,7 +38,7 @@ Route::get('/', function () {
 
 
 //Route::group(['middleware' => ['auth:anggota']], function (){
-    Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardAnggota');
+    Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardPengurus');
 
 
     // Anggota

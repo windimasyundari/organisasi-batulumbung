@@ -29,7 +29,7 @@ class LoginController extends Controller
     public function prosesLogin(Request $request)
     {
         //login anggota
-        $emaillogin = Anggota::where('email', $request->email)->first();
+        $emaillogin = Pengurus::where('email', $request->email)->first();
         // dd($emaillogin->password);
 
         if(!$emaillogin)
@@ -38,22 +38,22 @@ class LoginController extends Controller
             return redirect()->back()->with('status', 'Email salah');
         }
 
-        $passwordanggota = Hash::check($request->password, $emaillogin->password);
+        $passwordpengurus = Hash::check($request->password, $emaillogin->password);
 
-        if(!$passwordanggota)
+        if(!$passwordpengurus)
         {
             //dd('password salah');
             return redirect()->back()->with('status', 'Password salah');
         }
 
-        $loginanggota = Auth::guard('anggota')->attempt(['email' => $request->email, 'password' => $request->password]);
-        $id = Anggota::where('email', $request->email)->value('id');  
+        $loginpengurus = Auth::guard('pengurus')->attempt(['email' => $request->email, 'password' => $request->password]);
+        $id = Pengurus::where('email', $request->email)->value('id');  
                 session([
                     'idlogin' => $id,
                     // 'namalogin' => $tampilnama, 
                 ]);
         
-        if($loginanggota)
+        if($loginpengurus)
         {
             $request->session()->regenerate();
            
@@ -68,7 +68,7 @@ class LoginController extends Controller
     public function dashboardPengurus()
     {
         $id = $request->session()->get('idlogin');
-        $semua = Anggota::where('id', $id)->get(); 
+        $semua = Pengurus::where('id', $id)->get(); 
         return view('/pengurus/dashboard');
 
     }
