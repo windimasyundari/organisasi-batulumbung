@@ -103,10 +103,10 @@ return [
             'model' => App\Models\Anggota::class,
         ],
 
-        // 'penguruss' => [
-        //     'driver' => 'eloquent',
-        //     'model' => App\Models\Pengurus::class,
-        // ]
+        'penguruss' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pengurus::class,
+        ]
     ],
 
     /*
