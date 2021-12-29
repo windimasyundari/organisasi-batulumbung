@@ -50,7 +50,7 @@ return [
 
         'anggota' => [
             'driver' => 'session',
-            'session' => 'anggotas',
+            'provider' => 'anggotas',
         ],
 
         'anggota-api' => [
@@ -58,15 +58,15 @@ return [
             'provider' => 'anggotas',
         ],
 
-        // 'pengurus' => [
-        //     'driver' => 'session',
-        //     'session' => 'penguruss', 
-        // ],
+        'pengurus' => [
+            'driver' => 'session',
+            'provider' => 'penguruss', 
+        ],
 
-        // 'pengurus-api' => [
-        //     'driver' => 'token',
-        //     'provider' => 'penguruss',
-        // ],
+        'pengurus-api' => [
+            'driver' => 'token',
+            'provider' => 'penguruss',
+        ],
     ],
 
     /*

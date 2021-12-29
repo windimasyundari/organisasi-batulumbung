@@ -29,6 +29,9 @@ Route::get('/', function () {
     // Login
     Route::get('pengurus/login', 'App\Http\Controllers\LoginController@index');
     Route::post('pengurus/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
+
+    // Logout
+    Route::get('/logout', 'App\Http\Controllers\LoginController@logout');
     
 
     //Register

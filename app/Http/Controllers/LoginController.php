@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
         //login anggota
         $emaillogin = Pengurus::where('email', $request->email)->first();
-        // dd($emaillogin->password);
+        // dd($emaillogin);
 
         if(!$emaillogin)
         {
@@ -63,9 +63,9 @@ class LoginController extends Controller
         {
             return redirect()->back()->with('status', 'Akun tidak terdaftar');
         }
-    
+        
     }
-    public function dashboardPengurus()
+    public function dashboardPengurus(Request $request)
     {
         $id = $request->session()->get('idlogin');
         $semua = Pengurus::where('id', $id)->get(); 
@@ -73,58 +73,11 @@ class LoginController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function logout()
-    {
-        if (Auth::guard('pengurus')->check()) {
-            Auth::guard('pengurus')->logout();
-        } elseif (Auth::guard('pengurus')->check()) {
-            Auth::guard('pengurus')->logout();
-        }
-        return redirect('/');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/pengurus/login');
     }
 }

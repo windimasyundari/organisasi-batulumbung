@@ -176,6 +176,14 @@
                                 <span class="hide-menu">Laporan Keuangan</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout"
+                                aria-expanded="false">
+                                <i class="fas fa-sign-out-alt mr-3" aria-hidden="true"></i>
+                                <span class="hide-menu">Logout</span>
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
