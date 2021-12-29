@@ -36,27 +36,27 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required',
+        // return $request->file('file')->store('files-pengumuman');
+
+        $validateData = $request->validate([
+            'judul' => 'required|max:255',
             'tanggal' => 'required',
             'isi' => 'required',
-            'file' => 'required',
+            'file' => 'file|max:1024'
         ]);
 
-        // $file = $request->file('file');
-        // if($file){
-        //     $nama_file = date('Y-m-d H:i:s');
-        //     $file->move('files_pengumuman', $nama_file);
-        //     'file' => 'files_pengumuman/' .$nama_file;
-        // }
+        if($request->file('file')) {
+            $validateData['file'] = $request->file('file')->store('files-pengumuman');
+        }
 
+        Pengumuman::create($validateData);
 
-        Pengumuman :: create([
-            'judul' => $request->judul,
-            'tanggal' => $request->tanggal,
-            'isi' => $request->isi,
-            'file' => $request->file
-        ]); 
+        // Pengumuman :: create([
+        //     'judul' => $request->judul,
+        //     'tanggal' => $request->tanggal,
+        //     'isi' => $request->isi,
+        //     'file' => $request->file
+        // ]); 
         
         return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Ditambahkan!');
     }

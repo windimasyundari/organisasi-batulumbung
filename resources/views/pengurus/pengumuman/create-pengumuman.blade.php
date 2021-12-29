@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label for="file" class="form-label">File</label>
-                <input type="file" name="file" value="{{ old ('file') }}" class="form-control @error('file') is-invalid @enderror" 
+                <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" 
                 id="file" placeholder="Masukkan file">
                 @error ('file')
                 <div class="invalid-feedback">
