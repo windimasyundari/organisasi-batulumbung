@@ -41,4 +41,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     /**
+     * Authenticate the user
+     *
+     * @param   object  $request 
+     * @return  array
+     */
+    public function _login($request)
+    {
+        if(\Auth::attempt([
+            'email'    => $request->email,
+            'password' => $request->password
+        ]))
+        {
+            return [
+                'success' => true
+            ];
+        }
+        else
+        {
+            return [
+                'success' => false
+            ];
+        }
+    }
+
+
 }

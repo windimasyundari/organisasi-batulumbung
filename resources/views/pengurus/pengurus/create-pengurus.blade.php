@@ -62,6 +62,17 @@
             </div>
 
             <div class="form-group">
+                <label for="password" class="form-label">Konfirmasi Password</label>
+                <input type="password" name="konfirmpassword" value="{{ old ('konfirmpassword') }}" class="form-control @error('konfirmpassword') is-invalid @enderror" 
+                id="konfirmpassword" placeholder="Masukkan Password">
+                @error ('konfirmpassword')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="exampleFormControlSelect">Jenis Kelamin</label>
                 <select name="jenis_kelamin" value="{{ old ('jenis_kelamin') }}" class="form-control" id="exampleFormControlSelect">
                     <option value="">--Pilih--</option>
@@ -84,7 +95,7 @@
 
             <div class="form-group">
                 <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                <select name="organisasi_id" value="{{ old ('organisasi_id') }}" class="form-control" id="exampleFormControlSelect">
+                <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
                     <option value="">--Pilih--</option>
                     <option value="1">Sekaa Teruna</option>
                     <option value="2">Sekaa Gong</option>

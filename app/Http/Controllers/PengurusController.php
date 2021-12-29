@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PengurusController extends Controller
 {
@@ -40,7 +41,8 @@ class PengurusController extends Controller
             'nama' => 'required',
             'jabatan' => 'required',
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'organisasi_id' => 'required',
@@ -51,7 +53,7 @@ class PengurusController extends Controller
             'nama' => $request->nama,
             'jabatan' => $request->jabatan,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'organisasi_id' => $request->organisasi_id,

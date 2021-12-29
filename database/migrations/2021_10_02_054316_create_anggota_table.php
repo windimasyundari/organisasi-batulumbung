@@ -17,12 +17,12 @@ class CreateAnggotaTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('organisasi_id');
             $table->string('nama');
-            $table->string('nik', 25);
+            $table->string('nik');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
-            $table->string('email', 50);
-            $table->string('password', 10);
-            $table->string('no_telp', 15);
+            $table->string('email');
+            $table->string('password');
+            $table->string('no_telp');
             $table->string('jenis_kelamin');
             $table->string('pekerjaan');
             $table->text('alamat');

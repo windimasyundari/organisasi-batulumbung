@@ -44,8 +44,8 @@ class RegisterController extends Controller
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required',
             'email' => 'required',
-            'password' => 'required',
-            'konfirmpassword' => 'required',
+            'password' => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
             'no_telp' => 'required',
             'jenis_kelamin' => 'required',
             'pekerjaan' => 'required',
@@ -60,7 +60,7 @@ class RegisterController extends Controller
             'tempat_lahir' => $request->tempat_lahir,
             'tgl_lahir' => $request->tgl_lahir,
             'email' => $request->email,
-            'password' => bycript($request->password),
+            'password' => Hash::make($request->password),
             'no_telp' => $request->no_telp,
             'jenis_kelamin' => $request->jenis_kelamin,
             'pekerjaan' => $request->pekerjaan,
@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'status' => $request->status
         ]); 
 
-    //  dd ($request->all());
+    // dd ($request->all());
         return redirect('/login')->with('status', 'Registrasi Berhasil!');
     }
 

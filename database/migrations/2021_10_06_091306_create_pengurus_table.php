@@ -15,6 +15,7 @@ class CreatePengurusTable extends Migration
     {
         Schema::create('pengurus', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organisasi_id');
             $table->string('nama');
             $table->string('jabatan');
             $table->string('email');
