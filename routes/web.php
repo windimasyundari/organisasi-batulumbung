@@ -25,32 +25,43 @@ Route::get('/', function () {
 //     return view('pengurus/dashboard');
 // });
 
-// Login
-Route::get('/login', 'App\Http\Controllers\LoginController@index');
-Route::post('/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
-Route::get('/dashboard', 'App\Http\Controllers\LoginController@dashboardAnggota');
+//Route::middleware(['guest'])->group(function (){
+    // Login
+    Route::get('pengurus/login', 'App\Http\Controllers\LoginController@index');
+    Route::post('pengurus/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
+    
 
-//Register
-Route::get('/register', 'App\Http\Controllers\RegisterController@index');
-Route::post('/register/store', 'App\Http\Controllers\RegisterController@store')->name('register');
+    //Register
+    Route::get('/register', 'App\Http\Controllers\RegisterController@index');
+    Route::post('/register/store', 'App\Http\Controllers\RegisterController@store')->name('register');
+//});
 
-// Anggota
-Route::get('/anggota/anggota', 'App\Http\Controllers\AnggotaController@index');
-Route::get('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@create');
-Route::get('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@show');
-Route::post('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@store');
-Route::delete('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@destroy');
-Route::get('/anggota/anggota/{anggota}/edit', 'App\Http\Controllers\AnggotaController@edit');
-Route::patch('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@update');
 
-// Pengurus
-Route::get('/pengurus/pengurus', 'App\Http\Controllers\PengurusController@index');
-Route::get('/pengurus/pengurus/create-pengurus', 'App\Http\Controllers\PengurusController@create');
-Route::get('/pengurus/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@show');
-Route::post('/pengurus/pengurus/create-pengurus', 'App\Http\Controllers\PengurusController@store');
-Route::delete('/pengurus/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@destroy');
-Route::get('/pengurus/pengurus/{pengurus}/edit', 'App\Http\Controllers\PengurusController@edit');
-Route::patch('/pengurus/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@update');
+//Route::group(['middleware' => ['auth:anggota']], function (){
+    Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardAnggota');
+
+
+    // Anggota
+    Route::get('/anggota/anggota', 'App\Http\Controllers\AnggotaController@index');
+    Route::get('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@create');
+    Route::get('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@show');
+    Route::post('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@store');
+    Route::delete('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@destroy');
+    Route::get('/anggota/anggota/{anggota}/edit', 'App\Http\Controllers\AnggotaController@edit');
+    Route::patch('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@update');
+//});
+
+ 
+    // Pengurus
+    Route::get('/pengurus/pengurus-crud', 'App\Http\Controllers\PengurusController@index');
+    Route::get('/pengurus/pengurus-crud/create-pengurus', 'App\Http\Controllers\PengurusController@create');
+    Route::get('/pengurus/pengurus-crud/{pengurus}', 'App\Http\Controllers\PengurusController@show');
+    Route::post('/pengurus/pengurus-crud/create-pengurus', 'App\Http\Controllers\PengurusController@store');
+    Route::delete('/pengurus/pengurus-crud/{pengurus}', 'App\Http\Controllers\PengurusController@destroy');
+    Route::get('/pengurus/pengurus-crud/{pengurus}/edit', 'App\Http\Controllers\PengurusController@edit');
+    Route::patch('/pengurus/pengurus-crud/{pengurus}', 'App\Http\Controllers\PengurusController@update');
+
+
 
 // Organisasi
 Route::get('/organisasi/organisasi', 'App\Http\Controllers\OrganisasiController@index');

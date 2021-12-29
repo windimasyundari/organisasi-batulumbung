@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <span class="btn btn-primary "><a href="/pengurus/pengurus/create-pengurus" style="color:white">Tambah Data</a></span>
+                    <span class="btn btn-primary "><a href="/pengurus/pengurus-crud/create-pengurus" style="color:white">Tambah Data</a></span>
                     @if (session('status'))
                         <div class="alert alert-success mt-3">
                             {{ session('status') }}
@@ -41,7 +41,7 @@
                                     <td>{{$pengurus->nama}}</td>
                                     <td>{{$pengurus->jabatan}}</td>
                                     <td>{{$pengurus->organisasi_id}}</td>
-                                    <td><a href="\pengurus\pengurus\{{ $pengurus->id }}" class="btn btn-primary">Detail</a></td>
+                                    <td><a href="\pengurus\pengurus-crud\{{ $pengurus->id }}" class="btn btn-primary">Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

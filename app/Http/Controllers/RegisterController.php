@@ -69,8 +69,13 @@ class RegisterController extends Controller
             'status' => $request->status
         ]); 
 
+<<<<<<< HEAD
     // dd ($request->all());
         return redirect('/login')->with('status', 'Registrasi Berhasil!');
+=======
+    //  dd ($request->all());
+        return redirect('pengurus/login')->with('status', 'Registrasi Berhasil!');
+>>>>>>> a8a1275a0a137a3a019fd10478be4d2d1500dc91
     }
 
     /**

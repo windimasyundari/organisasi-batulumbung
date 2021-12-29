@@ -46,7 +46,7 @@
                     <button type="submit" class="btn btn-danger text-light">Delete</button>
                 </form>
                 
-                <span class="btn btn-success"><a href="/pengurus/pengurus" class="card-link text-light">Kembali</a></span>
+                <span class="btn btn-success"><a href="/pengurus/pengurus-crud" class="card-link text-light">Kembali</a></span>
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@ class PengurusController extends Controller
     public function index()
     {
         $pengurus = Pengurus::all();
-        return view('pengurus.pengurus.pengurus', compact('pengurus'));
+        return view('pengurus.pengurus-crud.pengurus', compact('pengurus'));
     }
 
     /**
@@ -26,7 +26,7 @@ class PengurusController extends Controller
      */
     public function create()
     {
-        return view('pengurus.pengurus.create-pengurus');
+        return view('pengurus.pengurus-crud.create-pengurus');
     }
 
     /**
@@ -60,7 +60,7 @@ class PengurusController extends Controller
             'status' => $request->status
         ]); 
 
-        return redirect('/pengurus/pengurus')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
+        return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
     }
 
     /**
@@ -71,7 +71,7 @@ class PengurusController extends Controller
      */
     public function show(Pengurus $pengurus)
     {
-        return view('pengurus.pengurus.show-pengurus', compact('pengurus'));
+        return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
     }
 
     /**
@@ -82,7 +82,7 @@ class PengurusController extends Controller
      */
     public function edit(Pengurus $pengurus)
     {
-        return view('pengurus.pengurus.edit-pengurus', compact('pengurus'));
+        return view('pengurus.pengurus-crud.edit-pengurus', compact('pengurus'));
     }
 
     /**
@@ -117,7 +117,7 @@ class PengurusController extends Controller
                     'status' => $request->status
                 ]);
 
-            return redirect('/pengurus/pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Diubah!');
     }
 
     /**
@@ -130,6 +130,6 @@ class PengurusController extends Controller
     {
         Pengurus::destroy($pengurus -> id);
 
-        return redirect('/pengurus/pengurus')-> with('status', 'Data Pengurus Berhasil Dihapus!');
+        return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Dihapus!');
     }
 }

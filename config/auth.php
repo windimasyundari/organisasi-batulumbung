@@ -53,10 +53,20 @@ return [
             'session' => 'anggotas',
         ],
 
-        'pengurus' => [
-            'driver' => 'session',
-            'session' => 'penguruss', 
+        'anggota-api' => [
+            'driver' => 'token',
+            'provider' => 'anggotas',
         ],
+
+        // 'pengurus' => [
+        //     'driver' => 'session',
+        //     'session' => 'penguruss', 
+        // ],
+
+        // 'pengurus-api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'penguruss',
+        // ],
     ],
 
     /*
@@ -93,10 +103,10 @@ return [
             'model' => App\Models\Anggota::class,
         ],
 
-        'penguruss' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Pengurus::class,
-        ]
+        // 'penguruss' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Pengurus::class,
+        // ]
     ],
 
     /*
