@@ -40,7 +40,7 @@
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$anggotakk->nik}}</td>
                                     <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$anggotakk->organisasi_id}}</td>
+                                    <td>{{$anggotakk->organisasi->jenis}}</td>
                                     <td><a href="\anggota\anggota\{{ $anggotakk->id }}" class="btn btn-primary">Detail</a></td>
                                 </tr>
                             @endforeach

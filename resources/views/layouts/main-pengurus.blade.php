@@ -15,6 +15,8 @@
     <title>@yield('title')</title>
 
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('template')}}/plugins/images/logo-batulumbung.jpg">
     <!-- Custom CSS -->
@@ -123,56 +125,56 @@
                         <li class="sidebar-item pt-2">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/dashboard"
                                 aria-expanded="false">
-                                <i class="fas fa-tachometer-alt mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-house-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/anggota/anggota"
                                 aria-expanded="false">
-                                <i class="fas fa-users mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-people-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Anggota</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus-crud"
                                 aria-expanded="false">
-                                <i class="fas fa-user mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-person-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengurus</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/organisasi/organisasi"
                                 aria-expanded="false">
-                                <i class="fas fa-sitemap mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-diagram-3-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Organisasi</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/kegiatan/kegiatan"
                                 aria-expanded="false">
-                                <i class="fas fa-calendar-alt mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-calendar-week-fill" aria-hidden></i>
                                 <span class="hide-menu">Kegiatan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengumuman/pengumuman"
                                 aria-expanded="false">
-                                <i class="fas fa-bullhorn mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengumuman</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/absensi/absensi"
                                 aria-expanded="false">
-                                <i class="fas fa-tasks" aria-hidden="true"></i>
+                                <i class="bi bi-list-check" aria-hidden="true"></i>
                                 <span class="hide-menu">Absensi</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/laporan/laporan-keuangan"
                                 aria-expanded="false">
-                                <i class="fas fa-file-alt mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Laporan Keuangan</span>
                             </a>
                         </li>
@@ -180,7 +182,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout"
                                 aria-expanded="false">
-                                <i class="fas fa-sign-out-alt mr-3" aria-hidden="true"></i>
+                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
                                 <span class="hide-menu">Logout</span>
                             </a>
                         </li>

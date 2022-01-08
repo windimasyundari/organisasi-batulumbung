@@ -59,10 +59,10 @@ class LoginController extends Controller
            
             return redirect()->intended('/pengurus/dashboard');
         }
-        else
-        {
-            return redirect()->back()->with('status', 'Akun tidak terdaftar');
-        }
+        // else
+        // {
+        //     return redirect()->back()->with('status', 'Akun tidak terdaftar');
+        // }
         
     }
     public function dashboardPengurus(Request $request)

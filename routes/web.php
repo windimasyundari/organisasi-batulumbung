@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Imports\AbsensiImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Absensi;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('pengurus/login');
-});
+    Route::get('/', function () {
+        return view('pengurus/login');
+    });
 
 // Route::get('/', function () {
 //     return view('pengurus/dashboard');
@@ -92,6 +95,7 @@ Route::post('/pengurus/pengumuman/create-pengumuman', 'App\Http\Controllers\Peng
 Route::delete('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@destroy');
 Route::get('/pengumuman/pengumuman/{pengumuman}/edit', 'App\Http\Controllers\PengumumanController@edit');
 Route::patch('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@update');
+Route::get('/pengumuman/{id}/download', 'App\Http\Controllers\PengumumanController@download')->name('file.download');
 
 // Absensi
 Route::get('/absensi/absensi', 'App\Http\Controllers\AbsensiController@index');
@@ -101,6 +105,10 @@ Route::post('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiCon
 Route::delete('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@destroy');
 Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiController@edit');
 Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update');
+Route::post('/', function () {
+    Excel::import(new AbsensiImport, request()->file('file'));
+    return back();
+});
 
 // Laporan Keuangan
 Route::get('/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@index');

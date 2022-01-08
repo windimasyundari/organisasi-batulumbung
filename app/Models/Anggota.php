@@ -31,4 +31,10 @@ class Anggota extends Authenticatable
     {
         return $this->belongsTo(Organisasi::class);
     }
+
+    public function absensi()
+    {
+        return $this->HasMany(Absensi::class);
+    }
+
 }

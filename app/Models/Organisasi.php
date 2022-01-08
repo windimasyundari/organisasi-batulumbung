@@ -19,6 +19,11 @@ class Organisasi extends Model
     {
         return $this->HasMany(Pengurus::class);
     }
+
+    public function absensi()
+    {
+        return $this->HasMany(Absensi::class);
+    }
 }
 
 

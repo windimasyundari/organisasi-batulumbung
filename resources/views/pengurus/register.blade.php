@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('template')}}/plugins/images/logo-batulumbung.jpg"> 
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -34,7 +35,7 @@
 
             <form method="post" action="{{ route('register') }}">
             @csrf
-            <div class="login100-form">
+            <div class="login100-form m-t-36">
                 <label for="nama">Nama</label> 
                 <input type="text" name="nama" value="{{ old ('nama') }}" class="form-control @error('nama') is-invalid @enderror" 
                 id="nama" placeholder="Masukkan Nama Lengkap">
@@ -174,11 +175,17 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Tambah Data</button>
+            <div class="container-login100-form-btn m-t-26 m-b-26 m-l-225">
+                <button class="login100-form-btn">
+                    DAFTAR
+                </button>
+            </div>
 
+            <!-- <button type="submit" class="btn btn-primary">DAFTAR</button> -->
+        
           <div class="txt1">
-          <p>Sudah punya akun?
-            <a href="/login">Login</a>
+            <p>Sudah punya akun?
+            <a href="/pengurus/login">Masuk</a>
           </p>
           </div>
 				</form>

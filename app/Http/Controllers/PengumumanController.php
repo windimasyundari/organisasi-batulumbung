@@ -42,7 +42,7 @@ class PengumumanController extends Controller
             'judul' => 'required|max:255',
             'tanggal' => 'required',
             'isi' => 'required',
-            'file' => 'file|max:1024'
+            'file' => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -92,23 +92,38 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
-        $request->validate([
-            'judul' => 'required',
+        $validateData = $request->validate([
+            'judul' => 'required|max:255',
             'tanggal' => 'required',
             'isi' => 'required',
-            'file' => 'required'
+            'file' => 'file|max:1024'
         ]);
-        
-        Pengumuman::where('id', $pengumuman->id)
-                ->update([
-                    'judul'=>$request->judul,
-                    'tanggal'=>$request->tanggal,
-                    'isi'=>$request->isi,
-                    'file'=>$request->file
-                ]);
 
-            return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Diubah!');
+        if($request->file('file')) {
+            $validateData['file'] = $request->file('file')->store('files-pengumuman');
+        }
+
+        Pengumuman::where('id', $pengumuman->id)
+                ->update($validateData);
+        
+        // Pengumuman::where('id', $pengumuman->id)
+        //         ->update([
+        //             'judul'=>$request->judul,
+        //             'tanggal'=>$request->tanggal,
+        //             'isi'=>$request->isi,
+        //             'file'=>$request->file
+        //         ]);
+
+        return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Diubah!');
     }
+
+    function download($id)
+    {
+        $file = Pengumuman::where('id', $id)->firstOrFail();
+        $pathToFile = public_path('storage/' . $file->file);
+        return response()->download($pathToFile);
+    }
+       
 
     /**
      * Remove the specified resource from storage.

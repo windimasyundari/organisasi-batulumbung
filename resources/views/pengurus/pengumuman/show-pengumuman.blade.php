@@ -27,7 +27,8 @@
                 <p class="card-text">{{ $pengumuman->isi}}</p>
 
                 <h6>File</h6>
-                <p class="card-text">{{ $pengumuman->file}}</p>
+                <p class="card-text"><a href="{{route('file.download', $pengumuman->id)}}">Download File</a>
+                </p>
                 
                 <a href ="{{ $pengumuman->id }}/edit" class="btn btn-primary">Edit</a>
 

@@ -42,7 +42,7 @@
                 <p class="card-text">{{ $anggota->alamat }}</p>
 
                 <h6>Jenis Organisasi</h6>
-                <p class="card-text">{{ $anggota->organisasi_id }}</p>
+                <p class="card-text">{{ $anggota->organisasi->jenis}}</p>
 
                 <h6>Status</h6>
                 <p class="card-text">{{ $anggota->status }}</p>

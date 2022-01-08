@@ -70,7 +70,7 @@ class RegisterController extends Controller
         ]); 
         
     // dd ($request->all());
-        return redirect('/pengurus/login')->with('status', 'Registrasi Berhasil!');
+        return redirect('/pengurus/login')->with('success', 'Registrasi Berhasil!');
     }
 
     /**

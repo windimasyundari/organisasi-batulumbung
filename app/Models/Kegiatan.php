@@ -9,4 +9,9 @@ class Kegiatan extends Model
 {
     protected $table = 'kegiatan';
     protected $fillable = ['nama_kegiatan', 'tanggal', 'waktu', 'tempat', 'deskripsi'];
+
+    public function absensi()
+    {
+        return $this->HasMany(Absensi::class);
+    }
 }
