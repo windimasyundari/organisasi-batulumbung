@@ -37,6 +37,7 @@
                     <button type="submit" class="btn btn-danger text-light">Delete</button>
                 </form>
                 
+                <span class="btn btn-warning"><a href="/absensi/absensi" class="card-link text-light">Tambah Absensi</a></span>
                 <span class="btn btn-success"><a href="/kegiatan/kegiatan" class="card-link text-light">Kembali</a></span>
             </div>
         </div>

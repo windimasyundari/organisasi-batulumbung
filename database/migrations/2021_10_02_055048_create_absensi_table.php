@@ -19,7 +19,7 @@ class CreateAbsensiTable extends Migration
             $table->string('nama');
             $table->string('nama_kegiatan');
             $table->string('tanggal');
-            $table->foreignId('jenis');
+            $table->string('jenis');
             $table->string('status');
             $table->timestamps();
         });

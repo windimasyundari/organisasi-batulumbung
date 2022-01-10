@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Imports\AbsensiImport;
 use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
@@ -37,10 +38,20 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'anggota_id' => 'required',
+            'nama' => 'required',
+            'nama_kegiatan' => 'required',
+            'tanggal' => 'required',
+            'jenis' => 'required',
             'status' => 'required'
         ]);
 
         Absensi :: create([
+            'anggota_id' => $request->anggota_id,
+            'nama' => $request->anggota->nama,
+            'nama_kegiatan' => $request->kegiatan->nama_kegiatan,
+            'tanggal' => $request->kegiatan->tanggal,
+            'jenis' => $request->organisasi->jenis,
             'status' => $request->status
         ]); 
         

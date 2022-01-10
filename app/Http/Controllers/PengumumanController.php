@@ -39,10 +39,10 @@ class PengumumanController extends Controller
         // return $request->file('file')->store('files-pengumuman');
 
         $validateData = $request->validate([
-            'judul' => 'required|max:255',
-            'tanggal' => 'required',
-            'isi' => 'required',
-            'file' => 'file|mimes:pdf|max:1024'
+            'judul'     => 'required|max:255',
+            'tanggal'   => 'required',
+            'isi'       => 'required',
+            'file'      => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -93,10 +93,10 @@ class PengumumanController extends Controller
     public function update(Request $request, Pengumuman $pengumuman)
     {
         $validateData = $request->validate([
-            'judul' => 'required|max:255',
-            'tanggal' => 'required',
-            'isi' => 'required',
-            'file' => 'file|max:1024'
+            'judul'     => 'required|max:255',
+            'tanggal'   => 'required',
+            'isi'       => 'required',
+            'file'      => 'file|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -121,7 +121,7 @@ class PengumumanController extends Controller
     {
         $file = Pengumuman::where('id', $id)->firstOrFail();
         $pathToFile = public_path('storage/' . $file->file);
-        return response()->download($pathToFile);
+        return response()->download($pathToFile, $file->file_name);
     }
        
 

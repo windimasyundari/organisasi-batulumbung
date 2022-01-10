@@ -17,12 +17,12 @@ class AbsensiImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Absensi([
-            'anggota_id' => $row['anggota_id'],
-            'nama' => $row['nama'],
+            'anggota_id'    => $row['anggota_id'],
+            'nama'          => $row['nama'],
             'nama_kegiatan' => $row['nama_kegiatan'],
-            'tanggal' => $row['tanggal'],
-            'jenis' => $row['jenis'],
-            'status' => $row['status'],
+            'tanggal'       => $row['tanggal'],
+            'jenis'         => $row['jenis'],
+            'status'        => $row['status']
         ]);
     }
 

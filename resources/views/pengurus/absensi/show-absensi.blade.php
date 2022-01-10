@@ -1,52 +1,74 @@
 @extends('layouts.main-pengurus')
 
-@section('title', 'Detail Data Absensi')
+@section('title', 'Absensi')
 
 @section('content')
-
 <div class="page-wrapper">
 
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Detail Absensi</h4>
+                <h4 class="page-title">Daftar Absensi</h4>
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h6>ID Kegiatan</h6>
-                <p class="card-text">{{ $absensi->kegiatan_id }}</p>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <!-- <span class="btn btn-primary "><a href="/pengurus/absensi/create-absensi" style="color:white">Tambah Data</a></span>
+                    @if (session('status'))
+                        <div class="alert alert-success mt-3">
+                            {{ session('status') }}
+                        </div>
+                    @endif -->
 
-                <h6>Nama Kegiatan</h6>
-                <p class="card-text">{{ $absensi->nama_kegiatan }}</p>
+                    <form action="/" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" type="submit" id="button-addon2">Import</button>
+                        </div>
+                    </form>
 
-                <h6>Tanggal</h6>
-                <p class="card-text">{{ $absensi->tanggal }}</p>
-
-                <h6>Waktu</h6>
-                <p class="card-text">{{ $absensi->waktu}}</p>
-
-                <h6>Status</h6>
-                <p class="card-text">{{ $absensi->status}}</p>
-                
-                <a href ="{{ $absensi->id }}/edit" class="btn btn-primary">Edit</a>
-
-                <form action="{{ $absensi->id }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-light">Delete</button>
-                </form>
-                
-                <span class="btn btn-success"><a href="/absensi/absensi" class="card-link text-light">Kembali</a></span>
+                    <div class="table-responsive">
+                        <table class="table text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">NO</th>
+                                    <th class="border-top-0">ID ANGGOTA</th>
+                                    <th class="border-top-0">NAMA ANGGOTA</th>
+                                    <th class="border-top-0">NAMA KEGIATAN</th>
+                                    <th class="border-top-0">TANGGAL KEGIATAN</th>
+                                    <th class="border-top-0">JENIS ORGANISASI</th>
+                                    <th class="border-top-0">AKSI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                            $no = 0;
+                            @endphp
+                            @forelse ($absensi as $absensi)
+                                <tr>
+                                    <th scope="row">{{ ++$no }}</th>
+                                    <td>{{$absensi->anggota->anggota_id}}</td>
+                                    <td>{{$absensi->anggota->nama}}</td>
+                                    <td>{{$absensi->kegiatan->nama_kegiatan}}</td>
+                                    <td>{{$absensi->kegiatan->tanggal}}</td>
+                                    <td>{{$absensi->organisasi->jenis}}</td>
+                                    <td>{{$absensi->status}}</td>
+                                    <td><a href="\absensi\absensi\{{ $absensi->id }}" class="btn btn-primary">Detail</a></td>
+                                </tr>
+                                @empty
+                                <td colspan="7" class="table-active text-center">Tidak Ada Data</td>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
-
 @endsection
-            
-           
-    

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Imports\AbsensiImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AbsensiImport;
 use App\Models\Absensi;
 
 /*
@@ -20,13 +20,13 @@ use App\Models\Absensi;
 //     return view('welcome');
 // });
 
-    Route::get('/', function () {
-        return view('pengurus/login');
-    });
+    // Route::get('/', function () {
+    //     return view('pengurus/login');
+    // });
 
-// Route::get('/', function () {
-//     return view('pengurus/dashboard');
-// });
+Route::get('/', function () {
+    return view('pengurus/dashboard');
+});
 
 //Route::middleware(['guest'])->group(function (){
     // Login
@@ -105,10 +105,11 @@ Route::post('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiCon
 Route::delete('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@destroy');
 Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiController@edit');
 Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update');
-Route::post('/', function () {
+Route::post('/absensi/absensi', function () {
     Excel::import(new AbsensiImport, request()->file('file'));
     return back();
 });
+
 
 // Laporan Keuangan
 Route::get('/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@index');

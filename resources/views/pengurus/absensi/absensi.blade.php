@@ -24,7 +24,7 @@
                         </div>
                     @endif -->
 
-                    <form action="/" method="post" enctype="multipart/form-data">
+                    <form action="/absensi/absensi" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -47,16 +47,16 @@
                             </thead>
                             <tbody>
                             @php
-                            $no = 0;
+                                $no = 0;
                             @endphp
                             @forelse ($absensi as $absensi)
                                 <tr>
                                     <th scope="row">{{ ++$no }}</th>
-                                    <td>{{$absensi->anggota->anggota_id}}</td>
-                                    <td>{{$absensi->anggota->nama}}</td>
-                                    <td>{{$absensi->kegiatan->nama_kegiatan}}</td>
-                                    <td>{{$absensi->kegiatan->tanggal}}</td>
-                                    <td>{{$absensi->organisasi->jenis}}</td>
+                                    <td>{{$absensi->anggota_id}}</td>
+                                    <td>{{$absensi->nama}}</td>
+                                    <td>{{$absensi->nama_kegiatan}}</td>
+                                    <td>{{$absensi->tanggal}}</td>
+                                    <td>{{$absensi->jenis}}</td>
                                     <td>{{$absensi->status}}</td>
                                     <td><a href="\absensi\absensi\{{ $absensi->id }}" class="btn btn-primary">Detail</a></td>
                                 </tr>
