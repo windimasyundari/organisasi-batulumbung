@@ -105,10 +105,11 @@ Route::post('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiCon
 Route::delete('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@destroy');
 Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiController@edit');
 Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update');
-Route::post('/absensi/absensi', function () {
-    Excel::import(new AbsensiImport, request()->file('file'));
-    return back();
-});
+// Route::post('/absensi/absensi', function () {
+//     Excel::import(new AbsensiImport, request()->file('file'));
+//     return back();
+// });
+Route::post('/absensi/import_absensi', 'App\Http\Controllers\AbsensiController@import_excel');
 
 
 // Laporan Keuangan

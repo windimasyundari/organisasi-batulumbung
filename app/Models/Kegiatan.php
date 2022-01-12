@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kegiatan extends Model
 {
     protected $table = 'kegiatan';
-    protected $fillable = ['nama_kegiatan', 'tanggal', 'waktu', 'tempat', 'deskripsi'];
+    protected $fillable = ['nama_kegiatan', 'tanggal', 'waktu', 'tempat', 'deskripsi', 'image'];
 
     public function absensi()
     {

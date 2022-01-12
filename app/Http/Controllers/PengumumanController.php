@@ -42,7 +42,7 @@ class PengumumanController extends Controller
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
             'isi'       => 'required',
-            'file'      => 'file|mimes:pdf|max:1024'
+            'file'      => 'file|mimes:pdf|max:1024|null'
         ]);
 
         if($request->file('file')) {
@@ -96,7 +96,7 @@ class PengumumanController extends Controller
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
             'isi'       => 'required',
-            'file'      => 'file|max:1024'
+            'file'      => 'file|mimes:pdf|max:1024|null'
         ]);
 
         if($request->file('file')) {

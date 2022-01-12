@@ -15,7 +15,10 @@
     </div>
     
     <div class="container-fluid">
-        <form method="post" action="/pengurus/kegiatan/create-kegiatan" style="width:50%">
+
+   
+
+        <form method="post" action="/pengurus/kegiatan/create-kegiatan" enctype="multipart/form-data" style="width:50%">
         @csrf
             <div class="form-group">
                 <label for="nama_kegiatan">Nama Kegiatan</label> 
@@ -66,6 +69,17 @@
                 <input type="deskripsi" name="deskripsi" value="{{ old ('deskripsi') }}" class="form-control @error('deskripsi') is-invalid @enderror" 
                 id="deskripsi" placeholder="Masukkan Deskripsi Kegiatan">
                 @error ('deskripsi')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
+                id="image">
+                @error ('image')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

@@ -36,21 +36,29 @@ class KegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validateData = $request->validate([
             'nama_kegiatan' => 'required',
             'tanggal' => 'required',
             'waktu' => 'required',
             'tempat' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'image' => 'image|file|mimes:jpg,jpeg,png|max:1024'
         ]);
 
-        Kegiatan :: create([
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'tanggal' => $request->tanggal,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'deskripsi' => $request->deskripsi
-        ]); 
+        if($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('images-kegiatan');
+        }
+
+        Kegiatan::create($validateData);
+
+        // Kegiatan :: create([
+        //     'nama_kegiatan' => $request->nama_kegiatan,
+        //     'tanggal' => $request->tanggal,
+        //     'waktu' => $request->waktu,
+        //     'tempat' => $request->tempat,
+        //     'deskripsi' => $request->deskripsi,
+        //     'image' => $request->image
+        // ]); 
         
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Ditambahkan!');
     }
@@ -86,24 +94,40 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, Kegiatan $kegiatan)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama_kegiatan' => 'required',
             'tanggal' => 'required',
             'waktu' => 'required',
             'tempat' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:1024'
         ]);
         
-        Kegiatan::where('id', $kegiatan->id)
-                ->update([
-                    'nama_kegiatan'=> $request->nama_kegiatan,
-                    'tanggal'=> $request->tanggal,
-                    'waktu'=> $request->waktu,
-                    'tempat'=> $request->tempat,
-                    'deskripsi'=> $request->deskripsi
-                ]);
+        if($request->image('image')) {
+            $validateData['image'] = $request->image('image')->store('images-kegiatan');
+        }
 
-            return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
+        // $imageName = time().’.’.$request->image->extension();
+        // $request->image->move(public_path(‘images’), $imageName);
+        
+        // // store image in database from here
+        // return redirect()->back()->with(‘success’,’Image uploaded successfully.’)->with(‘image’,$imageName);
+
+        Kegiatan::where('id', $kegiatan->id)
+                ->update($validateData);
+        
+
+        // Kegiatan::where('id', $kegiatan->id)
+        //         ->update([
+        //             'nama_kegiatan'=> $request->nama_kegiatan,
+        //             'tanggal'=> $request->tanggal,
+        //             'waktu'=> $request->waktu,
+        //             'tempat'=> $request->tempat,
+        //             'deskripsi'=> $request->deskripsi,
+        //             'image'=> $request->image
+        //         ]);
+
+        return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }
 
     /**

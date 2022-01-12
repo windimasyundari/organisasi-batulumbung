@@ -28,7 +28,16 @@
 
                 <h6>Deskripsi</h6>
                 <p class="card-text">{{ $kegiatan->deskripsi }}</p>
-                
+
+                <h6>Gambar</h6>
+            
+                @if ($kegiatan->image)
+                <div style="max-height: 350px; overflow:hidden">
+                    <img src="{{ asset('storage/'.$kegiatan->image) }}" alt="{{ $kegiatan->nama_kegiatan }}"
+                    class="img-fluid mb-3">
+                </div>
+                @endif
+                 <br>
                 <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary">Edit</a>
 
                 <form action="{{ $kegiatan->id }}" method="post" class="d-inline">
