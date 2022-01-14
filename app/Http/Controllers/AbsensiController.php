@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AbsensiImport;
+use App\Exports\AbsensiExport;
 use Illuminate\Http\Request;
 
 
@@ -45,6 +46,11 @@ class AbsensiController extends Controller
  
 		// alihkan halaman kembali
 		return redirect('/absensi/absensi');
+    }
+    
+    public function export_excel()
+	{
+		return Excel::download(new AbsensiExport, 'absensi.xlsx');
 	}
 
     /**

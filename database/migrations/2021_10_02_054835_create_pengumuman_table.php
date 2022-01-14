@@ -17,6 +17,7 @@ class CreatePengumumanTable extends Migration
             $table->bigIncrements('id');
             $table->string('judul');
             $table->date('tanggal');
+            $table->time('waktu');
             $table->text('isi');
             $table->string('file');
             $table->timestamps();

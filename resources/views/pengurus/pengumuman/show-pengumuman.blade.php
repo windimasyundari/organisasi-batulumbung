@@ -23,6 +23,9 @@
                 <h6>Tanggal</h6>
                 <p class="card-text">{{ $pengumuman->tanggal }}</p>
 
+                <h6>Waktu</h6>
+                <p class="card-text">{{ $pengumuman->waktu }}</p>
+
                 <h6>Isi Pengumuman</h6>
                 <p class="card-text">{{ $pengumuman->isi}}</p>
 

@@ -32,8 +32,19 @@
             <div class="form-group">
                 <label for="tanggal">Tanggal</label> 
                 <input type="date" name="tanggal" value="{{ old ('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror" 
-                id="tanggal" placeholder="Masukkan Tanggal">
+                id="tanggal">
                 @error ('tanggal')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="waktu">waktu</label> 
+                <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
+                id="waktu">
+                @error ('waktu')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

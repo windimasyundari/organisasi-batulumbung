@@ -41,8 +41,9 @@ class PengumumanController extends Controller
         $validateData = $request->validate([
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
+            'waktu'     => 'required',
             'isi'       => 'required',
-            'file'      => 'file|mimes:pdf|max:1024|null'
+            'file'      => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -50,13 +51,6 @@ class PengumumanController extends Controller
         }
 
         Pengumuman::create($validateData);
-
-        // Pengumuman :: create([
-        //     'judul' => $request->judul,
-        //     'tanggal' => $request->tanggal,
-        //     'isi' => $request->isi,
-        //     'file' => $request->file
-        // ]); 
         
         return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Ditambahkan!');
     }
@@ -95,8 +89,9 @@ class PengumumanController extends Controller
         $validateData = $request->validate([
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
+            'waktu'   => 'required',
             'isi'       => 'required',
-            'file'      => 'file|mimes:pdf|max:1024|null'
+            'file'      => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {

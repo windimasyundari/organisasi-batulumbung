@@ -69,6 +69,7 @@
 			</div>
 		</div>
 
+        <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
 
                     <div class="table-responsive">
                         <table class="table text-nowrap">
@@ -81,6 +82,7 @@
                                     <th class="border-top-0">TANGGAL KEGIATAN</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">STATUS</th>
+                                    <th class="border-top-0">AKSI</th>
                                     <!-- <th class="border-top-0">AKSI</th> -->
                                 </tr>
                             </thead>
@@ -101,14 +103,13 @@
                                     <!-- carbon format (y-m-d) -->
                                     <td>{{$absensi->jenis}}</td>
                                     <td>{{$absensi->status}}</td>
-                                    <!-- <td><a href="\absensi\absensi\{{ $absensi->id }}" class="btn btn-primary">Detail</a></td> -->
+                                    <td><a href="\absensi\absensi\{{ $absensi->id }}" class="btn btn-primary">Edit</a></td>
                                 </tr>
                                 @empty
                                 <td colspan="7" class="table-active text-center">Tidak Ada Data</td>
                                 @endforelse
                             </tbody>
-                        </table>
-                                                
+                        </table>                            
                     </div>
                 </div>
             </div>
