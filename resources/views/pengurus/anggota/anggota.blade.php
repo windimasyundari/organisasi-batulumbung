@@ -41,7 +41,7 @@
                                     <td>{{$anggotakk->nik}}</td>
                                     <td>{{$anggotakk->nama}}</td>
                                     <td>{{$anggotakk->organisasi->jenis}}</td>
-                                    <td><a href="\anggota\anggota\{{ $anggotakk->id }}" class="btn btn-primary">Detail</a></td>
+                                    <td><a href="\anggota\anggota\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

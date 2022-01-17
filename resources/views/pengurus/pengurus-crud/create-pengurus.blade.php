@@ -71,6 +71,17 @@
                 </div>
                 @enderror
             </div>
+            
+            <div class="form-group">
+                <label for="no_telp" class="form-label">No Telp</label>
+                <input type="text" name="no_telp" value="{{ old ('no_telp') }}" class="form-control @error('no_telp') is-invalid @enderror" 
+                id="no_telp" placeholder="Masukkan No Telp">
+                @error ('no_telp')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect">Jenis Kelamin</label>

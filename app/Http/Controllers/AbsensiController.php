@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AbsensiImport;
 use App\Exports\AbsensiExport;
 use Illuminate\Http\Request;
+use DB;
 
 
 class AbsensiController extends Controller
@@ -18,9 +19,24 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensi = Absensi::all();
+        $absensi = Absensi::paginate(10);
         return view('pengurus.absensi.absensi', compact('absensi'));
     }
+
+    public function cari(Request $request)
+	{
+		// menangkap data pencarian
+		$cari = $request->cari;
+ 
+    	// mengambil data dari table absensi sesuai pencarian data
+		$absensi = DB::table('absensi')
+		->where('nama','like',"%".$cari."%")
+		->paginate(10);
+ 
+    	// mengirim data absensi ke view index
+		return view('pengurus/absensi/absensi');
+ 
+	}
 
     public function import_excel(Request $request) 
 	{

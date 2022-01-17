@@ -107,6 +107,7 @@ Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiContr
 Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update');
 Route::post('/absensi/import_absensi', 'App\Http\Controllers\AbsensiController@import_excel');
 Route::get('/absensi/export_absensi', 'App\Http\Controllers\AbsensiController@export_excel')->name('export_absensi');
+Route::get('/absensi/cari','App\Http\Controllers\AbsensiController@cari')->name('cari');
 
 
 // Laporan Keuangan

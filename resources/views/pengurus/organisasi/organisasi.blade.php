@@ -34,16 +34,16 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($organisasi as $organisasi)
+                            @foreach($organisasi as $organisasis)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$organisasi->id}}</td>
-                                    <td>{{$organisasi->jenis}}</td>
-                                    <td><a href ="/organisasi/{{ $organisasi->id }}/edit" class="btn btn-primary">Edit</a> |
-                                        <form action="/organisasi/{{ $organisasi->id }}" method="post" class="d-inline">
+                                    <td>{{$organisasis->id}}</td>
+                                    <td>{{$organisasis->jenis}}</td>
+                                    <td><a href ="/organisasi/{{ $organisasis->id }}/edit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a> |
+                                        <form action="/organisasi/{{ $organisasis->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger text-light">Delete</button>
+                                            <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>
                                         </form>
                                     </td>
                                 </tr>

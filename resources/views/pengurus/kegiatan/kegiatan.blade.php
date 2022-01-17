@@ -34,12 +34,12 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($kegiatan as $kegiatan)
+                            @foreach($kegiatan as $kegiatans)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$kegiatan->id}}</td>
-                                    <td>{{$kegiatan->nama_kegiatan}}</td>
-                                    <td><a href="\kegiatan\kegiatan\{{ $kegiatan->id }}" class="btn btn-primary">Detail</a></td>
+                                    <td>{{$kegiatans->id}}</td>
+                                    <td>{{$kegiatans->nama_kegiatan}}</td>
+                                    <td><a href="\kegiatan\kegiatan\{{ $kegiatans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

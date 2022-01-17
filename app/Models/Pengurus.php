@@ -15,6 +15,7 @@ class Pengurus extends Authenticatable
         'jabatan', 
         'email', 
         'password', 
+        'no_telp', 
         'jenis_kelamin', 
         'alamat', 
         'organisasi_id', 

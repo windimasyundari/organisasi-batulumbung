@@ -20,6 +20,7 @@ class CreatePengurusTable extends Migration
             $table->string('jabatan');
             $table->string('email');
             $table->string('password');
+            $table->string('no_telp');
             $table->string('jenis_kelamin');
             $table->string('alamat');
             $table->string('status');

@@ -17,6 +17,37 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
+
+                <!-- <form role="search" class="app-search d-none d-md-block me-3" action="{{ route ('cari') }}" method="GET">
+                    <input type="text" placeholder="Cari Nama .." value= "{{ old('cari') }}" class=" form-control">
+                    <input type="submit" class="btn btn-warning" value="CARI">
+                    <a href="{ route ('cari') }" class="active">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </form> -->
+
+                <form class="form" method="get" action="{{ route('cari') }}">
+                    <div class="form-group w-100 mb-3">
+                        <label for="cari" class="d-block mr-2">Nama</label>
+                        <input type="text" name="cari" class="form-control w-75 d-inline" id="cari" placeholder="Masukkan keyword">
+                        <!-- <a href="{ route ('cari') }" class="active">
+                            <i class="fa fa-search"></i>
+                        </a> -->
+                        <button type="submit" class="btn btn-primary mb-1">Cari</button>
+                        
+                    </div>
+                    <div class="form-group w-100 mb-3">
+                        <label for="tanggal" class="d-block mr-2">Tanggal</label>
+                        <input type="date" name="tanggal" class="form-control w-75 d-inline" id="tanggal" placeholder="Masukkan keyword">
+                        <!-- <a href="{ route ('tanggal') }" class="active">
+                            <i class="fa fa-search"></i>
+                        </a> -->
+                        <button type="submit" class="btn btn-primary mb-1">Cari</button>
+                    </div>
+                </form>
+
+              
+
                 {{-- notifikasi form validasi --}}
                 @if ($errors->has('file'))
                 <span class="invalid-feedback" role="alert">
@@ -35,12 +66,6 @@
                 <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
                     IMPORT EXCEL
                 </button>
-
-                <!-- Pencarian data -->
-                <!-- <form action="/pegawai/cari" method="GET">
-                    <input type="text" name="cari" placeholder="Cari Pegawai .." value="{{ old('cari') }}">
-                    <input type="submit" value="CARI">
-                </form> -->
 
                 <!-- Import Excel -->
                 <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,7 +108,6 @@
                                     <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">STATUS</th>
                                     <th class="border-top-0">AKSI</th>
-                                    <!-- <th class="border-top-0">AKSI</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,23 +117,24 @@
                                 $no = 0;
                             @endphp
 
-                            @forelse ($absensi as $absensi)
+                            @forelse ($absensi as $absen)
                                 <tr>
                                     <th scope="row">{{ ++$no }}</th>
-                                    <td>{{$absensi->anggota_id}}</td>
-                                    <td>{{$absensi->nama}}</td>
-                                    <td>{{$absensi->nama_kegiatan}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($absensi->tanggal)->format('d/m/Y')}}</td> 
+                                    <td>{{$absen->anggota_id}}</td>
+                                    <td>{{$absen->nama}}</td>
+                                    <td>{{$absen->nama_kegiatan}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('d/m/Y')}}</td> 
                                     <!-- carbon format (y-m-d) -->
-                                    <td>{{$absensi->jenis}}</td>
-                                    <td>{{$absensi->status}}</td>
-                                    <td><a href="\absensi\absensi\{{ $absensi->id }}" class="btn btn-primary">Edit</a></td>
+                                    <td>{{$absen->jenis}}</td>
+                                    <td>{{$absen->status}}</td>
+                                    <td><a href="\absensi\absensi\{{ $absen->id }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
                                 </tr>
                                 @empty
                                 <td colspan="7" class="table-active text-center">Tidak Ada Data</td>
                                 @endforelse
                             </tbody>
-                        </table>                            
+                        </table>  
+                        {{ $absensi->links() }}                          
                     </div>
                 </div>
             </div>

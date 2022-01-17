@@ -38,11 +38,11 @@ class KegiatanController extends Controller
     {
        $validateData = $request->validate([
             'nama_kegiatan' => 'required',
-            'tanggal' => 'required',
-            'waktu' => 'required',
-            'tempat' => 'required',
-            'deskripsi' => 'required',
-            'image' => 'image|file|mimes:jpg,jpeg,png|max:1024'
+            'tanggal'       => 'required',
+            'waktu'         => 'required',
+            'tempat'        => 'required',
+            'deskripsi'     => 'required',
+            'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024'
         ]);
 
         if($request->file('image')) {
@@ -96,11 +96,11 @@ class KegiatanController extends Controller
     {
         $validateData = $request->validate([
             'nama_kegiatan' => 'required',
-            'tanggal' => 'required',
-            'waktu' => 'required',
-            'tempat' => 'required',
-            'deskripsi' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:1024'
+            'tanggal'       => 'required',
+            'waktu'         => 'required',
+            'tempat'        => 'required',
+            'deskripsi'     => 'required',
+            'image'         => 'required|image|mimes:jpg,jpeg,png|max:1024'
         ]);
         
         if($request->image('image')) {
@@ -115,17 +115,6 @@ class KegiatanController extends Controller
 
         Kegiatan::where('id', $kegiatan->id)
                 ->update($validateData);
-        
-
-        // Kegiatan::where('id', $kegiatan->id)
-        //         ->update([
-        //             'nama_kegiatan'=> $request->nama_kegiatan,
-        //             'tanggal'=> $request->tanggal,
-        //             'waktu'=> $request->waktu,
-        //             'tempat'=> $request->tempat,
-        //             'deskripsi'=> $request->deskripsi,
-        //             'image'=> $request->image
-        //         ]);
 
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }

@@ -84,6 +84,17 @@
             </div>
 
             <div class="form-group">
+                <label for="password" class="form-label">Konfirmasi Password</label>
+                <input type="password" name="konfirmpassword" value="{{ old ('konfirmpassword') }}" class="form-control @error('konfirmpassword') is-invalid @enderror" 
+                id="konfirmpassword" placeholder="Masukkan Password">
+                @error ('konfirmpassword')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="no_telp" class="form-label">Telp</label>
                 <input type="text" name="no_telp" value="{{ old ('no_telp') }}" class="form-control @error('no_telp') is-invalid @enderror" 
                 id="no_telp" placeholder="Masukkan Nomor Telp">

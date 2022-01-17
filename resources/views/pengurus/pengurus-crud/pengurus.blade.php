@@ -40,8 +40,8 @@
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$pengurus->nama}}</td>
                                     <td>{{$pengurus->jabatan}}</td>
-                                    <td>{{$pengurus->organisasi_id}}</td>
-                                    <td><a href="\pengurus\pengurus-crud\{{ $pengurus->id }}" class="btn btn-primary">Detail</a></td>
+                                    <td>{{$pengurus->organisasi->jenis}}</td>
+                                    <td><a href="\pengurus\pengurus-crud\{{ $pengurus->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

@@ -37,33 +37,34 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'nik' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'no_telp' => 'required',
-            'jenis_kelamin' => 'required',
-            'pekerjaan' => 'required',
-            'alamat' => 'required',
-            'organisasi_id' => 'required',
-            'status' => 'required'
+            'nama'            => 'required',
+            'nik'             => 'required',
+            'tempat_lahir'    => 'required',
+            'tgl_lahir'       => 'required',
+            'email'           => 'required',
+            'password'        => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
+            'no_telp'         => 'required',
+            'jenis_kelamin'   => 'required',
+            'pekerjaan'       => 'required',
+            'alamat'          => 'required',
+            'organisasi_id'   => 'required',
+            'status'          => 'required'
         ]);
 
         Anggota :: create([
-            'nama' => $request->nama,
-            'nik' => $request->nik,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
-            'email' => $request->email,
-            'password' => $request->password,
-            'no_telp' => $request->no_telp,
+            'nama'          => $request->nama,
+            'nik'           => $request->nik,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'email'         => $request->email,
+            'password'      => $request->password,
+            'no_telp'       => $request->no_telp,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan' => $request->pekerjaan,
-            'alamat' => $request->alamat,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
             'organisasi_id' => $request->organisasi_id,
-            'status' => $request->status
+            'status'        => $request->status
         ]); 
         
         return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Ditambahkan!');

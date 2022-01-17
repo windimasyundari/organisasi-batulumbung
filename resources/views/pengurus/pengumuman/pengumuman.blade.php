@@ -35,13 +35,13 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($pengumuman as $pengumuman)
+                            @foreach($pengumuman as $pengumumans)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$pengumuman->id}}</td>
-                                    <td>{{$pengumuman->judul}}</td>
-                                    <td>{{$pengumuman->tanggal}}</td>
-                                    <td><a href="\pengumuman\pengumuman\{{ $pengumuman->id }}" class="btn btn-primary">Detail</a></td>
+                                    <td>{{$pengumumans->id}}</td>
+                                    <td>{{$pengumumans->judul}}</td>
+                                    <td>{{$pengumumans->tanggal}}</td>
+                                    <td><a href="\pengumuman\pengumuman\{{ $pengumumans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

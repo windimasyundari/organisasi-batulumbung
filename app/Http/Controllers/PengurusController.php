@@ -43,6 +43,7 @@ class PengurusController extends Controller
             'email' => 'required',
             'password' => 'required|min:5|max:10',
             'konfirmpassword' => 'required|min:5|max:10',
+            'no_telp' => 'required',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'organisasi_id' => 'required',
@@ -54,6 +55,7 @@ class PengurusController extends Controller
             'jabatan' => $request->jabatan,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'no_telp' => $request->no_telp,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'organisasi_id' => $request->organisasi_id,
@@ -95,26 +97,28 @@ class PengurusController extends Controller
     public function update(Request $request, Pengurus $pengurus)
     {
         $request->validate([
-            'nama' => 'required',
-            'jabatan' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'nama'          => 'required',
+            'jabatan'       => 'required',
+            'email'         => 'required',
+            'password'      => 'required',
+            'no_telp'       => 'required',
             'jenis_kelamin' => 'required',
-            'alamat' => 'required',
+            'alamat'        => 'required',
             'organisasi_id' => 'required',
-            'status' => 'required'
+            'status'        => 'required'
         ]);
         
         Pengurus::where('id', $pengurus->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'jabatan' => $request->jabatan,
-                    'email' => $request->email,
-                    'password' => $request->password,
+                    'nama'          => $request->nama,
+                    'jabatan'       => $request->jabatan,
+                    'email'         => $request->email,
+                    'password'      => $request->password,
+                    'no_telp'       => $request->no_telp,
                     'jenis_kelamin' => $request->jenis_kelamin,
-                    'alamat' => $request->alamat,
+                    'alamat'        => $request->alamat,
                     'organisasi_id' => $request->organisasi_id,
-                    'status' => $request->status
+                    'status'        => $request->status
                 ]);
 
             return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Diubah!');

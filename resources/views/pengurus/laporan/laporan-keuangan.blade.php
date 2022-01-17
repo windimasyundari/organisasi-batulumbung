@@ -34,12 +34,12 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($laporan_keuangan as $laporan_keuangann)
+                            @foreach($laporan_keuangan as $laporan_keuangans)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$laporan_keuangan->nama_kegiatan}}</td>
-                                    <td>{{$laporan_keuangan->tanggal}}</td>
-                                    <td><a href="\laporan-keuangan\{{ $laporan_keuangan->id}}" class="btn btn-primary">Detail</a></td>
+                                    <td>{{$laporan_keuangans->nama_kegiatan}}</td>
+                                    <td>{{$laporan_keuangans->tanggal}}</td>
+                                    <td><a href="\laporan-keuangan\{{ $laporan_keuangans->id}}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                             @endforeach
                         </table>

@@ -26,6 +26,9 @@
                 <h6>Email</h6>
                 <p class="card-text">{{ $pengurus->email }}</p>
 
+                <h6>No Telp</h6>
+                <p class="card-text">{{ $pengurus->no_telp }}</p>
+
                 <h6>Jenis Kelamin</h6>
                 <p class="card-text">{{ $pengurus->jenis_kelamin }}</p>
 
@@ -33,7 +36,7 @@
                 <p class="card-text">{{ $pengurus->alamat }}</p>
 
                 <h6>Jenis Organisasi</h6>
-                <p class="card-text">{{ $pengurus->organisasi_id }}</p>
+                <p class="card-text">{{ $pengurus->organisasi->jenis }}</p>
 
                 <h6>Status</h6>
                 <p class="card-text">{{ $pengurus->status }}</p>
