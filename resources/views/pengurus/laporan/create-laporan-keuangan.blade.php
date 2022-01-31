@@ -15,13 +15,13 @@
     </div>
     
     <div class="container-fluid">
-        <form method="post" action="/pengurus/create-laporan-keuangan" style="width:50%">
+        <form method="post" action="/pengurus/laporan/create-laporan-keuangan" style="width:50%">
         @csrf
             <div class="form-group">
-                <label for="jmlh_pemasukkan">Jumlah Pemasukkan</label> 
-                <input type="text" name="jmlh_pemasukkan" value="{{ old ('jmlh_pemasukkan') }}" class="form-control @error('jmlh_pemasukkan') is-invalid @enderror" 
-                id="jmlh_pemasukkan" placeholder="Masukkan Jumlah Pemasukkan">
-                @error ('jmlh_pemasukkan')
+                <label for="jmlh_pemasukan">Jumlah Pemasukkan</label> 
+                <input type="text" name="jmlh_pemasukan" value="{{ old ('jmlh_pemasukan') }}" class="form-control @error('jmlh_pemasukan') is-invalid @enderror" 
+                id="jmlh_pemasukan" placeholder="Masukkan Jumlah Pemasukan">
+                @error ('jmlh_pemasukan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -33,6 +33,17 @@
                 <input type="text" name="jmlh_pengeluaran" value="{{ old ('jmlh_pengeluaran') }}" class="form-control @error('jmlh_pengeluaran') is-invalid @enderror" 
                 id="jmlh_pengeluaran" placeholder="Masukkan Jumlah Pengeluaran">
                 @error ('jmlh_pengeluaran')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label> 
+                <input type="date" name="tanggal" value="{{ old ('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror" 
+                id="tanggal">
+                @error ('tanggal')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

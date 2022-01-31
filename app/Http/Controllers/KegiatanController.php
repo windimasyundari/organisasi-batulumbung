@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use PDF;
 
 class KegiatanController extends Controller
 {
@@ -14,7 +15,7 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::all();
+        $kegiatan = Kegiatan::paginate(10);
         return view('pengurus/kegiatan/kegiatan', compact('kegiatan'));
     }
 
@@ -117,6 +118,13 @@ class KegiatanController extends Controller
                 ->update($validateData);
 
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
+    }
+
+    public function exportPDF() {
+        $kegiatan = Kegiatan::all();
+        $pdf = PDF::loadView('pengurus/kegiatan/show-kegiatan', ['kegiatan' => $kegiatan]);
+        
+        return $pdf->download('laporan-kegiatan.pdf');
     }
 
     /**

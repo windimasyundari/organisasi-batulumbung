@@ -27,4 +27,11 @@ public function organisasi()
     {
         return $this->belongsTo(Organisasi::class);
     }
+
+public function laporanKeuangan()
+    {
+        return $this->belongsTo(LaporanKeuangan::class);
+    }
+
+
 }

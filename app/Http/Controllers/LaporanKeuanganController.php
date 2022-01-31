@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanKeuangan;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
 
 class LaporanKeuanganController extends Controller
@@ -14,7 +16,7 @@ class LaporanKeuanganController extends Controller
      */
     public function index()
     {
-        $laporan_keuangan = LaporanKeuangan::all();
+        $laporan_keuangan = LaporanKeuangan::paginate(10);
         return view('pengurus.laporan.laporan-keuangan', compact('laporan_keuangan')); 
     }
 
@@ -37,22 +39,29 @@ class LaporanKeuanganController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jmlh_pemasukkan' => 'required',
-            'jmlh_pengeluaran' => 'required',
-            'keterangan' => 'required',
-            'kegiatan_id' => 'required',
-            'pengurus_id' => 'required'
+            'jmlh_pemasukan'    => 'required',
+            'jmlh_pengeluaran'  => 'required',
+            'tanggal'           => 'required',
+            'keterangan'        => 'required',
+            'kegiatan_id'       => 'required',
+            'pengurus_id'       => 'required'
         ]);
 
         LaporanKeuangan :: create([
-            'jmlh_pemasukkan' => $request->jmlh_pemasukkan,
-            'jmlh_pengeluaran' => $request->jmlh_pengeluaran,
-            'keterangan' => $request->keterangan,
-            'kegiatan_id' => $request->kegiatan_id,
-            'pengurus_id' => $request->pengurus_id
+            'jmlh_pemasukan'    => $request->jmlh_pemasukan,
+            'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
+            'tanggal'           => $request->tanggal,
+            'keterangan'        => $request->keterangan,
+            'kegiatan_id'       => $request->kegiatan_id,
+            'pengurus_id'       => $request->pengurus_id
         ]); 
         
         return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Ditambahkan!');
+    }
+
+    public function number_format($angka) {
+        $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+	    return $hasil_rupiah;
     }
 
     /**
@@ -87,24 +96,31 @@ class LaporanKeuanganController extends Controller
     public function update(Request $request, LaporanKeuangan $laporanKeuangan)
     {
         $request->validate([
-            'jmlh_pemasukkan' => 'required',
-            'jmlh_pengeluaran' => 'required',
-            'keterangan' => 'required',
-            'kegiatan_id' => 'required',
-            'pengurus_id' => 'required'
+            'jmlh_pemasukan'    => 'required',
+            'jmlh_pengeluaran'  => 'required',
+            'tanggal'           => 'required',
+            'keterangan'        => 'required',
+            'kegiatan_id'       => 'required',
+            'pengurus_id'       => 'required'
         ]);
         
-        LaporanKeuangan::where('id', $laporan_kegiatan -> id)
+        LaporanKeuangan::where('id', $laporan_keuangan -> id)
                 ->update([
-                    'jmlh_pemasukkan'=>$request->jmlh_pemasukkan,
-                    'jmlh_pengeluaran'=>$request->jmlh_pengeluaran,
-                    'keterangan'=>$request->keterangan,
-                    'kegiatan_id'=>$request->kegiatan_id,
-                    'pengurus_id'=>$request->pengurus_id
+                    'jmlh_pemasukan'    =>$request->jmlh_pemasukan,
+                    'jmlh_pengeluaran'  =>$request->jmlh_pengeluaran,
+                    'tanggal'           =>$request->tanggal,
+                    'keterangan'        =>$request->keterangan,
+                    'kegiatan_id'       =>$request->kegiatan_id,
+                    'pengurus_id'       =>$request->pengurus_id
                 ]);
 
-            return redirect('/laporan.laporan-kegiatan')-> with('status', 'Data Laporan Kegiatan Berhasil Diubah!');
+            return redirect('/laporan.laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Diubah!');
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new LaporanKeuanganExport, 'laporan-keuangan.xlsx');
+	}
 
     /**
      * Remove the specified resource from storage.
@@ -114,8 +130,8 @@ class LaporanKeuanganController extends Controller
      */
     public function destroy(LaporanKeuangan $laporanKeuangan)
     {
-        Pengumuman::destroy($laporan_keuangan -> id);
+        LaporanKeuangan::destroy($laporan_keuangan->id);
 
-        return redirect('/laporan.laporan-keuangan')-> with('status', 'Data Laporan Berhasil Dihapus!');
+        return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Dihapus!');
     }
 }

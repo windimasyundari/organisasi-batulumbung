@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <span class="btn btn-primary "><a href="/pengurus/organisasi/create-organisasi" style="color:white">Tambah Data</a></span>
+                    <a href="/pengurus/organisasi/create-organisasi" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
                     @if (session('status'))
                         <div class="alert alert-success mt-3">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-3">
                         <table class="table text-nowrap">
                             <thead>
                                 <tr>
@@ -34,7 +34,8 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($organisasi as $organisasis)
+                            <tbody>
+                            @forelse($organisasi as $organisasis)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$organisasis->id}}</td>
@@ -47,7 +48,10 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
+                            </tbody>
                         </table>
                     </div>
                 </div>

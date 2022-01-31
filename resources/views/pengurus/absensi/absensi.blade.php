@@ -18,36 +18,34 @@
             <div class="col-sm-12">
                 <div class="white-box">
 
-                <!-- <form role="search" class="app-search d-none d-md-block me-3" action="{{ route ('cari') }}" method="GET">
-                    <input type="text" placeholder="Cari Nama .." value= "{{ old('cari') }}" class=" form-control">
-                    <input type="submit" class="btn btn-warning" value="CARI">
-                    <a href="{ route ('cari') }" class="active">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </form> -->
-
-                <form class="form" method="get" action="{{ route('cari') }}">
-                    <div class="form-group w-100 mb-3">
-                        <label for="cari" class="d-block mr-2">Nama</label>
-                        <input type="text" name="cari" class="form-control w-75 d-inline" id="cari" placeholder="Masukkan keyword">
+                <form class="form" method="get" action="{{ route ('cariNama') }}">
+                    <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                        <input type="text" name="cariNama" class="form-control w-75 d-inline" id="cariNama" placeholder="Masukkan Nama">
                         <!-- <a href="{ route ('cari') }" class="active">
                             <i class="fa fa-search"></i>
                         </a> -->
-                        <button type="submit" class="btn btn-primary mb-1">Cari</button>
-                        
-                    </div>
-                    <div class="form-group w-100 mb-3">
-                        <label for="tanggal" class="d-block mr-2">Tanggal</label>
-                        <input type="date" name="tanggal" class="form-control w-75 d-inline" id="tanggal" placeholder="Masukkan keyword">
-                        <!-- <a href="{ route ('tanggal') }" class="active">
-                            <i class="fa fa-search"></i>
-                        </a> -->
-                        <button type="submit" class="btn btn-primary mb-1">Cari</button>
+                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                    </div>                    
+                </form>
+
+                <form class="form" method="get" action="{{ route ('cariTanggal') }}">
+                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                        <input type="date" name="cariTanggal" class="form-control w-75 d-inline" id="tanggal" placeholder="Masukkan keyword">
+                        <button type="submit" class="btn btn-primary mb-1"> <i class="fa fa-search"></i>Cari</button>
                     </div>
                 </form>
 
-              
-
+                <form class="form" method="get" action="{{ route ('cariOrganisasi') }}">
+                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                    <select class="form-select shadow-none">
+                        <option>Sekaa Teruna</option>
+                        <option>Sekaa Santi</option>
+                        <option>Sekaa Gong</option>
+                        <option>PKK</option>
+                    </select> 
+                    </div>
+                </form>
+                
                 {{-- notifikasi form validasi --}}
                 @if ($errors->has('file'))
                 <span class="invalid-feedback" role="alert">
@@ -63,8 +61,8 @@
                 </div>
                 @endif
 
-                <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
-                    IMPORT EXCEL
+                <button type="button" class="btn btn-primary mr-5" target="_blank" data-toggle="modal" data-target="#importExcel">
+                    IMPORT ABSENSI
                 </button>
 
                 <!-- Import Excel -->
@@ -94,9 +92,9 @@
 			</div>
 		</div>
 
-        <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
+        <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3 text-light" target="_blank">EXPORT ABSENSI</a>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-3">
                         <table class="table text-nowrap">
                             <thead>
                                 <tr>
@@ -110,8 +108,8 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
+                            
                             <tbody>
-
                             <!-- melakukan looping data -->
                             @php
                                 $no = 0;
@@ -130,10 +128,15 @@
                                     <td><a href="\absensi\absensi\{{ $absen->id }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
                                 </tr>
                                 @empty
-                                <td colspan="7" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="8" class="table-active text-center">Tidak Ada Data</td>
                                 @endforelse
                             </tbody>
                         </table>  
+
+                        Halaman {{ $absensi->currentPage() }}
+                        dari {{ $absensi->total() }} <br/> <br/>
+                        <!-- Data Per Halaman : {{ $absensi->perPage() }} <br/> <br> -->
+
                         {{ $absensi->links() }}                          
                     </div>
                 </div>

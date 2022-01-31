@@ -23,20 +23,44 @@ class AbsensiController extends Controller
         return view('pengurus.absensi.absensi', compact('absensi'));
     }
 
-    public function cari(Request $request)
+    public function cariNama(Request $request)
 	{
 		// menangkap data pencarian
-		$cari = $request->cari;
+		$cariNama = $request->cariNama;
  
     	// mengambil data dari table absensi sesuai pencarian data
 		$absensi = DB::table('absensi')
-		->where('nama','like',"%".$cari."%")
+		->where('nama','like',"%".$cariNama."%")
 		->paginate(10);
  
     	// mengirim data absensi ke view index
-		return view('pengurus/absensi/absensi');
+		return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
+ 
+    }
+    
+    public function cariTanggal(Request $request)
+	{
+		$tanggal = date('Y-m-d',strtotime($request->tanggal));
+        $absensi = Absensi::whereDate('tanggal', $tanggal)->get();
+        
+        return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
+    }
+    
+    public function cariOrganisasi(Request $request)
+	{
+		// menangkap data pencarian
+		$cariOrganisasi = $request->cariOrganisasi;
+ 
+    	// mengambil data dari table absensi sesuai pencarian data
+		$absensi = DB::table('absensi')
+		->where('jenis','like',"%".$cariOrganisasi."%")
+		->paginate(10);
+ 
+    	// mengirim data absensi ke view index
+		return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
  
 	}
+
 
     public function import_excel(Request $request) 
 	{

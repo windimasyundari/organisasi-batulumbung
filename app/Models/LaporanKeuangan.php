@@ -9,5 +9,23 @@ class LaporanKeuangan extends Model
 {
     use HasFactory;
     protected $table = 'laporan_keuangan';
-    protected $filable = ['jmlh_pemasukkan', 'jmlh_pengeluaran', 'keterangan', 'kegiatan_id', 'pengurus_id'];
+    protected $fillable = [
+        'jmlh_pemasukan', 
+        'jmlh_pengeluaran', 
+        'tanggal',
+        'keterangan', 
+        'kegiatan_id', 
+        'pengurus_id'];
+
+    public function kegiatan()
+    {
+        return $this->belongsTo(Kegiatan::class);
+    }
+
+    public function pegurus()
+    {
+        return $this->belongsTo(pengurus::class);
+    }
 }
+
+

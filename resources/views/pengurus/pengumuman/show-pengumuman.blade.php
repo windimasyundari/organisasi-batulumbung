@@ -15,35 +15,38 @@
     </div>
     
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h6>Judul</h6>
-                <p class="card-text">{{ $pengumuman->judul }}</p>
+    <table class="table table-light table-borderless">
+        <tr>
+            <th width ="200px ">Judul</th>
+            <td>{{ $pengumuman->judul }}</td>
+        </tr>
 
-                <h6>Tanggal</h6>
-                <p class="card-text">{{ $pengumuman->tanggal }}</p>
+        <tr>
+            <th>Tanggal | Waktu</th>
+            <td>{{ $pengumuman->tanggal }} | {{ $pengumuman->waktu }}</td>
+        </tr>
+        
+        <tr>
+            <th>Isi Pengumuman</th>
+            <td>{{ $pengumuman->isi }}</td>
+        </tr>
+        
+        <tr>
+            <th>File</th>
+            <td><a href="{{route('file.download', $pengumuman->id)}}">Download File</a></td>
+        </tr>
+    </table>
 
-                <h6>Waktu</h6>
-                <p class="card-text">{{ $pengumuman->waktu }}</p>
+    <a href ="{{ $pengumuman->id }}/edit" class="btn btn-primary">Edit</a>
 
-                <h6>Isi Pengumuman</h6>
-                <p class="card-text">{{ $pengumuman->isi}}</p>
+    <form action="{{ $pengumuman->id }}" method="post" class="d-inline">
+        @method('delete')
+        @csrf
+        <button type="submit" class="btn btn-danger text-light">Delete</button>
+    </form>
 
-                <h6>File</h6>
-                <p class="card-text"><a href="{{route('file.download', $pengumuman->id)}}">Download File</a>
-                </p>
-                
-                <a href ="{{ $pengumuman->id }}/edit" class="btn btn-primary">Edit</a>
+    <span class="btn btn-success"><a href="/pengumuman/pengumuman" class="card-link text-light">Kembali</a></span>
 
-                <form action="{{ $pengumuman->id }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-light">Delete</button>
-                </form>
-                
-                <span class="btn btn-success"><a href="/pengumuman/pengumuman" class="card-link text-light">Kembali</a></span>
-            </div>
-        </div>
     </div>
 </div>
 

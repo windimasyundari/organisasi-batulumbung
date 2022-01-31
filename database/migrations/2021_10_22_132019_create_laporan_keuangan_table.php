@@ -17,8 +17,9 @@ class CreateLaporanKeuanganTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('kegiatan_id');
             $table->foreignId('pengurus_id');
-            $table->string('jmlh_pemasukkan');
+            $table->string('jmlh_pemasukan');
             $table->string('jmlh_pengeluaran');
+            $table->date('tanggal');
             $table->string('keterangan');
             $table->timestamps();
         });

@@ -17,14 +17,14 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <span class="btn btn-primary "><a href="/pengurus/pengumuman/create-pengumuman" style="color:white">Tambah Data</a></span>
+                    <a href="/pengurus/pengumuman/create-pengumuman" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
                     @if (session('status'))
                         <div class="alert alert-success mt-3">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-3">
                         <table class="table text-nowrap">
                             <thead>
                                 <tr>
@@ -35,7 +35,8 @@
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
-                            @foreach($pengumuman as $pengumumans)
+                            <tbody>
+                            @forelse($pengumuman as $pengumumans)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$pengumumans->id}}</td>
@@ -43,8 +44,17 @@
                                     <td>{{$pengumumans->tanggal}}</td>
                                     <td><a href="\pengumuman\pengumuman\{{ $pengumumans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
+                            </tbody>
                         </table>
+
+                        Halaman {{ $pengumumans->currentPage() }}
+                        dari {{ $pengumumans->total() }} <br/>
+                        <!-- Data Per Halaman : {{ $pengumumans->perPage() }} <br/> <br> -->
+
+                        {{  $pengumumans->links()}}
                     </div>
                 </div>
             </div>

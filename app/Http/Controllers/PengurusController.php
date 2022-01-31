@@ -15,7 +15,7 @@ class PengurusController extends Controller
      */
     public function index()
     {
-        $pengurus = Pengurus::all();
+        $pengurus = Pengurus::paginate(10);
         return view('pengurus.pengurus-crud.pengurus', compact('pengurus'));
     }
 

@@ -55,6 +55,7 @@ Route::get('/', function () {
     Route::delete('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@destroy');
     Route::get('/anggota/anggota/{anggota}/edit', 'App\Http\Controllers\AnggotaController@edit');
     Route::patch('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@update');
+    Route::get('/anggota/cariAnggota','App\Http\Controllers\AnggotaController@cariAnggota')->name('cariAnggota');
 //});
 
  
@@ -86,6 +87,7 @@ Route::post('/pengurus/kegiatan/create-kegiatan', 'App\Http\Controllers\Kegiatan
 Route::delete('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@destroy');
 Route::get('/kegiatan/kegiatan/{kegiatan}/edit', 'App\Http\Controllers\KegiatanController@edit');
 Route::patch('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@update');
+Route::get('/kegiatan/kegiatan_pdf', 'App\Http\Controllers\KegiatanController@exportPDF')->name('exportPDF');
 
 // Pengumuman
 Route::get('/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@index');
@@ -107,7 +109,9 @@ Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiContr
 Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update');
 Route::post('/absensi/import_absensi', 'App\Http\Controllers\AbsensiController@import_excel');
 Route::get('/absensi/export_absensi', 'App\Http\Controllers\AbsensiController@export_excel')->name('export_absensi');
-Route::get('/absensi/cari','App\Http\Controllers\AbsensiController@cari')->name('cari');
+Route::get('/absensi/cariNama','App\Http\Controllers\AbsensiController@cariNama')->name('cariNama');
+Route::get('/absensi/cariTanggal','App\Http\Controllers\AbsensiController@cariTanggal')->name('cariTanggal');
+Route::get('/absensi/cariOrganisasi','App\Http\Controllers\AbsensiController@cariOrganisasi')->name('cariOrganisasi');
 
 
 // Laporan Keuangan
@@ -117,4 +121,5 @@ Route::get('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers
 Route::post('/pengurus/laporan/create-laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@store');
 Route::delete('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@destroy');
 Route::get('/laporan/laporan-keuangan/{laporan-keuangan}/edit', 'App\Http\Controllers\LaporanKeuanganController@edit');
-Route::patch('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganKeuanganController@update');
+Route::patch('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@update');
+Route::get('/laporan-keuangan/export_laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@export_excel')->name('export_laporan-keuangan');

@@ -14,4 +14,9 @@ class Kegiatan extends Model
     {
         return $this->HasMany(Absensi::class);
     }
+
+    public function laporanKeuangan()
+    {
+        return $this->HasMany(LaporanKeuangan::class);
+    }
 }

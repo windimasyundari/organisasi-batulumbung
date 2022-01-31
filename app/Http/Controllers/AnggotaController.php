@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use DB;
 
 class AnggotaController extends Controller
 {
@@ -14,7 +15,7 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        $anggota = Anggota::all();
+        $anggota = Anggota::paginate(10);
         return view('pengurus.anggota.anggota', compact('anggota'));
     }
 
@@ -134,6 +135,21 @@ class AnggotaController extends Controller
 
             return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Diubah!');
     }
+
+    public function cariAnggota(Request $request)
+	{
+		// menangkap data pencarian
+		$cariAnggota = $request->cariAnggota;
+ 
+    	// mengambil data dari table anggota sesuai pencarian data
+		$anggota = DB::table('anggota')
+		->where('nama','like',"%".$cariAnggota."%")
+		->paginate();
+ 
+    	// mengirim data anggota ke view index
+		return view('pengurus/anggota/anggota', ['anggota' => $anggota]);
+ 
+	}
 
     /**
      * Remove the specified resource from storage.

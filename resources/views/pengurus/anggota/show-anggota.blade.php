@@ -15,49 +15,69 @@
     </div>
     
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h6>Nama</h6>
-                <p class="card-text">{{ $anggota->nama }}</p>
+        <table class="table table-light table-borderless">
+            <tr>
+                <th width ="200px ">Nama</th>
+                <td>{{ $anggota->nama }}</td>
+                <td rowspan = "5"></td>
+            </tr>
 
-                <h6>NIK</h6>
-                <p class="card-text">{{ $anggota->nik }}</p>
+            <tr>
+                <th>NIK</th>
+                <td>{{ $anggota->nik }}</td>
+            </tr>
 
-                <h6>Tempat, Tanggal Lahir</h6>
-                <p class="card-text">{{ $anggota->tempat_lahir }}, {{ $anggota->tgl_lahir }}</p>
+            <tr>
+                <th>Tempat, Tanggal Lahir</th>
+                <td>{{ $anggota->tempat_lahir }}, {{ $anggota->tgl_lahir }}</td>
+            </tr>
+            
+            <tr>
+                <th>Email</th>
+                <td>{{ $anggota->email }}</td>
+            </tr>
+            
+            <tr>
+                <th>Telp</th>
+                <td>{{ $anggota->no_telp }}</td>
+            </tr>
+            
+            <tr>
+                <th>Pekerjaan</th>
+                <td>{{ $anggota->pekerjaan }}</td>
+            </tr>
+            
+            <tr>
+                <th>Jenis Kelamin</th>
+                <td>{{ $anggota->jenis_kelamin }}</td>
+            </tr>
+            
+            <tr>
+                <th>Alamat</th>
+                <td>{{ $anggota->alamat }}</td>
+            </tr>
+            
+            <tr>
+                <th>Jenis Organisasi</th>
+                <td>{{ $anggota->organisasi->jenis }}</td>
+            </tr>
+            
+            <tr>
+                <th>Status</th>
+                <td>{{ $anggota->status }}</td>
+            </tr>
+        </table>
 
-                <h6>Email</h6>
-                <p class="card-text">{{ $anggota->email }}</p>
+        <a href ="{{ $anggota->id }}/edit" class="btn btn-primary">Edit</a>
 
-                <h6>Telp</h6>
-                <p class="card-text">{{ $anggota->no_telp }}</p>
+        <form action="{{ $anggota->id }}" method="post" class="d-inline">
+            @method('delete')
+            @csrf
+            <button type="submit" class="btn btn-danger text-light">Delete</button>
+        </form>
 
-                <h6>Pekerjaan</h6>
-                <p class="card-text">{{ $anggota->pekerjaan }}</p>
-
-                <h6>Jenis Kelamin</h6>
-                <p class="card-text">{{ $anggota->jenis_kelamin }}</p>
-
-                <h6>Alamat</h6>
-                <p class="card-text">{{ $anggota->alamat }}</p>
-
-                <h6>Jenis Organisasi</h6>
-                <p class="card-text">{{ $anggota->organisasi->jenis}}</p>
-
-                <h6>Status</h6>
-                <p class="card-text">{{ $anggota->status }}</p>
-                
-                <a href ="{{ $anggota->id }}/edit" class="btn btn-primary">Edit</a>
-
-                <form action="{{ $anggota->id }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-light">Delete</button>
-                </form>
-                
-                <span class="btn btn-success"><a href="/anggota/anggota" class="card-link text-light">Kembali</a></span>
-            </div>
-        </div>
+        <span class="btn btn-success"><a href="/anggota/anggota" class="card-link text-light">Kembali</a></span>
+       
     </div>
 </div>
 

@@ -15,41 +15,51 @@
     </div>
     
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h6>Nama Kegiatan</h6>
-                <p class="card-text">{{ $kegiatan->nama_kegiatan }}</p>
+    <table class="table table-light table-borderless">
+        <tr>
+            <th>Nama Kegiatan</th>
+            <td>{{ $kegiatan->nama_kegiatan }}</td>
+        </tr>
 
-                <h6>Tanggal | Waktu</h6>
-                <p class="card-text">{{ $kegiatan->tanggal }} | {{ $kegiatan->waktu }}</p>
+        <tr>
+            <th>Tanggal | Waktu</th>
+            <td>{{ $kegiatan->tanggal }} | {{ $kegiatan->waktu }}</td>
+        </tr>
 
-                <h6>Tempat</h6>
-                <p class="card-text">{{ $kegiatan->tempat }}</p>
-
-                <h6>Deskripsi</h6>
-                <p class="card-text">{{ $kegiatan->deskripsi }}</p>
-
-                <h6>Gambar</h6>
-            
-                @if ($kegiatan->image)
+        <tr>
+            <th>Tempat</th>
+            <td>{{ $kegiatan->tempat }}</td>
+        </tr>
+        
+        <tr>
+            <th>Deskripsi</th>
+            <td>{{ $kegiatan->deskripsi }}</td>
+        </tr>
+        
+        <tr>
+            <th>Gambar</th>
+            <td>  
+            @if ($kegiatan->image)
                 <div style="max-height: 350px; overflow:hidden">
                     <img src="{{ asset('storage/'.$kegiatan->image) }}" alt="{{ $kegiatan->nama_kegiatan }}"
                     class="img-fluid mb-3">
                 </div>
-                @endif
-                 <br>
-                <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary">Edit</a>
+            @endif
+            </td>
+        </tr>  
+    </table>
 
-                <form action="{{ $kegiatan->id }}" method="post" class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-light">Delete</button>
-                </form>
-                
-                <span class="btn btn-warning"><a href="/absensi/absensi" class="card-link text-light">Tambah Absensi</a></span>
-                <span class="btn btn-success"><a href="/kegiatan/kegiatan" class="card-link text-light">Kembali</a></span>
-            </div>
-        </div>
+        <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary">EDIT</a>
+
+        <form action="{{ $kegiatan->id }}" method="post" class="d-inline">
+            @method('delete')
+            @csrf
+            <button type="submit" class="btn btn-danger text-light">DELETE</button>
+        </form>
+        
+        <a href="{{ route ('exportPDF') }}" class="btn btn-warning text-light"> DOWNLOAD</a>
+        <a href="/kegiatan/kegiatan" class=" btn btn-success card-link text-light">Kembali</a>
+       
     </div>
 </div>
 
