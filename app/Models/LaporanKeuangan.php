@@ -19,7 +19,7 @@ class LaporanKeuangan extends Model
 
     public function kegiatan()
     {
-        return $this->belongsTo(Kegiatan::class);
+        return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
 
     public function pegurus()

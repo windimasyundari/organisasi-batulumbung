@@ -16,9 +16,10 @@
     
     <div class="container-fluid">
     <table class="table table-light table-borderless">
+        
         <tr>
             <th>Nama Kegiatan</th>
-            <td>{{ $kegiatan->nama_kegiatan }}</td>
+            <td>{{$kegiatan->nama_kegiatan}}</td>
         </tr>
 
         <tr>
@@ -41,12 +42,12 @@
             <td>  
             @if ($kegiatan->image)
                 <div style="max-height: 350px; overflow:hidden">
-                    <img src="{{ asset('storage/'.$kegiatan->image) }}" alt="{{ $kegiatan->nama_kegiatan }}"
+                    <img src="{{ asset('storage/'.$kegiatan->image) }}" 
                     class="img-fluid mb-3">
                 </div>
             @endif
             </td>
-        </tr>  
+        </tr> 
     </table>
 
         <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary">EDIT</a>
@@ -57,7 +58,7 @@
             <button type="submit" class="btn btn-danger text-light">DELETE</button>
         </form>
         
-        <a href="{{ route ('exportPDF') }}" class="btn btn-warning text-light"> DOWNLOAD</a>
+        <a href="/kegiatan/kegiatan_pdf/{{$kegiatan->id}}" target="_blank" class="btn btn-warning text-light"> DOWNLOAD</a>
         <a href="/kegiatan/kegiatan" class=" btn btn-success card-link text-light">Kembali</a>
        
     </div>

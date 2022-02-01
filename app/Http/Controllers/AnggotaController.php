@@ -24,9 +24,24 @@ class AnggotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createSekaaTeruna()
     {
-        return view('pengurus.anggota.create-anggota');
+        return view('pengurus.anggota.sekaa-teruna');
+    }
+
+    public function createSekaaGong()
+    {
+        return view('pengurus.anggota.sekaa-gong');
+    }
+
+    public function createSekaaSanti()
+    {
+        return view('pengurus.anggota.sekaa-santi');
+    }
+
+    public function createPKK()
+    {
+        return view('pengurus.anggota.pkk');
     }
 
     /**
@@ -35,7 +50,7 @@ class AnggotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeSekaaTeruna(Request $request)
     {
         $request->validate([
             'nama'            => 'required',
@@ -68,7 +83,115 @@ class AnggotaController extends Controller
             'status'        => $request->status
         ]); 
         
-        return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
+        return redirect('pengurus/anggota/sekaa-teruna')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
+    }
+
+    public function storeSekaaGong(Request $request)
+    {
+        $request->validate([
+            'nama'            => 'required',
+            'nik'             => 'required',
+            'tempat_lahir'    => 'required',
+            'tgl_lahir'       => 'required',
+            'email'           => 'required',
+            'password'        => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
+            'no_telp'         => 'required',
+            'jenis_kelamin'   => 'required',
+            'pekerjaan'       => 'required',
+            'alamat'          => 'required',
+            'organisasi_id'   => 'required',
+            'status'          => 'required'
+        ]);
+
+        Anggota :: create([
+            'nama'          => $request->nama,
+            'nik'           => $request->nik,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'email'         => $request->email,
+            'password'      => $request->password,
+            'no_telp'       => $request->no_telp,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
+            'organisasi_id' => $request->organisasi_id,
+            'status'        => $request->status
+        ]); 
+        
+        return redirect('pengurus/anggota/sekaa-gong')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
+    }
+
+    public function storeSekaaSanti(Request $request)
+    {
+        $request->validate([
+            'nama'            => 'required',
+            'nik'             => 'required',
+            'tempat_lahir'    => 'required',
+            'tgl_lahir'       => 'required',
+            'email'           => 'required',
+            'password'        => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
+            'no_telp'         => 'required',
+            'jenis_kelamin'   => 'required',
+            'pekerjaan'       => 'required',
+            'alamat'          => 'required',
+            'organisasi_id'   => 'required',
+            'status'          => 'required'
+        ]);
+
+        Anggota :: create([
+            'nama'          => $request->nama,
+            'nik'           => $request->nik,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'email'         => $request->email,
+            'password'      => $request->password,
+            'no_telp'       => $request->no_telp,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
+            'organisasi_id' => $request->organisasi_id,
+            'status'        => $request->status
+        ]); 
+        
+        return redirect('pengurus/anggota/sekaa-santi')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
+    }
+
+    public function storePKK(Request $request)
+    {
+        $request->validate([
+            'nama'            => 'required',
+            'nik'             => 'required',
+            'tempat_lahir'    => 'required',
+            'tgl_lahir'       => 'required',
+            'email'           => 'required',
+            'password'        => 'required|min:5|max:10',
+            'konfirmpassword' => 'required|min:5|max:10',
+            'no_telp'         => 'required',
+            'jenis_kelamin'   => 'required',
+            'pekerjaan'       => 'required',
+            'alamat'          => 'required',
+            'organisasi_id'   => 'required',
+            'status'          => 'required'
+        ]);
+
+        Anggota :: create([
+            'nama'          => $request->nama,
+            'nik'           => $request->nik,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'email'         => $request->email,
+            'password'      => $request->password,
+            'no_telp'       => $request->no_telp,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
+            'organisasi_id' => $request->organisasi_id,
+            'status'        => $request->status
+        ]); 
+        
+        return redirect('pengurus/anggota/pkk')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
 
     /**
@@ -157,10 +280,55 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
+    public function destroySekaaTeruna(Anggota $anggota)
+    {
+        Anggota::where('id', $anggota->id)->delete();
+
+        return redirect('/pengurus/anggota/sekaa-teruna')-> with('status', 'Data Anggota Berhasil Dihapus!');
+    }
+
+    public function destroySekaaGong(Anggota $anggota)
+    {
+        Anggota::destroy($anggota -> id);
+
+        return redirect('/pengurus/anggota/sekaa-gong')-> with('status', 'Data Anggota Berhasil Dihapus!');
+    }
+
+    public function destroySekaaSanti(Anggota $anggota)
+    {
+        Anggota::destroy($anggota -> id);
+
+        return redirect('/pengurus/anggota/sekaa-santi')-> with('status', 'Data Anggota Berhasil Dihapus!');
+    }
+
     public function destroy(Anggota $anggota)
     {
         Anggota::destroy($anggota -> id);
 
-        return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Dihapus!');
+        return redirect('/pengurus/anggota/pkk')-> with('status', 'Data Anggota Berhasil Dihapus!');
+    }
+
+    public function SekaaTeruna()
+    {
+        $anggota = Anggota::where('organisasi_id', '1')->paginate(10);
+        return view('/pengurus/anggota/sekaa-teruna', compact('anggota'));
+    }
+
+    public function SekaaGong()
+    {
+        $anggota = Anggota::where('organisasi_id', '2')->paginate(10);
+        return view('/pengurus/anggota/sekaa-gong', compact('anggota'));
+    }
+
+    public function SekaaSanti()
+    {
+        $anggota = Anggota::where('organisasi_id', '3')->paginate(10);
+        return view('/pengurus/anggota/sekaa-santi', compact('anggota'));
+    }
+
+    public function PKK()
+    {
+        $anggota = Anggota::where('organisasi_id', '4')->paginate(10);
+        return view('/pengurus/anggota/pkk', compact('anggota'));
     }
 }

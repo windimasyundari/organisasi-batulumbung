@@ -129,15 +129,42 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/anggota/anggota"
-                                aria-expanded="false">
-                                <i class="bi bi-people-fill" aria-hidden="true"></i>
-                                <span class="hide-menu">Anggota</span>
+                        <li class="sidebar-item selected">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+                                <i class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-people-fill" aria-hidden="true"></i> Anggota
+                                </i> 
                             </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a href="/pengurus/anggota/sekaa-teruna" class="sidebar-link">
+                                    <i class="mdi mdi-adjust"></i>
+                                    <span class="hide-menu">Sekaa Teruna</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="/pengurus/anggota/sekaa-gong" class="sidebar-link">
+                                    <i class="mdi mdi-adjust"></i>
+                                    <span class="hide-menu">Sekaa Gong</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="/pengurus/anggota/sekaa-santi" class="sidebar-link">
+                                    <i class="mdi mdi-adjust"></i>
+                                    <span class="hide-menu">Sekaa Santi</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="/pengurus/anggota/pkk" class="sidebar-link">
+                                    <i class="mdi mdi-adjust"></i>
+                                    <span class="hide-menu">PKK</span>
+                                    </a>
+                                </li>  
+                            </ul>
                         </li>
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus-crud"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus-crud/pengurus"
                                 aria-expanded="false">
                                 <i class="bi bi-person-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengurus</span>

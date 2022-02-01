@@ -50,11 +50,6 @@
                             </tbody>
                         </table>
 
-                        Halaman {{ $pengurus->currentPage() }}
-                        dari {{ $pengurus->total() }} <br/>
-                        <!-- Data Per Halaman : {{ $pengurus->perPage() }} <br/> <br> -->
-
-                        {{  $pengurus->links()}}
                     </div>
                 </div>
             </div>

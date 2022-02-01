@@ -50,11 +50,11 @@
                             </tbody>
                         </table>
 
-                        Halaman {{ $pengumumans->currentPage() }}
-                        dari {{ $pengumumans->total() }} <br/>
-                        <!-- Data Per Halaman : {{ $pengumumans->perPage() }} <br/> <br> -->
+                        Halaman : {{ $pengumuman->currentPage() }} <br>
+                        Total Data :{{ $pengumuman->total() }} <br/>
+                        Data Per Halaman : {{ $pengumuman->perPage() }} <br/> <br>
 
-                        {{  $pengumumans->links()}}
+                        {{  $pengumuman->links()}}
                     </div>
                 </div>
             </div>

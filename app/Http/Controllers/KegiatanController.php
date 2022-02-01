@@ -51,15 +51,6 @@ class KegiatanController extends Controller
         }
 
         Kegiatan::create($validateData);
-
-        // Kegiatan :: create([
-        //     'nama_kegiatan' => $request->nama_kegiatan,
-        //     'tanggal' => $request->tanggal,
-        //     'waktu' => $request->waktu,
-        //     'tempat' => $request->tempat,
-        //     'deskripsi' => $request->deskripsi,
-        //     'image' => $request->image
-        // ]); 
         
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Ditambahkan!');
     }
@@ -71,8 +62,15 @@ class KegiatanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Kegiatan $kegiatan)
-    {
+    {   
+        // dd($kegiatan);
+       
+    //    $kegiatan = Kegiatan::find($id);
+    //    $kegiatan = Kegiatan::all();
+       
         return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
+
+
     }
 
     /**
@@ -120,11 +118,16 @@ class KegiatanController extends Controller
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }
 
-    public function exportPDF() {
-        $kegiatan = Kegiatan::all();
-        $pdf = PDF::loadView('pengurus/kegiatan/show-kegiatan', ['kegiatan' => $kegiatan]);
+    public function exportPDF(Kegiatan $kegiatan) {
+        $kegiatan = Kegiatan::first();
         
-        return $pdf->download('laporan-kegiatan.pdf');
+        $nama = Kegiatan::where('id', $kegiatan->id)->value('image');
+        $image = base64_encode(file_get_contents(public_path($nama)));
+        $pdf = PDF::loadView('pengurus/kegiatan/kegiatan_pdf', ['kegiatan' => $kegiatan, 'image' => $image]) 
+        -> stream('laporan-kegiatan.pdf');
+
+        return view ('/pengurus/kegiatan/kegiatan_pdf', compact('kegiatan'));
+        // return $pdf->download('laporan-kegiatan.pdf');
     }
 
     /**

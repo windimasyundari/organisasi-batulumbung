@@ -9,6 +9,7 @@ class Kegiatan extends Model
 {
     protected $table = 'kegiatan';
     protected $fillable = ['nama_kegiatan', 'tanggal', 'waktu', 'tempat', 'deskripsi', 'image'];
+    protected $guarded = ['id'];
 
     public function absensi()
     {

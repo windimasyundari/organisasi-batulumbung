@@ -16,6 +16,13 @@ class Absensi extends Model
         'jenis', 
         'status'];
 
+    // public function absensiFilter($query, array $filter)
+    // {
+    //     $query->when($filter['tanggal'] ?? false, function ($query, $tanggal) {
+    //         return $query->where('tanggal', $tanggal);
+    //     });
+    // }
+
     public function anggota()
     {
         return $this->belongsTo(Anggota::class);

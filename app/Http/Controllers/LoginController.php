@@ -65,11 +65,18 @@ class LoginController extends Controller
         // }
         
     }
+    
     public function dashboardPengurus(Request $request)
     {
         $id = $request->session()->get('idlogin');
         $semua = Pengurus::where('id', $id)->get(); 
-        return view('/pengurus/dashboard');
+
+        //hitung
+        $sekaateruna = Anggota::where(['organisasi_id' => '1'])->count();
+        $sekaagong = Anggota::where(['organisasi_id' => '2'])->count();
+        $sekaasanti = Anggota::where(['organisasi_id' => '3'])->count();
+        $pkk = Anggota::where(['organisasi_id' => '4'])->count();
+        return view('/pengurus/dashboard', compact(['sekaateruna', 'sekaagong', 'sekaasanti', 'pkk']));
 
     }
 
@@ -80,4 +87,6 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/pengurus/login');
     }
+
+    
 }

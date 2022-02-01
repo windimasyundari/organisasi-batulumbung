@@ -70,8 +70,8 @@
 
         <a href ="{{ $anggota->id }}/edit" class="btn btn-primary">Edit</a>
 
-        <form action="{{ $anggota->id }}" method="post" class="d-inline">
-            @method('delete')
+        <form action="{{ route('hapusSekaaTeruna', $anggota->id) }}" method="post" class="d-inline">
+           
             @csrf
             <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>

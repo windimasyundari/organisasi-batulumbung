@@ -49,9 +49,9 @@
                         </table>
 
                         
-                        Halaman {{ $kegiatan->currentPage() }}
-                        dari {{ $kegiatan->total() }} <br/>
-                        <!-- Data Per Halaman : {{ $kegiatan->perPage() }} <br/> <br> -->
+                        Halaman : {{ $kegiatan->currentPage() }} <br>
+                        Total data :{{ $kegiatan->total() }} <br/>
+                        Data Per Halaman : {{ $kegiatan->perPage() }} <br/> <br>
 
                         {{  $kegiatan->links()}}
                     </div>

@@ -17,13 +17,16 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <form class="form" method="get" action="{{ route ('cariAnggota') }}">
-                        <div class="form-group w-100 mb-3">
-                            <!-- <label for="cari" class="d-block mr-2">Nama</label> -->
-                            <input type="text" name="cari" class="form-control w-75 d-inline" id="cari" placeholder="Masukkan keyword">
-                            <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button> 
-                        </div>
-                    </form>
+                <form class="form" method="get" action="{{ route ('cariAnggota') }}">
+                    <div class="col-lg-3 ms-auto">
+                        <input type="text" name="cariAnggota" class="form-control w-75 d-inline" id="cariAnggota" placeholder="Masukkan Anggota">
+                        <!-- <a href="{ route ('cari') }" class="active">
+                            <i class="fa fa-search"></i>
+                        </a> -->
+                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                    </div>                    
+                </form>
+
 
                     <a href="/pengurus/anggota/create-anggota" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
                     @if (session('status'))
@@ -49,7 +52,7 @@
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$anggotakk->nik}}</td>
                                     <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$anggotakk->organisasi_id}}</td>
+                                    <td>{{$anggotakk->organisasi->jenis}}</td>
                                     <td><a href="\anggota\anggota\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
@@ -58,11 +61,11 @@
                             </tbody>
                         </table>
 
-                        Halaman {{ $anggota->currentPage() }}
-                        dari {{ $anggota->total() }} <br/>
-                        <!-- Data Per Halaman : {{ $anggota->perPage() }} <br/> <br> -->
+                        Halaman : {{ $anggota->currentPage() }} <br/>
+                        Total Data :  {{ $anggota->total() }} <br/>
+                        Data Per Halaman : {{ $anggota->perPage() }} <br/> <br>
 
-                        {{  $anggota->links()}}
+                        {{ $anggota->links() }}     
                     </div>
                 </div>
             </div>

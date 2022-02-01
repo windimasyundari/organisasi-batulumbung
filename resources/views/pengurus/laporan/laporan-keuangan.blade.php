@@ -59,9 +59,9 @@
                             <tbody>
                         </table>
 
-                        Halaman {{ $laporan_keuangan->currentPage() }}
-                        dari {{ $laporan_keuangan->total() }} <br/>
-                        <!-- Data Per Halaman : {{ $laporan_keuangan->perPage() }} <br/> <br> -->
+                        Halaman : {{ $laporan_keuangan->currentPage() }} <br>
+                        Total Data : {{ $laporan_keuangan->total() }} <br/>
+                        Data Per Halaman : {{ $laporan_keuangan->perPage() }} <br/> <br>
 
                         {{  $laporan_keuangan->links()}}
                     </div>

@@ -20,13 +20,13 @@ use App\Models\Absensi;
 //     return view('welcome');
 // });
 
-    // Route::get('/', function () {
-    //     return view('pengurus/login');
-    // });
+    Route::get('/', function () {
+        return view('pengurus/login');
+    });
 
-Route::get('/', function () {
-    return view('pengurus/dashboard');
-});
+// Route::get('/', function () {
+//     return view('pengurus/dashboard');
+// });
 
 //Route::middleware(['guest'])->group(function (){
     // Login
@@ -47,20 +47,39 @@ Route::get('/', function () {
     Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardPengurus');
 
 
+    //Dashboard
+    
+
+
     // Anggota
     Route::get('/anggota/anggota', 'App\Http\Controllers\AnggotaController@index');
-    Route::get('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@create');
+    Route::get('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@createSekaaTeruna');
+    Route::get('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@createSekaaGong');
+    Route::get('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@createSekaaSanti');
+    Route::get('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@createPKK');
     Route::get('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@show');
-    Route::post('/pengurus/anggota/create-anggota', 'App\Http\Controllers\AnggotaController@store');
-    Route::delete('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@destroy');
+    Route::post('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@storeSekaaTeruna');
+    Route::post('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@storeSekaaGong');
+    Route::post('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@storeSekaaSanti');
+    Route::post('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@storePKK');
+
+    Route::post('/pengurus/anggota/sekaa-teruna/{anggota}', 'App\Http\Controllers\AnggotaController@destroySekaaTeruna')->name('hapusSekaaTeruna');
+    Route::post('/pengurus/anggota/sekaa-gong/{anggota}', 'App\Http\Controllers\AnggotaController@destroySekaaGong')->name('hapusSekaaGong');;
+    Route::post('/pengurus/anggota/sekaa-santi/{anggota}', 'App\Http\Controllers\AnggotaController@destroySekaaSanti')->name('hapusSekaaSanti');;
+    Route::delete('/pengurus/anggota/pkk/{anggota}', 'App\Http\Controllers\AnggotaController@destroyPKK')->name('hapusPKK');;
+
     Route::get('/anggota/anggota/{anggota}/edit', 'App\Http\Controllers\AnggotaController@edit');
     Route::patch('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@update');
     Route::get('/anggota/cariAnggota','App\Http\Controllers\AnggotaController@cariAnggota')->name('cariAnggota');
-//});
+
+    Route::get('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@SekaaTeruna');
+    Route::get('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@SekaaGong');
+    Route::get('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@SekaaSanti');
+    Route::get('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@PKK');
 
  
     // Pengurus
-    Route::get('/pengurus/pengurus-crud', 'App\Http\Controllers\PengurusController@index');
+    Route::get('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@index');
     Route::get('/pengurus/pengurus-crud/create-pengurus', 'App\Http\Controllers\PengurusController@create');
     Route::get('/pengurus/pengurus-crud/{pengurus}', 'App\Http\Controllers\PengurusController@show');
     Route::post('/pengurus/pengurus-crud/create-pengurus', 'App\Http\Controllers\PengurusController@store');
@@ -87,7 +106,7 @@ Route::post('/pengurus/kegiatan/create-kegiatan', 'App\Http\Controllers\Kegiatan
 Route::delete('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@destroy');
 Route::get('/kegiatan/kegiatan/{kegiatan}/edit', 'App\Http\Controllers\KegiatanController@edit');
 Route::patch('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@update');
-Route::get('/kegiatan/kegiatan_pdf', 'App\Http\Controllers\KegiatanController@exportPDF')->name('exportPDF');
+Route::get('/kegiatan/kegiatan_pdf/{kegiatan}', 'App\Http\Controllers\KegiatanController@exportPDF')->name('exportPDF');
 
 // Pengumuman
 Route::get('/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@index');
