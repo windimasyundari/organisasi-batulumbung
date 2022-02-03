@@ -24,6 +24,7 @@ class Anggota extends Authenticatable
         'pekerjaan', 
         'alamat', 
         'organisasi_id',
+        'image',
         'status',
     ];
 

@@ -15,32 +15,40 @@
     </div>
     
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h6>Nama</h6>
-                <p class="card-text">{{ $pengurus->nama }}</p>
-
-                <h6>Jabatan</h6>
-                <p class="card-text">{{ $pengurus->jabatan }}</p>
-
-                <h6>Email</h6>
-                <p class="card-text">{{ $pengurus->email }}</p>
-
-                <h6>No Telp</h6>
-                <p class="card-text">{{ $pengurus->no_telp }}</p>
-
-                <h6>Jenis Kelamin</h6>
-                <p class="card-text">{{ $pengurus->jenis_kelamin }}</p>
-
-                <h6>Alamat</h6>
-                <p class="card-text">{{ $pengurus->alamat }}</p>
-
-                <h6>Jenis Organisasi</h6>
-                <p class="card-text">{{ $pengurus->organisasi->jenis }}</p>
-
-                <h6>Status</h6>
-                <p class="card-text">{{ $pengurus->status }}</p>
-                
+        <table class="table table-light table-borderless">
+            <tr>
+                <th width ="200px ">Nama</th>
+                <td>{{$pengurus->nama}}</td>
+            </tr>
+            <tr>
+                <th>Jabatan</th>
+                <td>{{$pengurus->jabatan}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{$pengurus->email}}</td>
+            </tr>
+            <tr>
+                <th>No Telp</th>
+                <td>{{$pengurus->no_telp}}</td>
+            </tr>
+            <tr>
+                <th>Jenis Kelamin</th>
+                <td>{{$pengurus->jenis_kelamin}}</td>
+            </tr>
+            <tr>
+                <th>Alamat</th>
+                <td>{{$pengurus->alamat}}</td>
+            </tr>
+            <tr>
+                <th>Jenis Organisasi</th>
+                <td>{{$pengurus->organisasi->jenis}}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{$pengurus->status}}</td>
+            </tr>
+        </table>                
                 <a href ="{{ $pengurus->id }}/edit" class="btn btn-primary">Edit</a>
 
                 <form action="{{ $pengurus->id }}" method="post" class="d-inline">

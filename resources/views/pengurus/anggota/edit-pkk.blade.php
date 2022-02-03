@@ -15,7 +15,7 @@
     </div>
 
     <div class="container-fluid">
-        <form method="post" action="/anggota/anggota/{{ $anggota->id }}" style="width:50%">
+        <form method="post" action="/anggota/pkk/{{ $anggota->id }}" style="width:50%">
         @method('patch')
         @csrf
             <div class="form-group">

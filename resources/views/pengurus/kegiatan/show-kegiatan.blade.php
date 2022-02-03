@@ -58,7 +58,7 @@
             <button type="submit" class="btn btn-danger text-light">DELETE</button>
         </form>
         
-        <a href="/kegiatan/kegiatan_pdf/{{$kegiatan->id}}" target="_blank" class="btn btn-warning text-light"> DOWNLOAD</a>
+        <a href="{{url('')}}/kegiatan/kegiatan_pdf/{id}" target="_blank" class="btn btn-warning text-light"> DOWNLOAD</a>
         <a href="/kegiatan/kegiatan" class=" btn btn-success card-link text-light">Kembali</a>
        
     </div>

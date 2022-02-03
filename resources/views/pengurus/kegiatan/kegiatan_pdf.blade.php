@@ -2,26 +2,47 @@
 <html>
 <head>
 	<title>Cetak Laporan</title>
-</head>        
+</head> 
+<body>    
+    <div>
         <h1> LAPORAN KEGIATAN </h1>
-            <h6>Nama Kegiatan</h6>
-            <p>{{$kegiatan->nama_kegiatan}}</p>
-
-            <h6>Tanggal | Waktu</h6>
-            <p>{{ $kegiatan->tanggal }} | {{ $kegiatan->waktu }}</p>
-
-            <h6>Tempat</h6>
-            <p>{{ $kegiatan->tempat }}</p>
-
-            <h6>Deskripsi</h6>
-            <p>{{ $kegiatan->deskripsi }}</p>
-
-            <h6>Gambar</h6>
-            @if ($kegiatan->image)
-            <div style="max-height: 50px; overflow:hidden">
-                <img src="data:image/png;base64,{{ $image }}">
-            </div>
-            @endif
+    </div>   
+    <div>
+        <table>
+        @foreach(kegiatan as $kegiatans)
+            <tr>
+                <th>Nama Kegiatan</th>
+                <td>{{$kegiatans->nama_kegiatan}}</td>
+            </tr>
+            <tr>
+                <th>Tanggal | Waktu</th>
+                <td>{{$kegiatans->tanggal}} | {{$kegiatans->tanggal}}</td>
+            </tr>
+            <tr>
+                <th>Tempat</th>
+                <td>{{$kegiatans->tempat}}</td>
+            </tr>
+            <tr>
+                <th>Deskripsi</th>
+                <td>{{$kegiatans->deskripsi}}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td> 
+                    @if ($kegiatans->image)
+                    <div style="max-height: 350px; overflow:hidden">
+                        <img src="{{ asset('storage/'.$kegiatans->image) }}" 
+                        class="img-fluid mb-3">
+                    </div>
+                    @endif
+                </td>
+            </tr>
+            @endforaech
+        </table>
+       
+    </div>
+        
+            
 </body>
 </html>
             

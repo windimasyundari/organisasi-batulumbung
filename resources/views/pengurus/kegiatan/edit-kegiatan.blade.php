@@ -75,7 +75,7 @@
 
             <div class="form-group">
                 <label for="image" class="form-label">Image</label>
-                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
+                <input type="file" name="image" value="{{ $kegiatan->image }}" class="form-control @error('image') is-invalid @enderror" 
                 id="image">
                 @error ('image')
                 <div class="invalid-feedback">

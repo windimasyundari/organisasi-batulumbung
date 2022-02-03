@@ -26,7 +26,7 @@ class PengurusController extends Controller
      */
     public function create()
     {
-        return view('pengurus.pengurus-crud.create-pengurus');
+        return view('pengurus/pengurus-crud/pengurus');
     }
 
     /**
@@ -38,31 +38,31 @@ class PengurusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'jabatan' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:5|max:10',
-            'konfirmpassword' => 'required|min:5|max:10',
-            'no_telp' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'organisasi_id' => 'required',
-            'status' => 'required'
+            'nama'              => 'required',
+            'jabatan'           => 'required',
+            'email'             => 'required',
+            'password'          => 'required|min:5|max:10',
+            'konfirmpassword'   => 'required|min:5|max:10',
+            'no_telp'           => 'required',
+            'jenis_kelamin'     => 'required',
+            'alamat'            => 'required',
+            'organisasi_id'     => 'required',
+            'status'            => 'required'
         ]);
 
         Pengurus :: create([
-            'nama' => $request->nama,
-            'jabatan' => $request->jabatan,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'no_telp' => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status' => $request->status
+            'nama'              => $request->nama,
+            'jabatan'           => $request->jabatan,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'no_telp'           => $request->no_telp,
+            'jenis_kelamin'     => $request->jenis_kelamin,
+            'alamat'            => $request->alamat,
+            'organisasi_id'     => $request->organisasi_id,
+            'status'            => $request->status
         ]); 
 
-        return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
+        return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
     }
 
     /**
@@ -73,7 +73,7 @@ class PengurusController extends Controller
      */
     public function show(Pengurus $pengurus)
     {
-        return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
+        return view('pengurus/pengurus-crud/show-pengurus', compact('pengurus'));
     }
 
     /**
@@ -84,7 +84,7 @@ class PengurusController extends Controller
      */
     public function edit(Pengurus $pengurus)
     {
-        return view('pengurus.pengurus-crud.edit-pengurus', compact('pengurus'));
+        return view('pengurus/pengurus-crud/edit-pengurus', compact('pengurus'));
     }
 
     /**

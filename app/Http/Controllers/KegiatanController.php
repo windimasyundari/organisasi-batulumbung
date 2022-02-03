@@ -26,7 +26,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        return view('pengurus.kegiatan.create-kegiatan');
+        return view('pengurus/kegiatan/create-kegiatan');
     }
 
     /**
@@ -102,15 +102,9 @@ class KegiatanController extends Controller
             'image'         => 'required|image|mimes:jpg,jpeg,png|max:1024'
         ]);
         
-        if($request->image('image')) {
-            $validateData['image'] = $request->image('image')->store('images-kegiatan');
+        if($request->file('image')) {
+            $validateData['image'] = $request->file('image')->store('images-kegiatan');
         }
-
-        // $imageName = time().’.’.$request->image->extension();
-        // $request->image->move(public_path(‘images’), $imageName);
-        
-        // // store image in database from here
-        // return redirect()->back()->with(‘success’,’Image uploaded successfully.’)->with(‘image’,$imageName);
 
         Kegiatan::where('id', $kegiatan->id)
                 ->update($validateData);
@@ -118,15 +112,22 @@ class KegiatanController extends Controller
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }
 
-    public function exportPDF(Kegiatan $kegiatan) {
-        $kegiatan = Kegiatan::first();
-        
-        $nama = Kegiatan::where('id', $kegiatan->id)->value('image');
-        $image = base64_encode(file_get_contents(public_path($nama)));
-        $pdf = PDF::loadView('pengurus/kegiatan/kegiatan_pdf', ['kegiatan' => $kegiatan, 'image' => $image]) 
-        -> stream('laporan-kegiatan.pdf');
+    public function exportPDF(Request $request, $id) {
+        $data['kegiatan'] = Kegiatan::find($id);
 
-        return view ('/pengurus/kegiatan/kegiatan_pdf', compact('kegiatan'));
+        $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', $data);
+        return $pdf->stream('laporan-kegiatan.pdf');
+        dd($data);
+
+
+        // $kegiatan = Kegiatan::first();
+        
+        // $nama = Kegiatan::where('id', $kegiatan->id)->value('image');
+        // $image = base64_encode(file_get_contents(public_path($nama)));
+        // $pdf = PDF::loadView('pengurus/kegiatan/kegiatan_pdf', ['kegiatan' => $kegiatan, 'image' => $image]) 
+        // -> stream('laporan-kegiatan.pdf');
+
+        // return view ('/pengurus/kegiatan/kegiatan_pdf', compact('kegiatan'));
         // return $pdf->download('laporan-kegiatan.pdf');
     }
 

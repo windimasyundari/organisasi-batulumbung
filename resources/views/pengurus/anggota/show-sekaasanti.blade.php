@@ -1,6 +1,6 @@
 @extends('layouts.main-pengurus')
 
-@section('title', 'Detail Data Pengurus')
+@section('title', 'Detail Data Anggota')
 
 @section('content')
 
@@ -19,7 +19,8 @@
             <tr>
                 <th width ="200px ">Nama</th>
                 <td>{{ $anggota->nama }}</td>
-                <td rowspan = "5"></td>
+                <td rowspan = "5">
+                </td>
             </tr>
 
             <tr>
@@ -45,38 +46,40 @@
             <tr>
                 <th>Pekerjaan</th>
                 <td>{{ $anggota->pekerjaan }}</td>
+                <td></td>
             </tr>
             
             <tr>
                 <th>Jenis Kelamin</th>
                 <td>{{ $anggota->jenis_kelamin }}</td>
+                <td></td>
             </tr>
             
             <tr>
                 <th>Alamat</th>
                 <td>{{ $anggota->alamat }}</td>
+                <td></td>
             </tr>
             
             <tr>
                 <th>Jenis Organisasi</th>
                 <td>{{ $anggota->organisasi->jenis }}</td>
+                <td></td>
             </tr>
             
             <tr>
                 <th>Status</th>
                 <td>{{ $anggota->status }}</td>
+                <td></td>
             </tr>
         </table>
 
         <a href ="{{ $anggota->id }}/edit" class="btn btn-primary">Edit</a>
 
-        <form action="{{ route('hapusSekaaTeruna', $anggota->id) }}" method="post" class="d-inline">
-           
+        <form action="{{ route('hapusSekaaSanti', $anggota->id) }}" method="post" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>
-
-        <span class="btn btn-success"><a href="/anggota/anggota" class="card-link text-light">Kembali</a></span>
        
     </div>
 </div>

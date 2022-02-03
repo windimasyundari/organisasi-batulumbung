@@ -40,7 +40,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-success">{{$sekaateruna}}</span></li>
+                                <li class="ms-auto"><span class="counter text-success"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-purple">{{$sekaagong}}</span></li>
+                                <li class="ms-auto"><span class="counter text-purple"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-info">{{$sekaasanti}}</span>
+                                <li class="ms-auto"><span class="counter text-info"></span>
                                 </li>
                             </ul>
                         </div>
@@ -80,7 +80,7 @@
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-danger">{{$pkk}}</span></li>
+                                <li class="ms-auto"><span class="counter text-danger"></span></li>
                             </ul>
                         </div>
                     </div>

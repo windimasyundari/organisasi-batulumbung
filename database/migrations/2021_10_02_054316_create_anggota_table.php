@@ -26,6 +26,7 @@ class CreateAnggotaTable extends Migration
             $table->string('jenis_kelamin');
             $table->string('pekerjaan');
             $table->text('alamat');
+            // $table->string('image');
             $table->string('status');
             $table->timestamps();
         });

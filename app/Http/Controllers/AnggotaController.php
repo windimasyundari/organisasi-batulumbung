@@ -13,10 +13,34 @@ class AnggotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     $anggota = Anggota::paginate(10);
+    //     return view('pengurus.anggota.anggota', compact('anggota'));
+    // }
+
+    public function SekaaTeruna()
     {
-        $anggota = Anggota::paginate(10);
-        return view('pengurus.anggota.anggota', compact('anggota'));
+        $anggota = Anggota::where('organisasi_id', '1')->paginate(10);
+        return view('/pengurus/anggota/sekaa-teruna', compact('anggota'));
+    }
+
+    public function SekaaGong()
+    {
+        $anggota = Anggota::where('organisasi_id', '2')->paginate(10);
+        return view('/pengurus/anggota/sekaa-gong', compact('anggota'));
+    }
+
+    public function SekaaSanti()
+    {
+        $anggota = Anggota::where('organisasi_id', '3')->paginate(10);
+        return view('/pengurus/anggota/sekaa-santi', compact('anggota'));
+    }
+
+    public function PKK()
+    {
+        $anggota = Anggota::where('organisasi_id', '4')->paginate(10);
+        return view('/pengurus/anggota/pkk', compact('anggota'));
     }
 
     /**
@@ -26,22 +50,22 @@ class AnggotaController extends Controller
      */
     public function createSekaaTeruna()
     {
-        return view('pengurus.anggota.sekaa-teruna');
+        return view('pengurus/anggota/sekaa-teruna');
     }
 
     public function createSekaaGong()
     {
-        return view('pengurus.anggota.sekaa-gong');
+        return view('pengurus/anggota/sekaa-gong');
     }
 
     public function createSekaaSanti()
     {
-        return view('pengurus.anggota.sekaa-santi');
+        return view('pengurus/anggota/sekaa-santi');
     }
 
     public function createPKK()
     {
-        return view('pengurus.anggota.pkk');
+        return view('pengurus/anggota/pkk');
     }
 
     /**
@@ -52,7 +76,7 @@ class AnggotaController extends Controller
      */
     public function storeSekaaTeruna(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'            => 'required',
             'nik'             => 'required',
             'tempat_lahir'    => 'required',
@@ -65,30 +89,22 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
 
-        Anggota :: create([
-            'nama'          => $request->nama,
-            'nik'           => $request->nik,
-            'tempat_lahir'  => $request->tempat_lahir,
-            'tgl_lahir'     => $request->tgl_lahir,
-            'email'         => $request->email,
-            'password'      => $request->password,
-            'no_telp'       => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan'     => $request->pekerjaan,
-            'alamat'        => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status'        => $request->status
-        ]); 
+        // if($request->file('image')) {
+        //     $validateData['image'] = $request->file('image')->store('images-anggota');
+        // }
+
+        Anggota::create($validateData);
         
         return redirect('pengurus/anggota/sekaa-teruna')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
 
     public function storeSekaaGong(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'            => 'required',
             'nik'             => 'required',
             'tempat_lahir'    => 'required',
@@ -101,30 +117,22 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
 
-        Anggota :: create([
-            'nama'          => $request->nama,
-            'nik'           => $request->nik,
-            'tempat_lahir'  => $request->tempat_lahir,
-            'tgl_lahir'     => $request->tgl_lahir,
-            'email'         => $request->email,
-            'password'      => $request->password,
-            'no_telp'       => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan'     => $request->pekerjaan,
-            'alamat'        => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status'        => $request->status
-        ]); 
+        // if($request->file('image')) {
+        //     $validateData['image'] = $request->file('image')->store('images-anggota');
+        // }
+
+        Anggota::create($validateData);
         
         return redirect('pengurus/anggota/sekaa-gong')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
 
     public function storeSekaaSanti(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'            => 'required',
             'nik'             => 'required',
             'tempat_lahir'    => 'required',
@@ -137,30 +145,22 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
+        
+        // if($request->file('image')) {
+        //     $validateData['image'] = $request->file('image')->store('images-anggota');
+        // }
 
-        Anggota :: create([
-            'nama'          => $request->nama,
-            'nik'           => $request->nik,
-            'tempat_lahir'  => $request->tempat_lahir,
-            'tgl_lahir'     => $request->tgl_lahir,
-            'email'         => $request->email,
-            'password'      => $request->password,
-            'no_telp'       => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan'     => $request->pekerjaan,
-            'alamat'        => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status'        => $request->status
-        ]); 
+        Anggota::create($validateData);
         
         return redirect('pengurus/anggota/sekaa-santi')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
 
     public function storePKK(Request $request)
     {
-        $request->validate([
+        $validataeData = $request->validate([
             'nama'            => 'required',
             'nik'             => 'required',
             'tempat_lahir'    => 'required',
@@ -173,23 +173,15 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
 
-        Anggota :: create([
-            'nama'          => $request->nama,
-            'nik'           => $request->nik,
-            'tempat_lahir'  => $request->tempat_lahir,
-            'tgl_lahir'     => $request->tgl_lahir,
-            'email'         => $request->email,
-            'password'      => $request->password,
-            'no_telp'       => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan'     => $request->pekerjaan,
-            'alamat'        => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status'        => $request->status
-        ]); 
+        // if($request->file('image')) {
+        //     $validateData['image'] = $request->file('image')->store('images-anggota');
+        // }
+
+        Anggota::create($validateData);
         
         return redirect('pengurus/anggota/pkk')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
@@ -200,9 +192,24 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function show(Anggota $anggota)
+    public function showSekaaTeruna(Anggota $anggota)
     {
-        return view('pengurus.anggota.show-anggota', compact('anggota'));
+        return view('pengurus.anggota.show-sekaateruna', compact('anggota'));
+    }
+
+    public function showSekaaGong(Anggota $anggota)
+    {
+        return view('pengurus.anggota.show-sekaagong', compact('anggota'));
+    }
+
+    public function showSekaaSanti(Anggota $anggota)
+    {
+        return view('pengurus.anggota.show-sekaasanti', compact('anggota'));
+    }
+
+    public function showPKK(Anggota $anggota)
+    {
+        return view('pengurus.anggota.show-pkk', compact('anggota'));
     }
 
     /**
@@ -211,9 +218,21 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function edit(Anggota $anggota)
+    public function editSekaaTeruna(Anggota $anggota)
     {
-        return view('pengurus.anggota.edit-anggota', compact('anggota'));
+        return view('pengurus.anggota.edit-sekaateruna', compact('anggota'));
+    }
+    public function editSekaaGong(Anggota $anggota)
+    {
+        return view('pengurus.anggota.edit-sekaagong', compact('anggota'));
+    }
+    public function editSekaaSanti(Anggota $anggota)
+    {
+        return view('pengurus.anggota.edit-sekaasanti', compact('anggota'));
+    }
+    public function editPKK(Anggota $anggota)
+    {
+        return view('pengurus.anggota.edit-pkk', compact('anggota'));
     }
 
     /**
@@ -223,9 +242,9 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function updateSekaaTeruna(Request $request, Anggota $anggota)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'          => 'required',
             'nik'           => 'required',
             'tempat_lahir'  => 'required',
@@ -237,26 +256,102 @@ class AnggotaController extends Controller
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
+            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'        => 'required'
         ]);
-        
-        Anggota::where('id', $anggota->id)
-                ->update([
-                    'nama'          => $request->nama,
-                    'nik'           => $request->nik,
-                    'tempat_lahir'  => $request->tempat_lahir,
-                    'tgl_lahir'     => $request->tgl_lahir,
-                    'email'         => $request->email,
-                    'password'      => $request->password,
-                    'no_telp'       => $request->no_telp,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'pekerjaan'     => $request->pekerjaan,
-                    'alamat'        => $request->alamat,
-                    'organisasi_id' => $request->organisasi_id,
-                    'status'        => $request->status
-                ]);
 
-            return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Diubah!');
+        // if($request->image('image')) {
+        //     $validateData['image'] = $request->image('image')->store('images-anggota');
+        // }
+
+        Anggota::where('id', $anggota->id)
+        ->update($validateData);
+        
+        return redirect('pengurus/anggota/sekaa-teruna')-> with('status', 'Data Anggota Berhasil Diubah!');
+    }
+
+    public function updateSekaaGong(Request $request, Anggota $anggota)
+    {
+        $validateData = $request->validate([
+            'nama'          => 'required',
+            'nik'           => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required',
+            'email'         => 'required',
+            'password'      => 'required',
+            'no_telp'       => 'required',
+            'jenis_kelamin' => 'required',
+            'pekerjaan'     => 'required',
+            'alamat'        => 'required',
+            'organisasi_id' => 'required',
+            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'        => 'required'
+        ]);
+
+        // if($request->image('image')) {
+        //     $validateData['image'] = $request->image('image')->store('images-anggota');
+        // }
+
+        Anggota::where('id', $anggota->id)
+        ->update($validateData);
+        
+        return redirect('/anggota/sekaa-gong')-> with('status', 'Data Anggota Berhasil Diubah!');
+    }
+
+    public function updateSekaaSanti(Request $request, Anggota $anggota)
+    {
+        $validateData = $request->validate([
+            'nama'          => 'required',
+            'nik'           => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required',
+            'email'         => 'required',
+            'password'      => 'required',
+            'no_telp'       => 'required',
+            'jenis_kelamin' => 'required',
+            'pekerjaan'     => 'required',
+            'alamat'        => 'required',
+            'organisasi_id' => 'required',
+            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'        => 'required'
+        ]);
+
+        // if($request->image('image')) {
+        //     $validateData['image'] = $request->image('image')->store('images-anggota');
+        // }
+
+        Anggota::where('id', $anggota->id)
+        ->update($validateData);
+        
+        return redirect('/anggota/sekaa-santi')-> with('status', 'Data Anggota Berhasil Diubah!');
+    }
+
+    public function updatePKK(Request $request, Anggota $anggota)
+    {
+        $validateData = $request->validate([
+            'nama'          => 'required',
+            'nik'           => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required',
+            'email'         => 'required',
+            'password'      => 'required',
+            'no_telp'       => 'required',
+            'jenis_kelamin' => 'required',
+            'pekerjaan'     => 'required',
+            'alamat'        => 'required',
+            'organisasi_id' => 'required',
+            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'        => 'required'
+        ]);
+
+        // if($request->image('image')) {
+        //     $validateData['image'] = $request->image('image')->store('images-anggota');
+        // }
+
+        Anggota::where('id', $anggota->id)
+        ->update($validateData);
+        
+        return redirect('/anggota/pkk')-> with('status', 'Data Anggota Berhasil Diubah!');
     }
 
     public function cariAnggota(Request $request)
@@ -306,29 +401,5 @@ class AnggotaController extends Controller
         Anggota::destroy($anggota -> id);
 
         return redirect('/pengurus/anggota/pkk')-> with('status', 'Data Anggota Berhasil Dihapus!');
-    }
-
-    public function SekaaTeruna()
-    {
-        $anggota = Anggota::where('organisasi_id', '1')->paginate(10);
-        return view('/pengurus/anggota/sekaa-teruna', compact('anggota'));
-    }
-
-    public function SekaaGong()
-    {
-        $anggota = Anggota::where('organisasi_id', '2')->paginate(10);
-        return view('/pengurus/anggota/sekaa-gong', compact('anggota'));
-    }
-
-    public function SekaaSanti()
-    {
-        $anggota = Anggota::where('organisasi_id', '3')->paginate(10);
-        return view('/pengurus/anggota/sekaa-santi', compact('anggota'));
-    }
-
-    public function PKK()
-    {
-        $anggota = Anggota::where('organisasi_id', '4')->paginate(10);
-        return view('/pengurus/anggota/pkk', compact('anggota'));
     }
 }

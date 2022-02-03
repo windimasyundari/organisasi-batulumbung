@@ -41,7 +41,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <form method="post" action="/pengurus/anggota/pkk" style="width:50%">
+                    <form method="post" action="/pengurus/anggota/pkk" style="width:100%">
                         @csrf
                             <div class="form-group">
                                 <label for="nama">Nama</label> 
@@ -175,6 +175,17 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
+                                id="image">
+                                @error ('image')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="exampleFormControlSelect">Status</label>
                                 <select name="status" value="{{ old ('status') }}" class="form-control" id="exampleFormControlSelect">
                                     <option value="">--Pilih--</option>
@@ -210,7 +221,7 @@
                                     <td>{{$anggotakk->nik}}</td>
                                     <td>{{$anggotakk->nama}}</td>
                                     <td>{{$anggotakk->organisasi->jenis}}</td>
-                                    <td><a href="\anggota\anggota\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <td><a href="\anggota\pkk\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
                                 <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
