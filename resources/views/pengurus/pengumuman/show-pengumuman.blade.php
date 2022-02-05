@@ -37,7 +37,7 @@
         </tr>
     </table>
 
-    <a href ="{{ $pengumuman->id }}/edit" class="btn btn-primary">Edit</a>
+    <a href ="{{ $pengumuman->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPengumuman">Edit</a>
 
     <form action="{{ $pengumuman->id }}" method="post" class="d-inline">
         @method('delete')
@@ -47,6 +47,89 @@
 
     <span class="btn btn-success"><a href="/pengumuman/pengumuman" class="card-link text-light">Kembali</a></span>
 
+    </div>
+       
+    <!-- Modal -->
+    <div class="modal fade" id="editPengumuman" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editPengumumanLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPengumumanLabel">Form Edit Pengumuman</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/pengumuman/pengumuman/{{ $pengumuman->id }}" style="width:50%"
+                    enctype="multipart/form-data">
+                    @method('patch')
+                    @csrf
+                        <div class="form-group">
+                            <label for="judul">Judul</label> 
+                            <input type="text" name="judul" value="{{ $pengumuman->judul }}" class="form-control @error('judul') is-invalid @enderror" 
+                            id="judul" placeholder="Masukkan Judul Pengumuman">
+                            @error ('judul')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label form="tanggal">Tanggal</label>
+                            <input type="date" name="tanggal" value="{{ $pengumuman->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror"
+                            id="tanggal">
+                            @error('tanggal')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="waktu">waktu</label> 
+                            <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
+                            id="waktu">
+                            @error ('waktu')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="isi" class="form-label">Isi Pengumuman</label>
+                            <input type="text" name="isi" value="{{ $pengumuman->isi }}" class="form-control @error('isi') is-invalid @enderror" 
+                            id="isi" placeholder="Masukkan Isi Pengumuman">
+                            @error ('isi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file" class="form-label">File</label>
+                            <label type="hidden" name="oldFile" value="{{$pengumuman->file}}"></label>
+                             @if($pengumuman->file)
+                                    <img src="{{ asset('storage/'.$pengumuman->file) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                                @else
+                                    <img class="img-preview img-fluid mb-3 col=sm-5">
+                                @endif
+                            <input type="file" name="file" value="{{ old ('file') }}" class="form-control @error('file') is-invalid @enderror" 
+                            id="file" placeholder="Masukkan file">
+                            @error ('file')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

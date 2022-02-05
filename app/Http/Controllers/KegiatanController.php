@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class KegiatanController extends Controller
 {
@@ -26,7 +27,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-        return view('pengurus/kegiatan/create-kegiatan');
+        return view('pengurus/kegiatan/kegiatan');
     }
 
     /**
@@ -81,7 +82,7 @@ class KegiatanController extends Controller
      */
     public function edit(Kegiatan $kegiatan)
     {
-        return view('pengurus.kegiatan.edit-kegiatan', compact('kegiatan'));
+        return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
     }
 
     /**
@@ -99,10 +100,14 @@ class KegiatanController extends Controller
             'waktu'         => 'required',
             'tempat'        => 'required',
             'deskripsi'     => 'required',
-            'image'         => 'required|image|mimes:jpg,jpeg,png|max:1024'
+            'image'         => 'required|file|mimes:jpg,jpeg,png|max:1024'
         ]);
         
+
         if($request->file('image')) {
+            if($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
             $validateData['image'] = $request->file('image')->store('images-kegiatan');
         }
 
@@ -139,8 +144,12 @@ class KegiatanController extends Controller
      */
     public function destroy(Kegiatan $kegiatan)
     {
+        if($kegiatan->image) {
+            Storage::delete($kegiatan->image);
+        }
+
         Kegiatan::destroy($kegiatan -> id);
 
-        return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Dihapus!');
+        return redirect('/kegiatan/kegiatan')-> with('alert', 'Data Kegiatan Berhasil Dihapus!');
     }
 }

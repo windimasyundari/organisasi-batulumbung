@@ -85,19 +85,19 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class=" in">
+                        <!-- <li class=" in">
                             <form role="search" class="app-search d-none d-md-block me-3">
                                 <input type="text" placeholder="Search..." class="form-control mt-0">
                                 <a href="" class="active">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </form>
-                        </li>
+                        </li> -->
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="#">
+                            <a class="profile-pic" href="/pengurus/pengurus-crud/profil-pengurus">
                                 <img src="{{asset('template')}}/plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle"><span class="text-white font-medium">Pengurus</span></a>
                         </li>

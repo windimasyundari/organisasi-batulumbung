@@ -221,7 +221,7 @@
                                     <th scope="row">{{ $loop->iteration}}</th>
                                     <td>{{$anggotakk->nik}}</td>
                                     <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$anggotakk->organisasi->jenis}}</td>
+                                    <td>{{$aanggotakk->organisasi->jenis}}</td>
                                     <td><a href="\anggota\sekaa-gong\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
