@@ -22,7 +22,6 @@ class AnggotaController extends Controller
     public function SekaaTeruna()
     {
         $anggota = Anggota::where('organisasi_id', '1')->paginate(10);
-        dd($anggota);
         return view('pengurus.anggota.sekaa-teruna', compact('anggota'));
     }
 
