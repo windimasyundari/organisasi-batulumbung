@@ -15,7 +15,7 @@ class OrganisasiController extends Controller
     public function index()
     {
         $organisasi = Organisasi::all();
-        return view('pengurus.organisasi.organisasi', compact('organisasi'));
+        return view('pengurus/organisasi/organisasi', compact('organisasi'));
     }
 
     /**
@@ -25,7 +25,7 @@ class OrganisasiController extends Controller
      */
     public function create()
     {
-        return view('pengurus.organisasi.create-organisasi');
+        return view('pengurus/organisasi/organisasi');
     }
 
     /**
@@ -48,17 +48,6 @@ class OrganisasiController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Organisasi  $organisasi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Organisasi $organisasi)
-    {
-        // return view('pengurus.organisasi.show-organisasi', compact('organisasi'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Organisasi  $organisasi
@@ -66,7 +55,7 @@ class OrganisasiController extends Controller
      */
     public function edit(Organisasi $organisasi)
     {
-        return view('pengurus.organisasi.edit-organisasi', compact('organisasi'));
+        return view('pengurus/organisasi/organisasi', compact('organisasi'));
     }
 
     /**
@@ -98,8 +87,8 @@ class OrganisasiController extends Controller
      */
     public function destroy(Organisasi $organisasi)
     {
-        Organisasi::destroy($organisasi -> id);
+        Organisasi::destroy($organisasi->id);
 
-        return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Dihapus!');
+        return redirect('/organisasi/organisasi')-> with('alert',' Data Organisasi Berhasil Dihapus!');
     }
 }

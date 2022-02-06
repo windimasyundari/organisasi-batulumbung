@@ -146,7 +146,7 @@
                                                 <option value="Tidak Aktif">Tidak Aktif</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group  " >
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Tambah</button>
                                         </div>
@@ -168,17 +168,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                             <!-- @forelse($pengurus as $penguruss)
+                                @forelse( $pengurus as $penguruss )
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
+                                    <td>{{$penguruss->id}}</td>
                                     <td>{{$penguruss->nama}}</td>
                                     <td>{{$penguruss->jabatan}}</td>
                                     <td>{{$penguruss->organisasi->jenis}}</td>
                                     <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
-                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
-                            @endforelse -->
+                                <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
                           
                             </tbody>
                         </table>

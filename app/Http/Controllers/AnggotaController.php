@@ -22,25 +22,25 @@ class AnggotaController extends Controller
     public function SekaaTeruna()
     {
         $anggota = Anggota::where('organisasi_id', '1')->paginate(10);
-        return view('/pengurus/anggota/sekaa-teruna', compact('anggota'));
+        return view('pengurus.anggota.sekaa-teruna', compact('anggota'));
     }
 
     public function SekaaGong()
     {
         $anggota = Anggota::where('organisasi_id', '2')->paginate(10);
-        return view('/pengurus/anggota/sekaa-gong', compact('anggota'));
+        return view('pengurus/anggota/sekaa-gong', compact('anggota'));
     }
 
     public function SekaaSanti()
     {
         $anggota = Anggota::where('organisasi_id', '3')->paginate(10);
-        return view('/pengurus/anggota/sekaa-santi', compact('anggota'));
+        return view('pengurus/anggota/sekaa-santi', compact('anggota'));
     }
 
     public function PKK()
     {
         $anggota = Anggota::where('organisasi_id', '4')->paginate(10);
-        return view('/pengurus/anggota/pkk', compact('anggota'));
+        return view('pengurus/anggota/pkk', compact('anggota'));
     }
 
     /**
@@ -220,19 +220,19 @@ class AnggotaController extends Controller
      */
     public function editSekaaTeruna(Anggota $anggota)
     {
-        return view('pengurus.anggota.edit-sekaateruna', compact('anggota'));
+        return view('pengurus/anggota/show-sekaateruna', compact('anggota'));
     }
     public function editSekaaGong(Anggota $anggota)
     {
-        return view('pengurus.anggota.edit-sekaagong', compact('anggota'));
+        return view('pengurus/anggota/show-sekaagong', compact('anggota'));
     }
     public function editSekaaSanti(Anggota $anggota)
     {
-        return view('pengurus.anggota.edit-sekaasanti', compact('anggota'));
+        return view('pengurus/anggota/show-sekaasanti', compact('anggota'));
     }
     public function editPKK(Anggota $anggota)
     {
-        return view('pengurus.anggota.edit-pkk', compact('anggota'));
+        return view('pengurus/anggota/show-pkk', compact('anggota'));
     }
 
     /**

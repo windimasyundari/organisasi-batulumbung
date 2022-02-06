@@ -49,17 +49,17 @@ use App\Models\Absensi;
     // Anggota
     // Route::get('/anggota/anggota', 'App\Http\Controllers\AnggotaController@index');
     //index anggota
-    Route::get('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@SekaaTeruna');
+    Route::get('/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@SekaaTeruna');
     Route::get('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@SekaaGong');
     Route::get('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@SekaaSanti');
     Route::get('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@PKK');
     //tambah anggota
-    Route::get('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@createSekaaTeruna');
-    Route::get('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@createSekaaGong');
-    Route::get('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@createSekaaSanti');
-    Route::get('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@createPKK');
+    // Route::get('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@createSekaaTeruna');
+    // Route::get('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@createSekaaGong');
+    // Route::get('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@createSekaaSanti');
+    // Route::get('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@createPKK');
 
-    Route::post('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@storeSekaaTeruna');
+    Route::post('/pengurus/anggota/sekaa-teruna', 'App\Http\Controllers\AnggotaController@storeSekaaTeruna')->name('tambahSekaaTeruna');
     Route::post('/pengurus/anggota/sekaa-gong', 'App\Http\Controllers\AnggotaController@storeSekaaGong');
     Route::post('/pengurus/anggota/sekaa-santi', 'App\Http\Controllers\AnggotaController@storeSekaaSanti');
     Route::post('/pengurus/anggota/pkk', 'App\Http\Controllers\AnggotaController@storePKK');
@@ -100,11 +100,10 @@ use App\Models\Absensi;
 
 // Organisasi
 Route::get('/organisasi/organisasi', 'App\Http\Controllers\OrganisasiController@index');
-Route::get('/pengurus/organisasi/create-organisasi', 'App\Http\Controllers\OrganisasiController@create');
-// Route::get('/organisasi/organisasi/{organisasi}', 'App\Http\Controllers\OrganisasiController@show');
-Route::post('/pengurus/organisasi/create-organisasi', 'App\Http\Controllers\OrganisasiController@store');
-Route::delete('/organisasi/{organisasi}', 'App\Http\Controllers\OrganisasiController@destroy');
-Route::get('/organisasi/{organisasi}/edit', 'App\Http\Controllers\OrganisasiController@edit');
+Route::get('/pengurus/organisasi/organisasi', 'App\Http\Controllers\OrganisasiController@create');
+Route::post('/pengurus/organisasi/organisasi', 'App\Http\Controllers\OrganisasiController@store');
+Route::delete('/organisasi/organisasi/{organisasi}', 'App\Http\Controllers\OrganisasiController@destroy');
+Route::get('/organisasi/organisasi/{organisasi}/edit', 'App\Http\Controllers\OrganisasiController@edit');
 Route::patch('/organisasi/organisasi/{organisasi}', 'App\Http\Controllers\OrganisasiController@update');
 
 // Kegiatan

@@ -49,15 +49,15 @@
         </tr> 
     </table>
 
-        <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editKegiatan">EDIT</a>
+        <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editKegiatan">Edit</a>
 
         <form action="{{ $kegiatan->id }}" method="post" class="d-inline">
             @method('delete')
             @csrf
-            <button type="submit" class="btn btn-danger text-light">DELETE</button>
+            <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>
         
-        <a href="{{url('')}}/kegiatan/kegiatan_pdf/{id}" target="_blank" class="btn btn-warning text-light"> DOWNLOAD</a>
+        <a href="{{url('')}}/kegiatan/kegiatan_pdf/{id}" target="_blank" class="btn btn-warning text-light"> Download</a>
         <a href="/kegiatan/kegiatan" class=" btn btn-success card-link text-light">Kembali</a>
        
     </div>

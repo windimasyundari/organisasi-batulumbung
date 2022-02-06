@@ -28,20 +28,20 @@
                 </form>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahAnggota">
                 Tambah Data
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="tambahAnggota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahAnggotaLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Data</h5>
+                            <h5 class="modal-title" id="tambahAnggotaLabel">Form Tambah Data</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                             <div class="modal-body">
-                            <form method="post" action="/pengurus/anggota/sekaa-teruna" style="width:100%">
+                            <form method="post" name="formTambahData" action="{{ route ('tambahSekaaTeruna') }}" style="width:100%">
                                 @csrf
                                     <div class="form-group">
                                         <label for="nama">Nama</label> 
@@ -215,13 +215,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($anggota as $anggotakk)
+                            @forelse($anggota as $anggotas)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$anggotakk->nik}}</td>
-                                    <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$anggotakk->organisasi->jenis}}</td>
-                                    <td><a href="\anggota\sekaa-teruna\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <td>{{$anggotas->nik}}</td>
+                                    <td>{{$anggotas->nama}}</td>
+                                    <td>{{$anggotas->organisasi->jenis}}</td>
+                                    <td><a href="\anggota\sekaa-teruna\{{ $anggotas->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
                                 <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
@@ -230,11 +230,12 @@
                             </tbody>
                         </table>
 
-                        Halaman : {{ $anggota->currentPage() }} <br/>
-                        Total Data :  {{ $anggota->total() }} <br/>
-                        Data Per Halaman : {{ $anggota->perPage() }} <br/> <br>
+                            Halaman : {{ $anggota->currentPage() }} <br/>
+                            Total Data :  {{ $anggota->total() }} <br/>
+                            Data Per Halaman : {{ $anggota->perPage() }} <br/> <br>
 
-                        {{ $anggota->links() }}     
+                            {{ $anggota->links() }}   
+                          
                     </div>
                 </div>
             </div>
