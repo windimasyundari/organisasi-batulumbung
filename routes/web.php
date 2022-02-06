@@ -20,13 +20,13 @@ use App\Models\Absensi;
 //     return view('welcome');
 // });
 
-    // Route::get('/', function () {
-    //     return view('pengurus/login');
-    // });
+    Route::get('/', function () {
+        return view('pengurus/login');
+    });
 
-Route::get('/', function () {
-    return view('pengurus/dashboard');
-});
+// Route::get('/', function () {
+//     return view('pengurus/dashboard');
+// });
 
 //Route::middleware(['guest'])->group(function (){
     // Login
@@ -109,9 +109,9 @@ Route::patch('/organisasi/organisasi/{organisasi}', 'App\Http\Controllers\Organi
 
 // Kegiatan
 Route::get('/kegiatan/kegiatan', 'App\Http\Controllers\KegiatanController@index');
-Route::get('/pengurus/kegiatan/create-kegiatan', 'App\Http\Controllers\KegiatanController@create');
+Route::get('/pengurus/kegiatan/kegiatan', 'App\Http\Controllers\KegiatanController@create');
 Route::get('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@show');
-Route::post('/pengurus/kegiatan/create-kegiatan', 'App\Http\Controllers\KegiatanController@store');
+Route::post('/pengurus/kegiatan/kegiatan', 'App\Http\Controllers\KegiatanController@store');
 Route::delete('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@destroy');
 Route::get('/kegiatan/kegiatan/{kegiatan}/edit', 'App\Http\Controllers\KegiatanController@edit');
 Route::patch('/kegiatan/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@update');
@@ -120,9 +120,9 @@ Route::get('/kegiatan/kegiatan_pdf/{id}', 'App\Http\Controllers\KegiatanControll
 
 // Pengumuman
 Route::get('/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@index');
-Route::get('/pengurus/pengumuman/create-pengumuman', 'App\Http\Controllers\PengumumanController@create');
+Route::get('/pengurus/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@create');
 Route::get('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@show');
-Route::post('/pengurus/pengumuman/create-pengumuman', 'App\Http\Controllers\PengumumanController@store');
+Route::post('/pengurus/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@store');
 Route::delete('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@destroy');
 Route::get('/pengumuman/pengumuman/{pengumuman}/edit', 'App\Http\Controllers\PengumumanController@edit');
 Route::patch('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@update');

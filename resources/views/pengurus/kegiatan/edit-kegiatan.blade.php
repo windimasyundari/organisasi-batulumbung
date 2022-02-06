@@ -75,6 +75,11 @@
 
             <div class="form-group">
                 <label for="image" class="form-label">Image</label>
+                @if($kegiatan->image)
+                    <img src="{{ asset('storage/'.$kegiatan->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                @else
+                    <img class="img-preview img-fluid mb-3 col=sm-5">
+                @endif
                 <input type="file" name="image" value="{{ $kegiatan->image }}" class="form-control @error('image') is-invalid @enderror" 
                 id="image">
                 @error ('image')
@@ -85,6 +90,7 @@
             </div>
             
             <button type="submit" class="btn btn-primary">Edit Data</button>
+            <a href="/kegiatan/kegiatan" class=" btn btn-danger card-link text-light">Batal</a>
         </form>
     </div>
 </div>

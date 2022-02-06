@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
@@ -15,7 +16,7 @@ class PengumumanController extends Controller
     public function index()
     {
         $pengumuman = Pengumuman::paginate(10);
-        return view('pengurus.pengumuman.pengumuman', compact('pengumuman'));
+        return view('pengurus/pengumuman/pengumuman', compact('pengumuman'));
     }
 
     /**
@@ -25,7 +26,7 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        return view('pengurus.pengumuman.create-pengumuman');
+        return view('pengurus/pengumuman/pengumuman');
     }
 
     /**
@@ -63,7 +64,7 @@ class PengumumanController extends Controller
      */
     public function show(Pengumuman $pengumuman)
     {
-        return view('pengurus.pengumuman.show-pengumuman', compact('pengumuman'));
+        return view('pengurus/pengumuman/show-pengumuman', compact('pengumuman'));
     }
 
     /**
@@ -74,7 +75,7 @@ class PengumumanController extends Controller
      */
     public function edit(Pengumuman $pengumuman)
     {
-        return view('pengurus.pengumuman.edit-pengumuman', compact('pengumuman'));
+        return view('pengurus/pengumuman/show-pengumuman', compact('pengumuman'));
     }
 
     /**
@@ -89,12 +90,15 @@ class PengumumanController extends Controller
         $validateData = $request->validate([
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
-            'waktu'   => 'required',
+            'waktu'     => 'required',
             'isi'       => 'required',
             'file'      => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
+             if($request->oldFile) {
+                Storage::delete($request->oldFile);
+            }
             $validateData['file'] = $request->file('file')->store('files-pengumuman');
         }
 
@@ -128,8 +132,12 @@ class PengumumanController extends Controller
      */
     public function destroy(Pengumuman $pengumuman)
     {
+        if($pengumuman->file) {
+            Storage::delete($pengumuman->file);
+        }
+
         Pengumuman::destroy($pengumuman -> id);
 
-        return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Dihapus!');
+        return redirect('/pengumuman/pengumuman')-> with('alert', 'Data Pengumuman Berhasil Dihapus!');
     }
 }
