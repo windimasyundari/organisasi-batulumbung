@@ -92,7 +92,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="/anggota/sekaa-santi/{{ $anggota->id }}" style="width:50%">
+                <form method="post" action="/anggota/sekaa-santi/{{ $anggota->id }}" style="width:100%">
                 @method('patch')
                 @csrf
                     <div class="form-group">

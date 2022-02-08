@@ -32,6 +32,16 @@
                 Tambah Data
                 </button>
 
+                @if (session('status'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('alert'))
+                    <div class="alert alert-danger mt-3">
+                        {{ session('alert') }}
+                    </div>
+                @endif
+
                 <!-- Modal -->
                 <div class="modal fade" id="tambahAnggota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahAnggotaLabel" aria-hidden="true">
                 <div class="modal-dialog">

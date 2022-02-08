@@ -32,6 +32,16 @@
                 Tambah Data
                 </button>
 
+                @if (session('status'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('alert'))
+                    <div class="alert alert-danger mt-3">
+                        {{ session('alert') }}
+                    </div>
+                @endif
+
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -42,7 +52,7 @@
                     </div>
 
                     <div class="modal-body">
-                    <form method="post" action="/pengurus/anggota/sekaa-santi" style="width:100%">
+                    <form method="post" action="{{ route ('tambahSekaaSanti') }}" style="width:100%">
                         @csrf
                             <div class="form-group">
                                 <label for="nama">Nama</label> 
@@ -139,7 +149,6 @@
                                     <option value="Laki-Laki">Laki-Laki</option>
                                     <option valie="Perempuan">Perempuan</option>
                                 </select>
-                            
                             </div>
 
                             <div class="form-group">
@@ -217,13 +226,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($anggota as $anggotakk)
+                            @forelse($anggota as $anggotas)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$anggotakk->nik}}</td>
-                                    <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$anggotakk->organisasi->jenis}}</td>
-                                    <td><a href="\anggota\sekaa-santi\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <td>{{$anggotas->nik}}</td>
+                                    <td>{{$anggotas->nama}}</td>
+                                    <td>{{$anggotas->organisasi->jenis}}</td>
+                                    <td><a href="\anggota\sekaa-santi\{{ $anggotas->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
                                 <td colspan="5" class="table-active text-center">Tidak Ada Data</td>

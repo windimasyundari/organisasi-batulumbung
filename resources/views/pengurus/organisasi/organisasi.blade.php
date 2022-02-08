@@ -49,7 +49,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="/pengurus/organisasi/organisasi" style="width:100%">
+                                <form name="form-tambah" id="form-tambah" method="post" action="{{ route ('tambahOrganisasi') }}" style="width:100%">
                                 @csrf
                                     <div class="form-group">
                                         <label for="jenis">Jenis</label> 
@@ -114,7 +114,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="/pengurus/organisasi/organisasi" style="width:100%">
+                                <form name="form-edit" id="form-edit" method="post" action="/pengurus/organisasi/organisasi" style="width:100%">
+                                @method('patch')
                                 @csrf
                                     <div class="form-group1">
                                         <label for="jenis">Jenis Organisasi</label> 

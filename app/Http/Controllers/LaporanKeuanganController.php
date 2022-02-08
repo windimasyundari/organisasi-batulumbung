@@ -25,10 +25,10 @@ class LaporanKeuanganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('pengurus.laporan.create-laporan-keuangan');
-    }
+    // public function create()
+    // {
+    //     return view('pengurus.laporan.laporan-keuangan');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -38,7 +38,7 @@ class LaporanKeuanganController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'jmlh_pemasukan'    => 'required',
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
@@ -47,14 +47,7 @@ class LaporanKeuanganController extends Controller
             'pengurus_id'       => 'required'
         ]);
 
-        LaporanKeuangan :: create([
-            'jmlh_pemasukan'    => $request->jmlh_pemasukan,
-            'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
-            'tanggal'           => $request->tanggal,
-            'keterangan'        => $request->keterangan,
-            'kegiatan_id'       => $request->kegiatan_id,
-            'pengurus_id'       => $request->pengurus_id
-        ]); 
+        LaporanKeuangan :: create($validateData); 
         
         return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Ditambahkan!');
     }
@@ -81,10 +74,10 @@ class LaporanKeuanganController extends Controller
      * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
      * @return \Illuminate\Http\Response
      */
-    public function edit(LaporanKeuangan $laporanKeuangan)
-    {
-        return view('pengurus.laporan.edit-laporan-keuangan', compact('laporan_keuangan'));
-    }
+    // public function edit(LaporanKeuangan $laporanKeuangan)
+    // {
+    //     return view('pengurus.laporan.edit-laporan-keuangan', compact('laporan_keuangan'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -95,7 +88,7 @@ class LaporanKeuanganController extends Controller
      */
     public function update(Request $request, LaporanKeuangan $laporanKeuangan)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'jmlh_pemasukan'    => 'required',
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
@@ -105,14 +98,7 @@ class LaporanKeuanganController extends Controller
         ]);
         
         LaporanKeuangan::where('id', $laporan_keuangan -> id)
-                ->update([
-                    'jmlh_pemasukan'    =>$request->jmlh_pemasukan,
-                    'jmlh_pengeluaran'  =>$request->jmlh_pengeluaran,
-                    'tanggal'           =>$request->tanggal,
-                    'keterangan'        =>$request->keterangan,
-                    'kegiatan_id'       =>$request->kegiatan_id,
-                    'pengurus_id'       =>$request->pengurus_id
-                ]);
+                ->update($validateData);
 
             return redirect('/laporan.laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Diubah!');
     }
@@ -132,6 +118,6 @@ class LaporanKeuanganController extends Controller
     {
         LaporanKeuangan::destroy($laporan_keuangan->id);
 
-        return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Dihapus!');
+        return redirect('/laporan/laporan-keuangan')-> with('alert', 'Data Laporan Keuangan Berhasil Dihapus!');
     }
 }

@@ -24,10 +24,10 @@ class PengurusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('pengurus/pengurus-crud/pengurus');
-    }
+    // public function create()
+    // {
+    //     return view('pengurus/pengurus-crud/pengurus');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +37,7 @@ class PengurusController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'              => 'required',
             'jabatan'           => 'required',
             'email'             => 'required',
@@ -50,17 +50,7 @@ class PengurusController extends Controller
             'status'            => 'required'
         ]);
 
-        Pengurus :: create([
-            'nama'              => $request->nama,
-            'jabatan'           => $request->jabatan,
-            'email'             => $request->email,
-            'password'          => Hash::make($request->password),
-            'no_telp'           => $request->no_telp,
-            'jenis_kelamin'     => $request->jenis_kelamin,
-            'alamat'            => $request->alamat,
-            'organisasi_id'     => $request->organisasi_id,
-            'status'            => $request->status
-        ]); 
+        Pengurus :: create($validateData); 
 
         return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
     }
@@ -73,7 +63,7 @@ class PengurusController extends Controller
      */
     public function show(Pengurus $pengurus)
     {
-        return view('pengurus/pengurus-crud/show-pengurus', compact('pengurus'));
+        return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
     }
 
     /**
@@ -82,10 +72,10 @@ class PengurusController extends Controller
      * @param  \App\Models\Pengurus  $pengurus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengurus $pengurus)
-    {
-        return view('pengurus/pengurus-crud/edit-pengurus', compact('pengurus'));
-    }
+    // public function edit(Pengurus $pengurus)
+    // {
+    //     return view('pengurus/pengurus-crud/edit-pengurus', compact('pengurus'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -96,7 +86,7 @@ class PengurusController extends Controller
      */
     public function update(Request $request, Pengurus $pengurus)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'          => 'required',
             'jabatan'       => 'required',
             'email'         => 'required',
@@ -109,17 +99,7 @@ class PengurusController extends Controller
         ]);
         
         Pengurus::where('id', $pengurus->id)
-                ->update([
-                    'nama'          => $request->nama,
-                    'jabatan'       => $request->jabatan,
-                    'email'         => $request->email,
-                    'password'      => $request->password,
-                    'no_telp'       => $request->no_telp,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'alamat'        => $request->alamat,
-                    'organisasi_id' => $request->organisasi_id,
-                    'status'        => $request->status
-                ]);
+                ->update($validateData);
 
             return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Diubah!');
     }
@@ -134,6 +114,6 @@ class PengurusController extends Controller
     {
         Pengurus::destroy($pengurus -> id);
 
-        return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Dihapus!');
+        return redirect('/pengurus-crud/pengurus')-> with('alert', 'Data Pengurus Berhasil Dihapus!');
     }
 }
