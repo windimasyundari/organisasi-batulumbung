@@ -17,15 +17,30 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <!-- <a href="/pengurus/pengurus-crud/pengurus" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
+                <form class="form mb-3" method="get" action="{{ route ('cariPengurus') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control">
+                                    <option value="">Filter Organisasi</option>
+                                    <option value="Sekaa Teruna">Sekaa Teruna</option>
+                                    <option value="Sekaa Santi">Sekaa Santi</option>
+                                    <option value="Sekaa Gong">Sekaa Gong</option>
+                                    <option value="PKK">PKK</option>
+                                </select>
+                            </div>
                         </div>
-                    @endif -->
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                                <input type="text" name="cariPengurus" class="form-control w-75 d-inline" id="cariPengurus" placeholder="Cari Nama ...">
+                                <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                            </div>  
+                        </div>
+                    </div>                    
+                </form>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahPengurus">
                 Tambah Data
                 </button>
 
@@ -40,15 +55,15 @@
                 @endif
 
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="tambahPengurus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahPengurusLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Data</h5>
+                                <h5 class="modal-title" id="tambahPengurusLabel">Form Tambah Data</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                                 <div class="modal-body">
-                                <form method="post" action="/pengurus/pengurus-crud/pengurus" style="width:100%">
+                                <form method="post" action="{{ route ('tambahPengurus')}}" style="width:100%">
                                     @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label> 
@@ -139,7 +154,7 @@
 
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                                            <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
+                                            <select name="jenis" class="form-control" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
                                                 <option value="1">Sekaa Teruna</option>
                                                 <option value="2">Sekaa Gong</option>
@@ -188,7 +203,7 @@
                                     <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
-                                <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
                             @endforelse
                           
                             </tbody>

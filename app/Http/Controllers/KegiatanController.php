@@ -136,6 +136,19 @@ class KegiatanController extends Controller
         // return $pdf->download('laporan-kegiatan.pdf');
     }
 
+    public function cariKegiatan(Request $request)
+	{
+		// menangkap data pencarian
+		$cariKegiatan = $request->cariKegiatan;
+ 
+    	// mengambil data dari table Kegiatan sesuai pencarian data
+        $kegiatan = Kegiatan::where('nama_kegiatan', 'like', "%" .$cariKegiatan ."%")->paginate(10);
+ 
+    	// mengirim data Kegiatan ke view index
+		return view('Pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan]);
+ 
+    }
+
     /**
      * Remove the specified resource from storage.
      *

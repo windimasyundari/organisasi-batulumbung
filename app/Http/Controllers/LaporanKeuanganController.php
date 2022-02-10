@@ -86,9 +86,9 @@ class LaporanKeuanganController extends Controller
      * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LaporanKeuangan $laporanKeuangan)
+    public function update(Request $request, LaporanKeuangan $laporan_keuangan)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'jmlh_pemasukan'    => 'required',
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
@@ -97,10 +97,17 @@ class LaporanKeuanganController extends Controller
             'pengurus_id'       => 'required'
         ]);
         
-        LaporanKeuangan::where('id', $laporan_keuangan -> id)
-                ->update($validateData);
+        LaporanKeuangan::where('id', $laporan_keuangan->id)
+                ->update([
+            'jmlh_pemasukan'    => $request->jmlh_pemasukan,
+            'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
+            'tanggal'           => $request->tanggal,
+            'keterangan'        => $request->keterangan,
+            'kegiatan_id'       => $request->kegiatan_id,
+            'pengurus_id'       => $request->pengurus_id
+            ]);
 
-            return redirect('/laporan.laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Diubah!');
+            return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Diubah!');
     }
 
     public function export_excel()

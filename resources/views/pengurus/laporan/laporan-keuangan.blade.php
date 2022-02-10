@@ -66,20 +66,105 @@
                                     <td>{{$laporan_keuangan->keterangan}}</td>
                                     <td>{{$laporan_keuangan->kegiatan_id}}</td>
                                     <td>{{$laporan_keuangan->pengurus_id}}</td>
-                                    <td><a href="/laporan-keuangan/{{ $laporan_keuangan->id }}/edit" class="btn btn-primary" data-toggle="modal" data-target="#editData"><i class="bi bi-pencil-square"></i></a> | 
-                                        <form action="/laporan-keuangan/{{ $laporan_keuangan->id }}" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>
-                                        </form>    
-                                    </td>
-                                </tr>
-                                @empty
-                                <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
-                            @endforelse
-                            <tbody>
-                        </table>
-                    </div>
+                                    <td><a href="laporan/laporan-keuangan/{{ $laporan_keuangan->id }}" class="btn btn-primary" data-toggle="modal" data-target="#editData{{ $laporan_keuangan->id }}"><i class="bi bi-pencil-square"></i></a> | 
+                                    <div class="modal fade" id="editData{{ $laporan_keuangan->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editDataLabel">Form Edit Data</h5>
+                                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <form method="post" action="{{ route ('editLaporan', $laporan_keuangan->id)}}" style="width:100%">
+                                                @method('patch')
+                                                @csrf
+                                                <div class="form-group">
+                                                        <label for="jmlh_pemasukan">Jumlah Pemasukkan</label> 
+                                                        <input type="text" name="jmlh_pemasukan" value="{{ ($laporan_keuangan->jmlh_pemasukan) }}" class="form-control @error('jmlh_pemasukan') is-invalid @enderror" 
+                                                        id="jmlh_pemasukan" placeholder="Masukkan Jumlah Pemasukan">
+                                                        @error ('jmlh_pemasukan')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="jmlh_pengeluaran">Jumlah Pengeluaran</label> 
+                                                        <input type="text" name="jmlh_pengeluaran" value="{{ $laporan_keuangan->jmlh_pengeluaran }}" class="form-control @error('jmlh_pengeluaran') is-invalid @enderror" 
+                                                        id="jmlh_pengeluaran" placeholder="Masukkan Jumlah Pengeluaran">
+                                                        @error ('jmlh_pengeluaran')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="tanggal">Tanggal</label> 
+                                                        <input type="date" name="tanggal" value="{{ $laporan_keuangan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" 
+                                                        id="tanggal">
+                                                        @error ('tanggal')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="keterangan">Keterangan</label> 
+                                                        <input type="text" name="keterangan" value="{{ $laporan_keuangan->keterangan }}" class="form-control @error('keterangan') is-invalid @enderror" 
+                                                        id="keterangan" placeholder="Masukkan Keterangan">
+                                                        @error ('keterangan')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="kegiatan_id" class="form-label">ID Kegiatan</label>
+                                                        <input type="text" name="kegiatan_id" value="{{ $laporan_keuangan->kegiatan_id }}" class="form-control @error('kegiatan_id') is-invalid @enderror" 
+                                                        id="kegiatan_id" placeholder="Masukkan ID Kegiatan">
+                                                        @error ('kegiatan_id')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="pengurus_id" class="form-label">ID Pengurus</label>
+                                                        <input type="text" name="pengurus_id" value="{{ $laporan_keuangan->pengurus_id }}" class="form-control @error('pengurus_id') is-invalid @enderror" 
+                                                        id="pengurus_id" placeholder="Masukkan ID Pengurus">
+                                                        @error ('pengurus_id')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-danger text-light" data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="/laporan/laporan-keuangan/{{ $laporan_keuangan->id }}" method="post" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>
+                                </form>    
+                            </td>
+                        </tr>
+                        @empty
+                        <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
+                    @endforelse
+                    <tbody>
+                </table>
+            </div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="tambahData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
@@ -166,94 +251,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Edit Data -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="editData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editDataLabel">Form Edit Data</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                <form method="post" action="/pengurus/laporan/laporan-keuangan" style="width:100%">
-                                @method('patch')
-                                @csrf
-                                <div class="form-group">
-                                        <label for="jmlh_pemasukan">Jumlah Pemasukkan</label> 
-                                        <input type="text" name="jmlh_pemasukan" value="{{ ($laporan_keuangan->jmlh_pemasukan) }}" class="form-control @error('jmlh_pemasukan') is-invalid @enderror" 
-                                        id="jmlh_pemasukan" placeholder="Masukkan Jumlah Pemasukan">
-                                        @error ('jmlh_pemasukan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="jmlh_pengeluaran">Jumlah Pengeluaran</label> 
-                                        <input type="text" name="jmlh_pengeluaran" value="{{ $laporan_keuangan->jmlh_pengeluaran }}" class="form-control @error('jmlh_pengeluaran') is-invalid @enderror" 
-                                        id="jmlh_pengeluaran" placeholder="Masukkan Jumlah Pengeluaran">
-                                        @error ('jmlh_pengeluaran')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="tanggal">Tanggal</label> 
-                                        <input type="date" name="tanggal" value="{{ $laporan_keuangan->tanggal }}" class="form-control @error('tanggal') is-invalid @enderror" 
-                                        id="tanggal">
-                                        @error ('tanggal')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label> 
-                                        <input type="text" name="keterangan" value="{{ $laporan_keuangan->keterangan }}" class="form-control @error('keterangan') is-invalid @enderror" 
-                                        id="keterangan" placeholder="Masukkan Keterangan">
-                                        @error ('keterangan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="kegiatan_id" class="form-label">ID Kegiatan</label>
-                                        <input type="text" name="kegiatan_id" value="{{ $laporan_keuangan->kegiatan_id }}" class="form-control @error('kegiatan_id') is-invalid @enderror" 
-                                        id="kegiatan_id" placeholder="Masukkan ID Kegiatan">
-                                        @error ('kegiatan_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="pengurus_id" class="form-label">ID Pengurus</label>
-                                        <input type="text" name="pengurus_id" value="{{ $laporan_keuangan->pengurus_id }}" class="form-control @error('pengurus_id') is-invalid @enderror" 
-                                        id="pengurus_id" placeholder="Masukkan ID Pengurus">
-                                        @error ('pengurus_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
   
                 </div>
             </div>

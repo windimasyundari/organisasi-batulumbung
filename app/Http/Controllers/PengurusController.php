@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DB;
+use Auth;
 
 class PengurusController extends Controller
 {
@@ -15,19 +17,25 @@ class PengurusController extends Controller
      */
     public function index()
     {
-        $pengurus = Pengurus::get();
+        $pengurus = Pengurus::paginate(10);
         return view('pengurus.pengurus-crud.pengurus', compact('pengurus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     return view('pengurus/pengurus-crud/pengurus');
-    // }
+    public function cariPengurus(Request $request)
+	{
+		// menangkap data pencarian
+		$cariPengurus = $request->cariPengurus;
+ 
+    	// mengambil data dari table absensi sesuai pencarian data
+		// $pengurus = DB::table('pengurus')
+		// ->where('nama','like',"%".$cariPengurus."%")
+        // ->paginate(10);
+        $pengurus = Pengurus::where('nama', 'like', "%" .$cariPengurus ."%")->paginate(10);
+ 
+    	// mengirim data pengurus ke view index
+		return view('pengurus/pengurus-crud/pengurus', ['pengurus' => $pengurus]);
+ 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -66,16 +74,15 @@ class PengurusController extends Controller
         return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pengurus  $pengurus
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(Pengurus $pengurus)
+    // public function profil()
     // {
-    //     return view('pengurus/pengurus-crud/edit-pengurus', compact('pengurus'));
+    //     dd(Auth::id());
+    //     dd($iduser);
+    //     $pengurus = Pengurus::where('id', $iduser)->get();
+    //     dd($pengurus);
+    //     return view('pengurus.pengurus-crud.profil-pengurus', compact('pengurus'));
     // }
+
 
     /**
      * Update the specified resource in storage.

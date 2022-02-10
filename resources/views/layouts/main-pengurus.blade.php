@@ -97,7 +97,7 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="/pengurus/pengurus-crud/profil-pengurus">
+                            <a class="profile-pic" href="/pengurus-crud/profil-pengurus">
                                 <img src="{{asset('template')}}/plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle"><span class="text-white font-medium">Pengurus</span></a>
                         </li>

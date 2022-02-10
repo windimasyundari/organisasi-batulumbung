@@ -122,6 +122,19 @@ class PengumumanController extends Controller
         $pathToFile = public_path('storage/' . $file->file);
         return response()->download($pathToFile, $file->file_name);
     }
+
+    public function cariPengumuman(Request $request)
+	{
+		// menangkap data pencarian
+		$cariPengumuman = $request->cariPengumuman;
+ 
+    	// mengambil data dari table pengumuman sesuai pencarian data
+        $pengumuman = Pengumuman::where('judul', 'like', "%" .$cariPengumuman ."%")->paginate(10);
+ 
+    	// mengirim data Pengumuman ke view index
+		return view('Pengurus/pengumuman/pengumuman', ['pengumuman' => $pengumuman]);
+ 
+    }
        
 
     /**

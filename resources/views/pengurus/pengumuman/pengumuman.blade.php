@@ -17,104 +17,104 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                   <!--  <a href="/pengurus/pengumuman/create-pengumuman" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
+                <form class="form mb-3" method="get" action="{{ route ('cariPengumuman') }}">
+                    <div class="col-md-6">
+                        <input type="text" name="cariPengumuman" class="form-control w-75 d-inline" id="cariPengumuman" placeholder="Cari Judul ...">
+                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                    </div>                    
+                </form>
 
-                     <!-- Tambah Data -->
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahData">
-                    Tambah Data
-                    </button>
+                <!-- Tambah Data -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahData">
+                Tambah Data
+                </button>
 
-                     @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
-                        </div>
-                        @elseif (session('alert'))
-                        <div class="alert alert-danger mt-3">
-                            {{ session('alert') }}
-                        </div>
-                    @endif
+                @if (session('status'))
+                <div class="alert alert-success mt-3">
+                    {{ session('status') }}
+                </div>
+                @elseif (session('alert'))
+                <div class="alert alert-danger mt-3">
+                    {{ session('alert') }}
+                </div>
+                @endif
 
-                     <!-- Modal -->
-                    <div class="modal fade" id="tambahData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="tambahDataLabel">Form Tambah Data</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                     <form method="post" action="/pengurus/pengumuman/pengumuman" style="width:100%"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                            <div class="form-group">
-                                                <label for="judul">Judul</label> 
-                                                <input type="text" name="judul" value="{{ old ('judul') }}" class="form-control @error('judul') is-invalid @enderror" 
-                                                id="judul" placeholder="Masukkan Judul">
-                                                @error ('judul')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                <!-- Modal -->
+                <div class="modal fade" id="tambahData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="tambahDataLabel">Form Tambah Data</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                    <form method="post" action="/pengurus/pengumuman/pengumuman" style="width:100%"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                        <div class="form-group">
+                                            <label for="judul">Judul</label> 
+                                            <input type="text" name="judul" value="{{ old ('judul') }}" class="form-control @error('judul') is-invalid @enderror" 
+                                            id="judul" placeholder="Masukkan Judul">
+                                            @error ('judul')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
+                                            @enderror
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="tanggal">Tanggal</label> 
-                                                <input type="date" name="tanggal" value="{{ old ('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror" 
-                                                id="tanggal">
-                                                @error ('tanggal')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                        <div class="form-group">
+                                            <label for="tanggal">Tanggal</label> 
+                                            <input type="date" name="tanggal" value="{{ old ('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror" 
+                                            id="tanggal">
+                                            @error ('tanggal')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
+                                            @enderror
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="waktu">waktu</label> 
-                                                <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
-                                                id="waktu">
-                                                @error ('waktu')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                        <div class="form-group">
+                                            <label for="waktu">waktu</label> 
+                                            <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
+                                            id="waktu">
+                                            @error ('waktu')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
+                                            @enderror
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="isi" class="form-label">Isi Pengumuman</label>
-                                                <input type="text" name="isi" value="{{ old ('isi') }}" class="form-control @error('isi') is-invalid @enderror" 
-                                                id="isi" placeholder="Masukkan Isi">
-                                                @error ('isi')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                        <div class="form-group">
+                                            <label for="isi" class="form-label">Isi Pengumuman</label>
+                                            <input type="text" name="isi" value="{{ old ('isi') }}" class="form-control @error('isi') is-invalid @enderror" 
+                                            id="isi" placeholder="Masukkan Isi">
+                                            @error ('isi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
+                                            @enderror
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="file" class="form-label">File</label>
-                                                <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" 
-                                                id="file">
-                                                @error ('file')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
+                                        <div class="form-group">
+                                            <label for="file" class="form-label">File</label>
+                                            <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" 
+                                            id="file">
+                                            @error ('file')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
                                             </div>
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Tambah</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Tambah</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
                     <div class="table-responsive mt-3">

@@ -17,12 +17,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form class="form" method="get" action="{{ route ('cariAnggota') }}">
-                    <div class="col-lg-3 ms-auto">
-                        <input type="text" name="cariAnggota" class="form-control w-75 d-inline" id="cariAnggota" placeholder="Masukkan Anggota">
-                        <!-- <a href="{ route ('cari') }" class="active">
-                            <i class="fa fa-search"></i>
-                        </a> -->
+                <form class="form" method="get" action="{{ route ('cariSekaaSanti') }}">
+                    <div class="col-md-6 ms-auto">
+                        <input type="text" name="cariSekaaSanti" class="form-control w-75 d-inline" id="cariSekaaSanti" placeholder="Cari Nama Anggota ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>

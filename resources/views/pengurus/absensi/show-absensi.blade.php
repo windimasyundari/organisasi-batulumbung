@@ -17,12 +17,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <!-- <span class="btn btn-primary "><a href="/pengurus/absensi/create-absensi" style="color:white">Tambah Data</a></span>
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
 
                     <form action="/" method="post" enctype="multipart/form-data">
                         @csrf

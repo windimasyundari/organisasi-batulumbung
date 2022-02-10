@@ -354,21 +354,58 @@ class AnggotaController extends Controller
         return redirect('/anggota/pkk')-> with('status', 'Data Anggota Berhasil Diubah!');
     }
 
-    public function cariAnggota(Request $request)
+    public function cariSekaaTeruna(Request $request)
 	{
 		// menangkap data pencarian
-		$cariAnggota = $request->cariAnggota;
+		$cariSekaaTeruna = $request->cariSekaaTeruna;
  
-    	// mengambil data dari table anggota sesuai pencarian data
-		$anggota = DB::table('anggota')
-		->where('nama','like',"%".$cariAnggota."%")
-		->paginate();
+        // mengambil data dari table anggota sesuai pencarian data
+		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaTeruna ."%")->paginate(10);
  
     	// mengirim data anggota ke view index
-		return view('pengurus/anggota/sekaa-teruna', ['anggota' => $anggota]);
+        return view('pengurus/anggota/sekaa-teruna',['anggota' => $anggota]);
  
 	}
-
+    
+    public function cariSekaaGong(Request $request)
+	{
+        // menangkap data pencarian
+		$cariSekaaGong = $request->cariSekaaGong;
+ 
+        // mengambil data dari table anggota sesuai pencarian data
+		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaGong ."%")->paginate(10);
+ 
+    	// mengirim data anggota ke view index
+        return view('pengurus/anggota/sekaa-gong',['anggota' => $anggota]);
+        
+    }
+    
+    public function cariSekaaSanti(Request $request)
+	{
+		// menangkap data pencarian
+		$cariSekaaSanti = $request->cariSekaaSanti;
+ 
+        // mengambil data dari table anggota sesuai pencarian data
+		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaSanti ."%")->paginate(10);
+ 
+    	// mengirim data anggota ke view index
+        return view('pengurus/anggota/sekaa-santi',['anggota' => $anggota]);
+ 
+    }
+    
+    public function cariPKK(Request $request)
+    {
+        // menangkap data pencarian
+        $cariPKK = $request->cariPKK;
+ 
+        // mengambil data dari table anggota sesuai pencarian data
+        $anggota = Anggota::where('nama', 'like', "%" .$cariPKK ."%")->paginate(10);
+ 
+        // mengirim data anggota ke view index
+        return view('pengurus/anggota/pkk',['anggota' => $anggota]);
+ 
+    }
+    
     /**
      * Remove the specified resource from storage.
      *

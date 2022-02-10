@@ -57,7 +57,7 @@
                     <button type="submit" class="btn btn-danger text-light">Delete</button>
                 </form>
                 
-                <span class="btn btn-success"><a href="/pengurus/pengurus-crud" class="card-link text-light">Kembali</a></span>
+                <span class="btn btn-success"><a href="/pengurus-crud/pengurus" class="card-link text-light">Kembali</a></span>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <form method="post" action="/pengurus/pengurus-crud/{{ $pengurus->id }}" style="width:50%">
+                    <form method="post" action="/pengurus-crud/pengurus/{{ $pengurus->id }}" style="width:50%">
                     @method('patch')
                     @csrf
                         <div class="form-group">
