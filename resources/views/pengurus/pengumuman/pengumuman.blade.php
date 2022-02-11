@@ -24,12 +24,7 @@
                     </div>                    
                 </form>
 
-                <!-- Tambah Data -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahData">
-                Tambah Data
-                </button>
-
+            
                 @if (session('status'))
                 <div class="alert alert-success mt-3">
                     {{ session('status') }}
@@ -41,11 +36,17 @@
                 @endif
 
                 <!-- Modal -->
-                <div class="modal fade" id="tambahData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Tambah Data
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahDataLabel">Form Tambah Data</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Data</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

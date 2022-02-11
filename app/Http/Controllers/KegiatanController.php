@@ -112,7 +112,14 @@ class KegiatanController extends Controller
         }
 
         Kegiatan::where('id', $kegiatan->id)
-                ->update($validateData);
+                ->update([ 
+                    'nama_kegiatan' =>$request->nama_kegiatan,
+                    'tanggal'       =>$request->tanggal,
+                    'waktu'         =>$request->waktu,
+                    'tempat'        =>$request->tempat,
+                    'deskripsi'     =>$request->deskripsi,
+                    'image'         =>$request->image,
+                    ]);
 
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }

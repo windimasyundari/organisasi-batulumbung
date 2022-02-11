@@ -39,11 +39,6 @@
                     </div>                    
                 </form>
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahPengurus">
-                Tambah Data
-                </button>
-
                 @if (session('status'))
                     <div class="alert alert-success mt-3">
                         {{ session('status') }}
@@ -55,15 +50,21 @@
                 @endif
 
                 <!-- Modal -->
-                <div class="modal fade" id="tambahPengurus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahPengurusLabel" aria-hidden="true">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Tambah Data
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahPengurusLabel">Form Tambah Data</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Form Tambah Data</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                                 <div class="modal-body">
-                                <form method="post" action="{{ route ('tambahPengurus')}}" style="width:100%">
+                                <form method="post" action="{{ route('tambahPengurus')}}" style="width:100%">
                                     @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label> 
@@ -154,7 +155,7 @@
 
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                                            <select name="jenis" class="form-control" id="exampleFormControlSelect">
+                                            <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
                                                 <option value="1">Sekaa Teruna</option>
                                                 <option value="2">Sekaa Gong</option>
@@ -186,9 +187,10 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
+                                    <th class="border-top-0">ID PENGURUS</th>
                                     <th class="border-top-0">NAMA</th>
                                     <th class="border-top-0">JABATAN</th>
-                                    <th class="border-top-0">JENIS ORGANISASI</th>
+                                    <!-- <th class="border-top-0">JENIS ORGANISASI</th> -->
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
@@ -199,7 +201,7 @@
                                     <td>{{$penguruss->id}}</td>
                                     <td>{{$penguruss->nama}}</td>
                                     <td>{{$penguruss->jabatan}}</td>
-                                    <td>{{$penguruss->organisasi->jenis}}</td>
+                                    <!-- <td>{{$penguruss->organisasi->jenis}}</td> -->
                                     <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty

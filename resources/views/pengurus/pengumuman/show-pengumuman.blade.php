@@ -58,7 +58,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="/pengumuman/pengumuman/{{ $pengumuman->id }}" style="width:50%"
+                    <form method="post" action="/pengumuman/pengumuman/{{ $pengumuman->id }}" style="width:100%"
                     enctype="multipart/form-data">
                     @method('patch')
                     @csrf

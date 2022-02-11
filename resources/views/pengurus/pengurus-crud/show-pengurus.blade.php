@@ -71,7 +71,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <form method="post" action="/pengurus-crud/pengurus/{{ $pengurus->id }}" style="width:50%">
+                    <form method="post" action="/pengurus-crud/pengurus/{{ $pengurus->id }}" style="width:100%">
                     @method('patch')
                     @csrf
                         <div class="form-group">
@@ -108,17 +108,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" value="{{ $pengurus->password }}" class="form-control @error('password') is-invalid @enderror" 
-                            id="password" placeholder="Masukkan Password">
-                            @error ('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
                             <label for="no_telp" class="form-label">No Telp</label>
                             <input type="no_telp" name="no_telp" value="{{ $pengurus->no_telp }}" class="form-control @error('no_telp') is-invalid @enderror" 
                             id="no_telp" placeholder="Masukkan No Telp">
@@ -131,7 +120,8 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect">Jenis Kelamin</label>
-                            <select name="jenis_kelamin" value="{{ $pengurus->jenis_kelamin }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" id="exampleFormControlSelect">
+                            <select name="jenis_kelamin" value="{{ $pengurus->jenis_kelamin }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" 
+                            id="exampleFormControlSelect">
                                 <option value="">--Pilih--</option>
                                 <option value="Laki-Laki">Laki-Laki</option>
                                 <option valie="Perempuan">Perempuan</option>
@@ -151,18 +141,20 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                            <select name="organisasi_id" value="{{ $pengurus->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" id="exampleFormControlSelect">
-                                <option value="">--Pilih--</option>
+                            <select name="organisasi_id" class="form-control @error('organisasi_id') is-invalid @enderror" 
+                            id="exampleFormControlSelect">
+                                <option value="{{ $pengurus->organisasi_id }}"></option>
                                 <option value="1">Sekaa Teruna</option>
-                                <option valie="2">Sekaa Gong</option>
-                                <option valie="3">Sekaa Santi</option>
-                                <option valie="4">PKK</option>
+                                <option value="2">Sekaa Gong</option>
+                                <option value="3">Sekaa Santi</option>
+                                <option value="4">PKK</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect">Status</label>
-                            <select name="status" value="{{ $pengurus->status }}" class="form-control @error('status') is-invalid @enderror" id="exampleFormControlSelect">
+                            <select name="status" value="{{ $pengurus->status }}" class="form-control @error('status') is-invalid @enderror" 
+                            id="exampleFormControlSelect">
                                 <option value="">--Pilih--</option>
                                 <option value="Aktif">Aktif</option>
                                 <option value="Tidak Aktif">Tidak Aktif</option>

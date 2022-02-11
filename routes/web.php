@@ -126,7 +126,7 @@ use App\Models\Absensi;
     
     // Absensi
     Route::get('/absensi/absensi', 'App\Http\Controllers\AbsensiController@index');
-    Route::get('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiController@create');
+    // Route::get('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiController@create');
     Route::get('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@show');
     Route::post('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiController@store');
     Route::delete('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@destroy');

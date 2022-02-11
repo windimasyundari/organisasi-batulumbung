@@ -40,9 +40,9 @@
         <tr>
             <th>Gambar</th>
             <td>  
-            @if ($kegiatan->image)
+            @if($kegiatan->image)
                 <div style="max-height: 350px; overflow:hidden">
-                   <img src="{{ asset('storage/images-kegiatan'.$kegiatan->image) }}" class="img-fluid mb-3">
+                   <img src="{{ asset('storage/images-kegiatan'. $kegiatan->image) }}" class="img-fluid mb-3">
                 </div>
             @endif
             </td>

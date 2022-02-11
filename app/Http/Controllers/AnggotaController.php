@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class AnggotaController extends Controller
@@ -97,7 +98,21 @@ class AnggotaController extends Controller
         //     $validateData['image'] = $request->file('image')->store('images-anggota');
         // }
 
-        Anggota::create($validateData);
+        Anggota::create([
+            'nama'            => $request->nama,
+            'nik'             => $request->nik,
+            'tempat_lahir'    => $request->tempat_lahir,
+            'tgl_lahir'       => $request->tgl_lahir,
+            'email'           => $request->email,
+            'password'        => Hash::make($request->password),
+            'no_telp'         => $request->no_telp,
+            'jenis_kelamin'   => $request->jenis_kelamin,
+            'pekerjaan'       => $request->pekerjaan,
+            'alamat'          => $request->alamat,
+            'organisasi_id'   => $request->organisasi_id,
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'          => $request->status
+        ]);
         
         return redirect('/anggota/sekaa-teruna')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
@@ -125,14 +140,28 @@ class AnggotaController extends Controller
         //     $validateData['image'] = $request->file('image')->store('images-anggota');
         // }
 
-        Anggota::create($validateData);
+        Anggota::create([
+            'nama'            => $request->nama,
+            'nik'             => $request->nik,
+            'tempat_lahir'    => $request->tempat_lahir,
+            'tgl_lahir'       => $request->tgl_lahir,
+            'email'           => $request->email,
+            'password'        => Hash::make($request->password),
+            'no_telp'         => $request->no_telp,
+            'jenis_kelamin'   => $request->jenis_kelamin,
+            'pekerjaan'       => $request->pekerjaan,
+            'alamat'          => $request->alamat,
+            'organisasi_id'   => $request->organisasi_id,
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'          => $request->status
+        ]);
         
         return redirect('/anggota/sekaa-gong')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
 
     public function storeSekaaSanti(Request $request)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'nama'            => 'required',
             'nik'             => 'required',
             'tempat_lahir'    => 'required',
@@ -153,7 +182,21 @@ class AnggotaController extends Controller
         //     $validateData['image'] = $request->file('image')->store('images-anggota');
         // }
 
-        Anggota::create($validateData);
+        Anggota::create([
+            'nama'            => $request->nama,
+            'nik'             => $request->nik,
+            'tempat_lahir'    => $request->tempat_lahir,
+            'tgl_lahir'       => $request->tgl_lahir,
+            'email'           => $request->email,
+            'password'        => Hash::make($request->password),
+            'no_telp'         => $request->no_telp,
+            'jenis_kelamin'   => $request->jenis_kelamin,
+            'pekerjaan'       => $request->pekerjaan,
+            'alamat'          => $request->alamat,
+            'organisasi_id'   => $request->organisasi_id,
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'          => $request->status
+        ]);
         
         return redirect('/anggota/sekaa-santi')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }
@@ -181,7 +224,21 @@ class AnggotaController extends Controller
         //     $validateData['image'] = $request->file('image')->store('images-anggota');
         // }
 
-        Anggota::create($validateData);
+        Anggota::create([
+            'nama'            => $request->nama,
+            'nik'             => $request->nik,
+            'tempat_lahir'    => $request->tempat_lahir,
+            'tgl_lahir'       => $request->tgl_lahir,
+            'email'           => $request->email,
+            'password'        => Hash::make($request->password),
+            'no_telp'         => $request->no_telp,
+            'jenis_kelamin'   => $request->jenis_kelamin,
+            'pekerjaan'       => $request->pekerjaan,
+            'alamat'          => $request->alamat,
+            'organisasi_id'   => $request->organisasi_id,
+            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
+            'status'          => $request->status
+        ]);
         
         return redirect('/anggota/pkk')-> with('status', 'Data Anggota Berhasil Ditambahkan!');
     }

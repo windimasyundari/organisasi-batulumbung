@@ -45,7 +45,7 @@ class PengurusController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'nama'              => 'required',
             'jabatan'           => 'required',
             'email'             => 'required',
@@ -58,7 +58,17 @@ class PengurusController extends Controller
             'status'            => 'required'
         ]);
 
-        Pengurus :: create($validateData); 
+        Pengurus::create([
+            'nama'              => $request->nama,
+            'jabatan'           => $request->jabatan,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'no_telp'           => $request->no_telp,
+            'jenis_kelamin'     => $request->jenis_kelamin,
+            'alamat'            => $request->alamat,
+            'organisasi_id'     => $request->organisasi_id,
+            'status'            => $request->status
+        ]); 
 
         return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
     }
@@ -74,14 +84,14 @@ class PengurusController extends Controller
         return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
     }
 
-    // public function profil()
-    // {
-    //     dd(Auth::id());
-    //     dd($iduser);
-    //     $pengurus = Pengurus::where('id', $iduser)->get();
-    //     dd($pengurus);
-    //     return view('pengurus.pengurus-crud.profil-pengurus', compact('pengurus'));
-    // }
+    public function profil()
+    {
+        // dd(Auth::id());
+        // dd($iduser);
+        $pengurus = Pengurus::with('pengurus')->where('id', Auth::user()->id)->firstOrFail();
+        // dd($pengurus);
+        return view('pengurus.pengurus-crud.profil-pengurus', compact('pengurus'));
+    }
 
 
     /**
@@ -97,18 +107,26 @@ class PengurusController extends Controller
             'nama'          => 'required',
             'jabatan'       => 'required',
             'email'         => 'required',
-            'password'      => 'required',
             'no_telp'       => 'required',
             'jenis_kelamin' => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            'status'        => 'required'
+            'status'        => 'required',
         ]);
         
         Pengurus::where('id', $pengurus->id)
-                ->update($validateData);
+                ->update([
+                    'nama'          => $request->nama,
+                    'jabatan'       => $request->jabatan,
+                    'email'         => $request->email,
+                    'no_telp'       => $request->no_telp,
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'alamat'        => $request->alamat,
+                    'organisasi_id' => $request->organisasi_id,
+                    'status'        => $request->status
+                ]);
 
-            return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
     }
 
     /**
