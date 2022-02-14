@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DB;
+use Auth;
 
 class PengurusController extends Controller
 {
@@ -15,18 +17,24 @@ class PengurusController extends Controller
      */
     public function index()
     {
-        $pengurus = Pengurus::get();
+        $pengurus = Pengurus::paginate(10);
         return view('pengurus.pengurus-crud.pengurus', compact('pengurus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pengurus/pengurus-crud/pengurus');
+    public function cariPengurus(Request $request)
+	{
+		// menangkap data pencarian
+		$cariPengurus = $request->cariPengurus;
+ 
+    	// mengambil data dari table absensi sesuai pencarian data
+		// $pengurus = DB::table('pengurus')
+		// ->where('nama','like',"%".$cariPengurus."%")
+        // ->paginate(10);
+        $pengurus = Pengurus::where('nama', 'like', "%" .$cariPengurus ."%")->paginate(10);
+ 
+    	// mengirim data pengurus ke view index
+		return view('pengurus/pengurus-crud/pengurus', ['pengurus' => $pengurus]);
+ 
     }
 
     /**
@@ -50,7 +58,7 @@ class PengurusController extends Controller
             'status'            => 'required'
         ]);
 
-        Pengurus :: create([
+        Pengurus::create([
             'nama'              => $request->nama,
             'jabatan'           => $request->jabatan,
             'email'             => $request->email,
@@ -73,19 +81,20 @@ class PengurusController extends Controller
      */
     public function show(Pengurus $pengurus)
     {
-        return view('pengurus/pengurus-crud/show-pengurus', compact('pengurus'));
+        return view('pengurus.pengurus-crud.show-pengurus', compact('pengurus'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pengurus  $pengurus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pengurus $pengurus)
+    public function profil(Request $request)
     {
-        return view('pengurus/pengurus-crud/edit-pengurus', compact('pengurus'));
+        // dd(Auth::id());
+        // dd($iduser);
+        // $pengurus = Auth::user()->$id;
+        $id = $request->session()->get('idlogin');
+        $pengurus = Pengurus::where('id', $id)->get(); 
+        // dd($pengurus);
+        return view('pengurus.pengurus-crud.profil-pengurus', ['pengurus' => $pengurus]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -96,16 +105,15 @@ class PengurusController extends Controller
      */
     public function update(Request $request, Pengurus $pengurus)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'nama'          => 'required',
             'jabatan'       => 'required',
             'email'         => 'required',
-            'password'      => 'required',
             'no_telp'       => 'required',
             'jenis_kelamin' => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            'status'        => 'required'
+            'status'        => 'required',
         ]);
         
         Pengurus::where('id', $pengurus->id)
@@ -113,7 +121,6 @@ class PengurusController extends Controller
                     'nama'          => $request->nama,
                     'jabatan'       => $request->jabatan,
                     'email'         => $request->email,
-                    'password'      => $request->password,
                     'no_telp'       => $request->no_telp,
                     'jenis_kelamin' => $request->jenis_kelamin,
                     'alamat'        => $request->alamat,
@@ -121,7 +128,35 @@ class PengurusController extends Controller
                     'status'        => $request->status
                 ]);
 
-            return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
+    }
+
+    public function updateProfil(Request $request, Pengurus $pengurus)
+    {
+        $validateData = $request->validate([
+            'nama'          => 'required',
+            'jabatan'       => 'required',
+            'email'         => 'required',
+            'no_telp'       => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat'        => 'required',
+            'organisasi_id' => 'required',
+            'status'        => 'required',
+        ]);
+        
+        Pengurus::where('id', $pengurus->id)
+                ->update([
+                    'nama'          => $request->nama,
+                    'jabatan'       => $request->jabatan,
+                    'email'         => $request->email,
+                    'no_telp'       => $request->no_telp,
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'alamat'        => $request->alamat,
+                    'organisasi_id' => $request->organisasi_id,
+                    'status'        => $request->status
+                ]);
+
+            return redirect('/pengurus-crud/profil-pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
     }
 
     /**
@@ -134,6 +169,6 @@ class PengurusController extends Controller
     {
         Pengurus::destroy($pengurus -> id);
 
-        return redirect('/pengurus/pengurus-crud')-> with('status', 'Data Pengurus Berhasil Dihapus!');
+        return redirect('/pengurus-crud/pengurus')-> with('alert', 'Data Pengurus Berhasil Dihapus!');
     }
 }

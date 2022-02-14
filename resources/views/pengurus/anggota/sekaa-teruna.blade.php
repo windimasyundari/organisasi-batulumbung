@@ -17,12 +17,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form class="form" method="get" action="{{ route ('cariAnggota') }}">
-                    <div class="col-lg-3 ms-auto">
-                        <input type="text" name="cariAnggota" class="form-control w-75 d-inline" id="cariAnggota" placeholder="Masukkan Anggota">
-                        <!-- <a href="{ route ('cari') }" class="active">
-                            <i class="fa fa-search"></i>
-                        </a> -->
+                <form class="form" method="get" action="{{ route ('cariSekaaTeruna') }}">
+                    <div class="col-md-6 ms-auto">
+                        <input type="text" name="cariSekaaTeruna" class="form-control w-75 d-inline" id="cariSekaaTeruna" placeholder="Cari Nama Anggota ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
@@ -31,6 +28,16 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahAnggota">
                 Tambah Data
                 </button>
+
+                @if (session('status'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('alert'))
+                    <div class="alert alert-danger mt-3">
+                        {{ session('alert') }}
+                    </div>
+                @endif
 
                 <!-- Modal -->
                 <div class="modal fade" id="tambahAnggota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahAnggotaLabel" aria-hidden="true">

@@ -23,10 +23,10 @@ class OrganisasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('pengurus/organisasi/organisasi');
-    }
+    // public function create()
+    // {
+    //     return view('pengurus/organisasi/organisasi');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -53,10 +53,10 @@ class OrganisasiController extends Controller
      * @param  \App\Models\Organisasi  $organisasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Organisasi $organisasi)
-    {
-        return view('pengurus/organisasi/organisasi', compact('organisasi'));
-    }
+    // public function edit(Organisasi $organisasi)
+    // {
+    //     return view('pengurus/organisasi/organisasi', compact('organisasi'));
+    // }
 
     /**
      * Update the specified resource in storage.

@@ -17,13 +17,39 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <!-- <a href="/pengurus/pengurus-crud/pengurus" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
+                <form class="form mb-3" method="get" action="{{ route ('cariPengurus') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control">
+                                    <option value="">Filter Organisasi</option>
+                                    <option value="Sekaa Teruna">Sekaa Teruna</option>
+                                    <option value="Sekaa Santi">Sekaa Santi</option>
+                                    <option value="Sekaa Gong">Sekaa Gong</option>
+                                    <option value="PKK">PKK</option>
+                                </select>
+                            </div>
                         </div>
-                    @endif -->
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                                <input type="text" name="cariPengurus" class="form-control w-75 d-inline" id="cariPengurus" placeholder="Cari Nama ...">
+                                <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                            </div>  
+                        </div>
+                    </div>                    
+                </form>
 
+                @if (session('status'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('alert'))
+                    <div class="alert alert-danger mt-3">
+                        {{ session('alert') }}
+                    </div>
+                @endif
+
+                <!-- Modal -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Tambah Data
@@ -38,7 +64,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                                 <div class="modal-body">
-                                <form method="post" action="/pengurus/pengurus-crud/pengurus" style="width:100%">
+                                <form method="post" action="{{ route('tambahPengurus')}}" style="width:100%">
                                     @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label> 
@@ -161,9 +187,10 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
+                                    <th class="border-top-0">ID PENGURUS</th>
                                     <th class="border-top-0">NAMA</th>
                                     <th class="border-top-0">JABATAN</th>
-                                    <th class="border-top-0">JENIS ORGANISASI</th>
+                                    <!-- <th class="border-top-0">JENIS ORGANISASI</th> -->
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
@@ -174,11 +201,11 @@
                                     <td>{{$penguruss->id}}</td>
                                     <td>{{$penguruss->nama}}</td>
                                     <td>{{$penguruss->jabatan}}</td>
-                                    <td>{{$penguruss->organisasi->jenis}}</td>
+                                    <!-- <td>{{$penguruss->organisasi->jenis}}</td> -->
                                     <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
-                                <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
                             @endforelse
                           
                             </tbody>

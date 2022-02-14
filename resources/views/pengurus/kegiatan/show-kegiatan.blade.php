@@ -40,17 +40,17 @@
         <tr>
             <th>Gambar</th>
             <td>  
-            @if ($kegiatan->image)
+            @if($kegiatan->image)
                 <div style="max-height: 350px; overflow:hidden">
-                   <img src="{{ asset('storage/'.$kegiatan->image) }}" class="img-fluid mb-3 col-sm-5 d-block">
+                   <img src="{{ asset('storage/images-kegiatan'. $kegiatan->image) }}" class="img-fluid mb-3">
                 </div>
             @endif
             </td>
         </tr> 
     </table>
-
-        <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editKegiatan">Edit</a>
-
+        
+        <a href ="{{ $kegiatan->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editData">Edit</a>
+        
         <form action="{{ $kegiatan->id }}" method="post" class="d-inline">
             @method('delete')
             @csrf
@@ -63,11 +63,11 @@
     </div>
 
     <!-- Edit Kegiatan -->
-    <div class="modal fade" id="editKegiatan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editKegiatanLabel" aria-hidden="true">
+    <div class="modal fade" id="editData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editKegiatanLabel">Form Edit Data</h5>
+                    <h5 class="modal-title" id="editDataLabel">Form Edit Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -133,7 +133,7 @@
                             <label for="image" class="form-label">Image</label>
                             <label type="hidden" name="oldImage" value="{{$kegiatan->image}}"></label>
                                 @if($kegiatan->image)
-                                    <img src="{{ asset('storage/'.$kegiatan->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                                    <img src="{{ asset('storage/'.$kegiatan->image) }}" class="img-preview img-fluid mb-3 col-sm-5">
                                 @else
                                     <img class="img-preview img-fluid mb-3 col=sm-5">
                                 @endif

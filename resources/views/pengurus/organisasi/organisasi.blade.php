@@ -49,7 +49,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="/pengurus/organisasi/organisasi" style="width:100%">
+                                <form name="form-tambah" id="form-tambah" method="post" action="{{ route ('tambahOrganisasi') }}" style="width:100%">
                                 @csrf
                                     <div class="form-group">
                                         <label for="jenis">Jenis</label> 
@@ -88,8 +88,39 @@
                                 <th scope="row">{{ $loop->iteration}}</th>
                                 <td>{{$organisasis->id}}</td>
                                 <td>{{$organisasis->jenis}}</td>
-                                <td><a href="/organisasi/{{ $organisasis->id }}" class="btn btn-primary" data-toggle="modal" data-target="#editOrganisasi{{ $organisasis->id }}"><i class="bi bi-pencil-square"></i></a> | 
-                                 <form action="/organisasi/organisasi/{{ $organisasis->id }}" method="post" class="d-inline">
+                                <td><a href="/organisasi/{{ $organisasis->id }}" class="btn btn-primary" data-toggle="modal" 
+                                    data-target="#editOrganisasi{{ $organisasis->id }}"><i class="bi bi-pencil-square"></i></a>
+                                    <div class="modal fade" id="editOrganisasi{{ $organisasis->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editOrganisasiLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editOrganisasiLabel">Form Edit Data</h5>
+                                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form name="form-edit" id="form-edit" method="post" action="{{ route ('editOrganisasi', $organisasis->id) }}" style="width:100%">
+                                                        @method('patch')
+                                                        @csrf
+                                                        <div class="form-group1">
+                                                            <label for="jenis">Jenis Organisasi</label> 
+                                                            <input type="text" name="jenis" value="{{$organisasis->jenis}}" class="form-control @error('jenis') is-invalid @enderror" 
+                                                            id="jenis" placeholder="Masukkan Jenis Organisasi">
+                                                            @error ('jenis')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                            @enderror
+                                                        </div> <br/>
+                                                        <div class="form-group">
+                                                            <button type="button" class="btn btn-danger text-light" data-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> | 
+                                    <form action="/organisasi/organisasi/{{ $organisasis->id }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>
@@ -98,43 +129,14 @@
                             </tr>
                             @empty
                             <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
-                        @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                  <!-- Edit Organisasi -->
                 <!-- Modal -->
-                <div class="modal fade" id="editOrganisasi{{ $organisasis->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editOrganisasiLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editOrganisasiLabel">Form Edit Data</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="/pengurus/organisasi/organisasi" style="width:100%">
-                                @csrf
-                                    <div class="form-group1">
-                                        <label for="jenis">Jenis Organisasi</label> 
-                                        <input type="text" name="jenis" value="{{$organisasis->jenis}}" class="form-control @error('jenis') is-invalid @enderror" 
-                                        id="jenis" placeholder="Masukkan Jenis Organisasi">
-                                        @error ('jenis')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div> <br/>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>  
     </div>

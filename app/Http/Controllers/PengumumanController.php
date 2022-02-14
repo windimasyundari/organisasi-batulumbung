@@ -37,8 +37,6 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->file('file')->store('files-pengumuman');
-
         $validateData = $request->validate([
             'judul'     => 'required|max:255',
             'tanggal'   => 'required',
@@ -101,17 +99,14 @@ class PengumumanController extends Controller
             }
             $validateData['file'] = $request->file('file')->store('files-pengumuman');
         }
-
-        Pengumuman::where('id', $pengumuman->id)
-                ->update($validateData);
         
-        // Pengumuman::where('id', $pengumuman->id)
-        //         ->update([
-        //             'judul'=>$request->judul,
-        //             'tanggal'=>$request->tanggal,
-        //             'isi'=>$request->isi,
-        //             'file'=>$request->file
-        //         ]);
+        Pengumuman::where('id', $pengumuman->id)
+                ->update([
+                    'judul'=>$request->judul,
+                    'tanggal'=>$request->tanggal,
+                    'isi'=>$request->isi,
+                    'file'=>$request->file
+                ]);
 
         return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Diubah!');
     }
@@ -121,6 +116,19 @@ class PengumumanController extends Controller
         $file = Pengumuman::where('id', $id)->firstOrFail();
         $pathToFile = public_path('storage/' . $file->file);
         return response()->download($pathToFile, $file->file_name);
+    }
+
+    public function cariPengumuman(Request $request)
+	{
+		// menangkap data pencarian
+		$cariPengumuman = $request->cariPengumuman;
+ 
+    	// mengambil data dari table pengumuman sesuai pencarian data
+        $pengumuman = Pengumuman::where('judul', 'like', "%" .$cariPengumuman ."%")->paginate(10);
+ 
+    	// mengirim data Pengumuman ke view index
+		return view('Pengurus/pengumuman/pengumuman', ['pengumuman' => $pengumuman]);
+ 
     }
        
 

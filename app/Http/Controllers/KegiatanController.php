@@ -25,10 +25,10 @@ class KegiatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('pengurus/kegiatan/kegiatan');
-    }
+    // public function create()
+    // {
+    //     return view('pengurus/kegiatan/kegiatan');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -80,10 +80,10 @@ class KegiatanController extends Controller
      * @param  \App\Models\Kegiatan  $kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kegiatan $kegiatan)
-    {
-        return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
-    }
+    // public function edit(Kegiatan $kegiatan)
+    // {
+    //     return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -104,15 +104,22 @@ class KegiatanController extends Controller
         ]);
         
 
-        if($request->file('image')) {
+        if($request->file('image')){
             if($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validateData['image'] = $request->file('image')->store('images-kegiatan');
+         $validateData['image'] = $request->file('image')->store('images-kegiatan');
         }
 
         Kegiatan::where('id', $kegiatan->id)
-                ->update($validateData);
+                ->update([ 
+                    'nama_kegiatan' =>$request->nama_kegiatan,
+                    'tanggal'       =>$request->tanggal,
+                    'waktu'         =>$request->waktu,
+                    'tempat'        =>$request->tempat,
+                    'deskripsi'     =>$request->deskripsi,
+                    'image'         =>$request->image,
+                    ]);
 
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }
@@ -134,6 +141,19 @@ class KegiatanController extends Controller
 
         // return view ('/pengurus/kegiatan/kegiatan_pdf', compact('kegiatan'));
         // return $pdf->download('laporan-kegiatan.pdf');
+    }
+
+    public function cariKegiatan(Request $request)
+	{
+		// menangkap data pencarian
+		$cariKegiatan = $request->cariKegiatan;
+ 
+    	// mengambil data dari table Kegiatan sesuai pencarian data
+        $kegiatan = Kegiatan::where('nama_kegiatan', 'like', "%" .$cariKegiatan ."%")->paginate(10);
+ 
+    	// mengirim data Kegiatan ke view index
+		return view('Pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan]);
+ 
     }
 
     /**

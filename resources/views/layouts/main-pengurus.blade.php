@@ -97,9 +97,11 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="/pengurus/pengurus-crud/profil-pengurus">
+                            <a class="profile-pic" href="/pengurus-crud/profil-pengurus">
                                 <img src="{{asset('template')}}/plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Pengurus</span></a>
+                                    class="img-circle"><span class="text-white font-medium"> Pengurus
+                                   
+                                    </span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -137,25 +139,25 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="/pengurus/anggota/sekaa-teruna" class="sidebar-link">
+                                    <a href="/anggota/sekaa-teruna" class="sidebar-link">
                                     <i class="mdi mdi-adjust"></i>
                                     <span class="hide-menu">Sekaa Teruna</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="/pengurus/anggota/sekaa-gong" class="sidebar-link">
+                                    <a href="/anggota/sekaa-gong" class="sidebar-link">
                                     <i class="mdi mdi-adjust"></i>
                                     <span class="hide-menu">Sekaa Gong</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="/pengurus/anggota/sekaa-santi" class="sidebar-link">
+                                    <a href="/anggota/sekaa-santi" class="sidebar-link">
                                     <i class="mdi mdi-adjust"></i>
                                     <span class="hide-menu">Sekaa Santi</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="/pengurus/anggota/pkk" class="sidebar-link">
+                                    <a href="/anggota/pkk" class="sidebar-link">
                                     <i class="mdi mdi-adjust"></i>
                                     <span class="hide-menu">PKK</span>
                                     </a>
@@ -164,7 +166,7 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/pengurus-crud/pengurus"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus-crud/pengurus"
                                 aria-expanded="false">
                                 <i class="bi bi-person-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengurus</span>

@@ -98,7 +98,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="/anggota/sekaa-gong/{{ $anggota->id }}" style="width:50%">
+                <form method="post" action="/anggota/sekaa-gong/{{ $anggota->id }}" style="width:100%">
                 @method('patch')
                 @csrf
                     <div class="form-group">
@@ -150,17 +150,6 @@
                         <input type="email" name="email" value="{{ $anggota->email }}" class="form-control @error('email') is-invalid @enderror" 
                         id="email" placeholder="Masukkan Email">
                         @error ('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" value="{{ $anggota->password }}" class="form-control @error('password') is-invalid @enderror" 
-                        id="password" placeholder="Masukkan Password">
-                        @error ('password')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

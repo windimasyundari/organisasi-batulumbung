@@ -9,39 +9,37 @@
     </div>   
     <div>
         <table>
-        @foreach(kegiatan as $kegiatans)
+        @foreach ($kegiatan as $kegiatann)
             <tr>
                 <th>Nama Kegiatan</th>
-                <td>{{$kegiatans->nama_kegiatan}}</td>
+                <td>{{$kegiatan->nama_kegiatan}}</td>
             </tr>
             <tr>
                 <th>Tanggal | Waktu</th>
-                <td>{{$kegiatans->tanggal}} | {{$kegiatans->tanggal}}</td>
+                <td>{{$kegiatann->tanggal}} | {{$kegiatann->tanggal}}</td>
             </tr>
             <tr>
                 <th>Tempat</th>
-                <td>{{$kegiatans->tempat}}</td>
+                <td>{{$kegiatan->tempat}}</td>
             </tr>
             <tr>
                 <th>Deskripsi</th>
-                <td>{{$kegiatans->deskripsi}}</td>
+                <td>{{$kegiatan->deskripsi}}</td>
             </tr>
             <tr>
                 <th>Image</th>
                 <td> 
-                    @if ($kegiatans->image)
+                    @if ($kegiatan->image)
                     <div style="max-height: 350px; overflow:hidden">
-                        <img src="{{ asset('storage/'.$kegiatans->image) }}" 
+                        <img src="{{ asset('storage/'.$kegiatan->image) }}" 
                         class="img-fluid mb-3">
                     </div>
                     @endif
                 </td>
             </tr>
-            @endforaech
+           @endforeach
         </table>
-       
     </div>
-        
             
 </body>
 </html>

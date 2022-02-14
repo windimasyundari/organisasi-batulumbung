@@ -17,12 +17,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form class="form" method="get" action="{{ route ('cariAnggota') }}">
-                    <div class="col-lg-3 ms-auto">
-                        <input type="text" name="cariAnggota" class="form-control w-75 d-inline" id="cariAnggota" placeholder="Masukkan Anggota">
-                        <!-- <a href="{ route ('cari') }" class="active">
-                            <i class="fa fa-search"></i>
-                        </a> -->
+                <form class="form" method="get" action="{{ route ('cariSekaaGong') }}">
+                    <div class="col-md-6 ms-auto">
+                        <input type="text" name="cariSekaaGong" class="form-control w-75 d-inline" id="cariSekaaGong" placeholder="Cari Nama Anggota ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
@@ -31,6 +28,16 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Tambah Data
                 </button>
+
+                @if (session('status'))
+                    <div class="alert alert-success mt-3">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('alert'))
+                    <div class="alert alert-danger mt-3">
+                        {{ session('alert') }}
+                    </div>
+                @endif
 
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -41,7 +48,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <form method="post" action="/pengurus/anggota/sekaa-gong" style="width:100%">
+                    <form method="post" action="{{ route ('tambahSekaaGong') }}" style="width:100%">
                         @csrf
                             <div class="form-group">
                                 <label for="nama">Nama</label> 
@@ -216,13 +223,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($anggota as $anggotakk)
+                            @forelse($anggota as $anggotas)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>{{$anggotakk->nik}}</td>
-                                    <td>{{$anggotakk->nama}}</td>
-                                    <td>{{$aanggotakk->organisasi->jenis}}</td>
-                                    <td><a href="\anggota\sekaa-gong\{{ $anggotakk->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <td>{{$anggotas->nik}}</td>
+                                    <td>{{$anggotas->nama}}</td>
+                                    <td>{{$anggotas->organisasi->jenis}}</td>
+                                    <td><a href="\anggota\sekaa-gong\{{ $anggotas->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
                                 <td colspan="5" class="table-active text-center">Tidak Ada Data</td>

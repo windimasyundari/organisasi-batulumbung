@@ -19,7 +19,7 @@ class CreatePengumumanTable extends Migration
             $table->date('tanggal');
             $table->time('waktu');
             $table->text('isi');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

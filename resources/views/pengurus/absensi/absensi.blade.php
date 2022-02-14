@@ -19,46 +19,21 @@
                 <div class="white-box">
 
                 <form class="form" method="get" action="{{ route ('cariNama') }}">
-                    <div class="col-lg-3 ms-auto">
-                        <input type="text" name="cariNama" class="form-control w-75 d-inline" id="cariNama" placeholder="Masukkan Nama">
-                        <!-- <a href="{ route ('cari') }" class="active">
-                            <i class="fa fa-search"></i>
-                        </a> -->
+                    <div class="col-md-6">
+                        <input type="text" name="cariNama" class="form-control w-75 d-inline" id="cariNama" placeholder="Cari Nama ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
 
                 <form class="form" method="get" action="{{ route ('cariTanggal') }}">
-                <div class="col-lg-3 ms-auto">
+                <div class="col-md-6">
                         <input type="date" name="cariTanggal" class="form-control w-75 d-inline" id="tanggal" placeholder="Masukkan keyword">
                         <button type="submit" class="btn btn-primary mb-1"> <i class="fa fa-search"></i>Cari</button>
                     </div>
                 </form>
 
-                <!-- <div class="basic-dropdown col-lg-3 ms-auto">
-                    <div class="dropdown">
-                        @if(request('jenis'))
-                        <button type="button" clas="btn shadow-sm dropdown-toggle" data-toggle="dropdown">{{request('jenis')}}</button>
-                        @else
-                        <button type="button" clas="btn shadow-sm dropdown-toggle" data-toggle="dropdown">Semua Jenis</button>
-                        @endif
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/absensi/absensi">Semua</a>
-                            <a class="dropdown-item" href="/absensi/absensi?jenis=sekaateruna">Sekaa Teruna</a>
-                            <a class="dropdown-item" href="/absensi/absensi?jenis=sekaagong">Sekaa Gong</a>
-                            <a class="dropdown-item" href="/absensi/absensi?jenis=sekaasanti">Sekaa Santi</a>
-                            <a class="dropdown-item" href="/absensi/absensi?jenis=pkk">PKK</a>
-                        </div>
-                    </div>
-                </div> -->
-
                 <form class="form" method="get" action="{{ route ('cariOrganisasi') }}">
                     <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                    <!-- @if(request('organisasi_id'))
-                    <button type="button" clas="btn btn-secondary shadow-sm dropdown-toggle" data-toggle="dropdown">{{request('organisasi_id')}}</button>
-                    @else
-                    <button type="button" clas="btn btn-secondary shadow-sm dropdown-toggle" data-toggle="dropdown">Semua Jenis</button>
-                    @endif -->
                     <select class="form-select shadow-none">
                             <option> <a href="/absensi/absensi?organisasi_id=1">Sekaa Teruna</a></option>
                             <option> <a href="/absensi/absensi?organisasi_id=2">Sekaa Santi</a></option>
