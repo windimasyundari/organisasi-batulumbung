@@ -95,6 +95,8 @@ class PengurusController extends Controller
         return view('pengurus.pengurus-crud.profil-pengurus', ['pengurus' => $pengurus]);
     }
 
+    
+
 
     /**
      * Update the specified resource in storage.
