@@ -47,15 +47,15 @@
                 <th>Status</th>
                 <td>{{$pengurus->status}}</td>
             </tr>
-            <tr>
-                <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfil">Edit Profil</a></td>
-                <td><a href="#" class="btn btn-danger text-light">Edit Password</a></td>
-            </tr>
             @endforeach
         </table>
+        <div>
+            <a href="{{ $pengurus->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfil">Edit Profil</a>
+            <a href="{{ $pengurus->id}}/edit-password" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#editPassword">Edit Password</a>
+        </div>
     </div>
 
-     <!-- Edit Profil -->
+        <!-- Edit Profil -->
         <!-- Modal -->
         <div class="modal fade" id="editProfil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProfilLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -82,11 +82,10 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect">Jabatan</label>
                             <select name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" id="exampleFormControlSelect">
-                                <option value="">--Pilih--</option>
-                                <option value="Ketua">Ketua</option>
-                                <option value="Wakil Ketua">Wakil Ketua</option>
-                                <option value="Sekretaris">Sekretaris</option>
-                                <option value="Bendahara">Bendahara</option>
+                                <option value="Ketua" @if($pengurus->jabatan == "Ketua") selected @endif>Ketua</option>
+                                <option value="Wakil Ketua" @if($pengurus->jabatan == "Wakil Ketua") selected @endif>Wakil Ketua</option>
+                                <option value="Sekretaris"  @if($pengurus->jabatan == "Sekretaris") selected @endif>Sekretaris</option>
+                                <option value="Bendahara"  @if($pengurus->jabatan == "Bendahara") selected @endif>Bendahara</option>
                             </select>
                         </div>
 
@@ -116,9 +115,8 @@
                             <label for="exampleFormControlSelect">Jenis Kelamin</label>
                             <select name="jenis_kelamin" value="{{ $pengurus->jenis_kelamin }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" 
                             id="exampleFormControlSelect">
-                                <option value="">--Pilih--</option>
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option valie="Perempuan">Perempuan</option>
+                                <option value="Laki-Laki" @if($pengurus->jenis_kelamin == "Laki-Laki") selected @endif>Laki-Laki</option>
+                                <option valie="Perempuan" @if($pengurus->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option>
                             </select>
                         </div>
 
@@ -137,11 +135,10 @@
                             <label for="exampleFormControlSelect">Jenis Organisasi</label>
                             <select name="organisasi_id" class="form-control @error('organisasi_id') is-invalid @enderror" 
                             id="exampleFormControlSelect">
-                                <option value="{{ $pengurus->organisasi->jenis }}">--Pilih--</option>
-                                <option value="1">Sekaa Teruna</option>
-                                <option value="2">Sekaa Gong</option>
-                                <option value="3">Sekaa Santi</option>
-                                <option value="4">PKK</option>
+                                <option value="1" @if($pengurus->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
+                                <option value="2" @if($pengurus->organisasi_id == "2") selected @endif>Sekaa Gong</option>
+                                <option value="3" @if($pengurus->organisasi_id == "3") selected @endif>Sekaa Santi</option>
+                                <option value="4" @if($pengurus->organisasi_id == "4") selected @endif>PKK</option>
                             </select>
                         </div>
 
@@ -149,9 +146,8 @@
                             <label for="exampleFormControlSelect">Status</label>
                             <select name="status" value="{{ $pengurus->status }}" class="form-control @error('status') is-invalid @enderror" 
                             id="exampleFormControlSelect">
-                                <option value="">--Pilih--</option>
-                                <option value="Aktif">Aktif</option>
-                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                <option value="Aktif" @if($pengurus->status == "Aktif") selected @endif>Aktif</option>
+                                <option value="Tidak Aktif" @if($pengurus->status == "Tidak Aktif") selected @endif>Tidak Aktif</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -163,6 +159,70 @@
                 </div>
             </div>
         </div>
+
+        <!-- Edit Password -->
+        <!-- Modal -->
+        <div class="modal fade" id="editPassword" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editPasswordLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPasswordLabel">Form Edit Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+
+                    <form method="POST" action="/pengurus-crud/profil-pengurus/{{ $pengurus->id }}">
+                    @method('patch')
+                    @csrf
+
+                    <div class="form-group row">
+                        <label for="passwordlama" class="col-md-4 col-form-label text-md-right">{{ __('Password Lama') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="passwordlama" type="password" class="form-control @error('passwordlama') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="passwordbaru" class="col-md-4 col-form-label text-md-right">{{ __('Password Baru') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="passwordbaru" type="password" class="form-control @error('passwordbaru') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="konfirm-password" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Password') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="confirm-password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>            
 
 

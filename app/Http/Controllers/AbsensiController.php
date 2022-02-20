@@ -194,4 +194,10 @@ class AbsensiController extends Controller
 
         return redirect('/absensi/absensi')-> with('status', 'Data Absensi Berhasil Dihapus!');
     }
+
+    public function indexAnggota()
+    {
+        $absensi = Absensi::paginate(10);
+        return view('anggota.absensi', compact('absensi'));
+    }
 }

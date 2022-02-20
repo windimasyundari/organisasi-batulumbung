@@ -64,7 +64,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                                 <div class="modal-body">
-                                <form method="post" action="{{ route('tambahPengurus')}}" style="width:100%">
+                                <form method="post" action="{{ route('tambahPengurus')}}" style="width:100%" enctype="multipart/form-data">
                                     @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label> 
@@ -190,7 +190,7 @@
                                     <th class="border-top-0">ID PENGURUS</th>
                                     <th class="border-top-0">NAMA</th>
                                     <th class="border-top-0">JABATAN</th>
-                                    <!-- <th class="border-top-0">JENIS ORGANISASI</th> -->
+                                    <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
@@ -201,7 +201,7 @@
                                     <td>{{$penguruss->id}}</td>
                                     <td>{{$penguruss->nama}}</td>
                                     <td>{{$penguruss->jabatan}}</td>
-                                    <!-- <td>{{$penguruss->organisasi->jenis}}</td> -->
+                                    <td>{{$penguruss->organisasi->jenis}}</td>
                                     <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty

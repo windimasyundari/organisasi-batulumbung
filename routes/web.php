@@ -16,6 +16,9 @@ use App\Models\Absensi;
 |
 */
 
+
+//==============================PENGURUS==============================
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -30,7 +33,7 @@ use App\Models\Absensi;
 
 //Route::middleware(['guest'])->group(function (){
     // Login
-    Route::get('pengurus/login', 'App\Http\Controllers\LoginController@index');
+    Route::get('pengurus/login', 'App\Http\Controllers\LoginController@indexPengurus');
     Route::post('pengurus/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
 
     // Logout
@@ -79,7 +82,7 @@ use App\Models\Absensi;
     Route::get('/anggota/cariSekaaSanti','App\Http\Controllers\AnggotaController@cariSekaaSanti')->name('cariSekaaSanti');
     Route::get('/anggota/cariPKK','App\Http\Controllers\AnggotaController@cariPKK')->name('cariPKK');
     
- 
+    
     // Pengurus
     Route::get('/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@index');
     // Route::get('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@create');
@@ -91,6 +94,10 @@ use App\Models\Absensi;
     Route::patch('/pengurus-crud/profil-pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@updateProfil');
     Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@profil');
     Route::get('/pengurus/cariPengurus','App\Http\Controllers\PengurusController@cariPengurus')->name('cariPengurus');
+    // Route::group(['middleware' => 'auth'], function () {
+
+    //     Route::get('/pengurus/pengurus-crud/{pengurus}/editPassword', 'App\Http\Controllers\PengurusController@editPassword')->name('editPassword');
+    // });
 
 
 
@@ -150,3 +157,27 @@ use App\Models\Absensi;
     Route::patch('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@update')->name('editLaporan');
     Route::get('/laporan-keuangan/export_laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@export_excel')->name('export_laporan-keuangan');
     Route::get('/laporan-keuangan/cariTanggal','App\Http\Controllers\LaporanKeuanganController@cariTanggal')->name('cariTanggal');
+
+
+    //=====================================ANGGOTA================================
+    // Route::get('/', function () {
+    //     return view('anggota/dashboard-anggota');
+    // });
+
+     // Login
+     Route::get('anggota/login', 'App\Http\Controllers\LoginController@indexAnggota');
+     Route::post('anggota/login', 'App\Http\Controllers\LoginController@prosesLoginAnggota')->name('loginPostAnggota');
+     Route::get('/dashboard-anggota', 'App\Http\Controllers\LoginController@dashboardAnggota');
+ 
+     // Logout
+     Route::get('/logout', 'App\Http\Controllers\LoginController@logoutAnggota');
+
+     Route::get('/pengumuman', 'App\Http\Controllers\PengumumanController@indexAnggota');
+    
+     Route::get('/kegiatan', 'App\Http\Controllers\KegiatanController@indexAnggota');
+     Route::get('/absensi', 'App\Http\Controllers\AbsensiController@indexAnggota');
+     Route::get('/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@indexAnggota');
+     
+
+    // Route::get('/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@show')->name('showKegiatan');
+

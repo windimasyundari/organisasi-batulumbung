@@ -16,7 +16,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexPengurus()
     {
         return view('pengurus.login');
     }
@@ -87,6 +87,69 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/pengurus/login');
     }
+
+    public function indexAnggota()
+    {
+        return view('anggota.login');
+    }
+
+    public function prosesLoginAnggota(Request $request)
+    {
+        //login anggota
+        $emaillogin = Anggota::where('email', $request->email)->first();
+        // dd($emaillogin);
+
+        if(!$emaillogin)
+        {
+            //dd('email salah');
+            return redirect()->back()->with('status', 'Email salah');
+        }
+
+        $passwordanggota = Hash::check($request->password, $emaillogin->password);
+
+        if(!$passwordanggota)
+        {
+            //dd('password salah');
+            return redirect()->back()->with('status', 'Password salah');
+        }
+
+        $loginanggota = Auth::guard('anggota')->attempt(['email' => $request->email, 'password' => $request->password]);
+        $id = Anggota::where('email', $request->email)->value('id');  
+                session([
+                    'idlogin' => $id,
+                    // 'namalogin' => $tampilnama, 
+                ]);
+        
+        if($loginanggota)
+        {
+            $request->session()->regenerate();
+           
+            return redirect()->intended('/dashboard-anggota');
+        }
+        // else
+        // {
+        //     return redirect()->back()->with('status', 'Akun tidak terdaftar');
+        // }
+        
+    }
+
+    public function dashboardAnggota(Request $request)
+    {
+        $id = $request->session()->get('idlogin');
+        $semua = Anggota::where('id', $id)->get(); 
+
+        return view('/anggota/dashboard-anggota', (compact('semua')));
+
+    }
+
+    public function logoutAnggota(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/anggota/login');
+    }
+    
 
     
 }

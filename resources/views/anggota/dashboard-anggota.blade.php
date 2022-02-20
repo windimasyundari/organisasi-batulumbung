@@ -1,0 +1,297 @@
+@extends ('layouts.main-anggota')
+
+@section('title', 'Dashboard Anggota')
+
+@section('content')
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Three charts -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="card bg-purple" style="width: 100rem">
+                        <div class="card-body">
+                            <table class="table bg-purple table-borderless">
+                            @foreach($semua as $anggota)
+                                <tr class="text-white" >
+                                    <th style="width:200px">Nama</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->nama}}</td>
+                                    <th style="width:200px">Pekerjaan</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->pekerjaan}}</td>
+                                </tr>
+
+                                <tr class="text-white">
+                                    <th>NIK</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->nik}}</td>
+                                    <th>Jenis Kelamin</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->jenis_kelamin}}</td>
+                                </tr>
+
+                                <tr class="text-white" >
+                                    <th>Tempat, Tanggal Lahir</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->tempat_lahir}}, {{ $anggota->tgl_lahir}}</td>
+                                    <th>Alamat</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->alamat}}</td>
+                                </tr>
+                                
+                                <tr class="text-white" >
+                                    <th>Email</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->email}}</td>
+                                    <th>Jenis Organisasi</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->organisasi->jenis}}</td>
+                                </tr>
+                                
+                                <tr class="text-white" >
+                                    <th>Telp</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->no_telp}}</td>
+                                    <th>Status</th>
+                                    <th>:</th>
+                                    <td>{{ $anggota->status}}</td>
+                                </tr>
+                                @endforeach
+                            </table>  
+                        </div>
+                    </div>
+                    <div>
+                        <a href="{{ $anggota->id }}/edit" class="btn btn-primary text-dark" data-bs-toggle="modal" data-bs-target="#editProfil">Edit Profil</a>
+                        <a href="{{ $anggota->id}}/edit-password" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editPassword">Edit Password
+                            <!-- Edit Password -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="editPassword" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editPasswordLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editPasswordLabel">Form Edit Password</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                
+                                <div class="modal-body">
+
+                                <form method="POST" action="/dashboard-anggota/{{ $anggota->id }}">
+                                @method('patch')
+                                @csrf
+
+                                <div class="form-group row">
+                                    <label for="passwordlama" class="col-md-4 col-form-label text-md-right">{{ __('Password Lama') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="passwordlama" type="password" class="form-control @error('passwordlama') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="passwordbaru" class="col-md-4 col-form-label text-md-right">{{ __('Password Baru') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="passwordbaru" type="password" class="form-control @error('passwordbaru') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="konfirm-password" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Password') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="confirm-password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Update Password</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                        </a>
+                    </div>
+
+                    <!-- Edit Sekaa Teruna -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="editProfil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editProfilLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editProfilLabel">Form Edit Data</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <form method="post" action="/anggota/{{ $anggota->id }}" style="width:100%">
+                                @method('patch')
+                                @csrf
+                                    <div class="form-group">
+                                        <label for="nama">Nama</label> 
+                                        <input type="text" name="nama" value="{{ $anggota->nama }}" class="form-control @error('nama') is-invalid @enderror" 
+                                        id="nama" placeholder="Masukkan Nama Lengkap">
+                                        @error ('nama')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label form="nik">NIK</label>
+                                        <input type="text" name="nik" value="{{ $anggota->nik }}" class="form-control @error('nik') is-invalid @enderror"
+                                        id="nik" placeholder="Masukkan NIK">
+                                        @error('nik')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                        <input type="text" name="tempat_lahir" value="{{ $anggota->tempat_lahir }}" class="form-control @error('tempat_lahir') is-invalid @enderror" 
+                                        id="tempat_lahir" placeholder="Masukkan Tempat Lahir">
+                                        @error ('tempat_lahir')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                        <input type="date" name="tgl_lahir" value="{{ $anggota->tgl_lahir }}" class="form-control @error('tgl_lahir') is-invalid @enderror" 
+                                        id="tgl_lahir" placeholder="Tanggal Lahir">
+                                        @error ('tgl_lahir')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" name="email" value="{{ $anggota->email }}" class="form-control @error('email') is-invalid @enderror" 
+                                        id="email" placeholder="Masukkan Email">
+                                        @error ('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="no_telp" class="form-label">Telp</label>
+                                        <input type="text" name="no_telp" value="{{ $anggota->no_telp }}" class="form-control @error('no_telp') is-invalid @enderror" 
+                                        id="no_telp" placeholder="Masukkan Nomor Telp">
+                                        @error ('no_telp')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect">Jenis Kelamin</label>
+                                        <select name="jenis_kelamin" value="{{ $anggota->jenis_kelamin }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" id="exampleFormControlSelect">
+                                            <option value="Laki-Laki" @if($anggota->jenis_kelamin == "Laki-Laki") selected @endif>Laki-Laki</option>
+                                            <option valie="Perempuan" @if($anggota->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                                        <input type="text" name="pekerjaan" value="{{ $anggota->pekerjaan }}" class="form-control @error('pekerjaan') is-invalid @enderror" 
+                                        id="pekerjaan" placeholder="Masukkan Pekerjaan">
+                                        @error ('pekerjaan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <input type="textarea" name="alamat" value="{{ $anggota->alamat }}" class="form-control @error('alamat') is-invalid @enderror" 
+                                        id="alamat" placeholder="Masukkan Alamat">
+                                        @error ('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                                        <select name="organisasi_id" value="{{ $anggota->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" 
+                                        id="exampleFormControlSelect">
+                                            <option value="1" @if($anggota->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
+                                            <option value="2" @if($anggota->organisasi_id == "2") selected @endif>Sekaa Gong</option>
+                                            <option value="3" @if($anggota->organisasi_id == "3") selected @endif>Sekaa Santi</option>
+                                            <option value="4" @if($anggota->organisasi_id == "4") selected @endif>PKK</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect">Status</label>
+                                        <select name="status" value="{{ $anggota->status }}" class="form-control @error('status') is-invalid @enderror" 
+                                        id="exampleFormControlSelect">
+                                            <option value="Aktif" @if($anggota->status == "Aktif") selected @endif>Aktif</option>
+                                            <option value="Tidak Aktif" @if($anggota->status == "Tidak Aktif") selected @endif>Tidak Aktif</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-danger text-light" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+            </div>
+        </div>
+               
+@endsection

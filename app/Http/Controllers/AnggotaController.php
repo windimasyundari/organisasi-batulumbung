@@ -54,13 +54,8 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
-
-        // if($request->file('image')) {
-        //     $validateData['image'] = $request->file('image')->store('images-anggota');
-        // }
 
         Anggota::create([
             'nama'            => $request->nama,
@@ -74,7 +69,6 @@ class AnggotaController extends Controller
             'pekerjaan'       => $request->pekerjaan,
             'alamat'          => $request->alamat,
             'organisasi_id'   => $request->organisasi_id,
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => $request->status
         ]);
         
@@ -96,13 +90,8 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
-
-        // if($request->file('image')) {
-        //     $validateData['image'] = $request->file('image')->store('images-anggota');
-        // }
 
         Anggota::create([
             'nama'            => $request->nama,
@@ -116,7 +105,6 @@ class AnggotaController extends Controller
             'pekerjaan'       => $request->pekerjaan,
             'alamat'          => $request->alamat,
             'organisasi_id'   => $request->organisasi_id,
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => $request->status
         ]);
         
@@ -138,13 +126,9 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
         
-        // if($request->file('image')) {
-        //     $validateData['image'] = $request->file('image')->store('images-anggota');
-        // }
 
         Anggota::create([
             'nama'            => $request->nama,
@@ -158,7 +142,6 @@ class AnggotaController extends Controller
             'pekerjaan'       => $request->pekerjaan,
             'alamat'          => $request->alamat,
             'organisasi_id'   => $request->organisasi_id,
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => $request->status
         ]);
         
@@ -180,13 +163,8 @@ class AnggotaController extends Controller
             'pekerjaan'       => 'required',
             'alamat'          => 'required',
             'organisasi_id'   => 'required',
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => 'required'
         ]);
-
-        // if($request->file('image')) {
-        //     $validateData['image'] = $request->file('image')->store('images-anggota');
-        // }
 
         Anggota::create([
             'nama'            => $request->nama,
@@ -200,7 +178,6 @@ class AnggotaController extends Controller
             'pekerjaan'       => $request->pekerjaan,
             'alamat'          => $request->alamat,
             'organisasi_id'   => $request->organisasi_id,
-            // 'image'           => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'          => $request->status
         ]);
         
@@ -253,13 +230,8 @@ class AnggotaController extends Controller
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'        => 'required'
         ]);
-
-        // if($request->image('image')) {
-        //     $validateData['image'] = $request->image('image')->store('images-anggota');
-        // }
 
         Anggota::where('id', $anggota->id)
         ->update($validateData);
@@ -280,13 +252,9 @@ class AnggotaController extends Controller
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'        => 'required'
         ]);
 
-        // if($request->image('image')) {
-        //     $validateData['image'] = $request->image('image')->store('images-anggota');
-        // }
 
         Anggota::where('id', $anggota->id)
         ->update($validateData);
@@ -307,13 +275,8 @@ class AnggotaController extends Controller
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'        => 'required'
         ]);
-
-        // if($request->image('image')) {
-        //     $validateData['image'] = $request->image('image')->store('images-anggota');
-        // }
 
         Anggota::where('id', $anggota->id)
         ->update($validateData);
@@ -334,13 +297,9 @@ class AnggotaController extends Controller
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'organisasi_id' => 'required',
-            // 'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024',
             'status'        => 'required'
         ]);
 
-        // if($request->image('image')) {
-        //     $validateData['image'] = $request->image('image')->store('images-anggota');
-        // }
 
         Anggota::where('id', $anggota->id)
         ->update($validateData);
@@ -354,7 +313,11 @@ class AnggotaController extends Controller
 		$cariSekaaTeruna = $request->cariSekaaTeruna;
  
         // mengambil data dari table anggota sesuai pencarian data
-		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaTeruna ."%")->paginate(10);
+        if($request->has('cariSekaaTeruna')){
+            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaTeruna ."%")->paginate(10);
+        }else{
+            $anggota = Anggota::all();
+        }
  
     	// mengirim data anggota ke view index
         return view('pengurus/anggota/sekaa-teruna',['anggota' => $anggota]);
@@ -367,7 +330,11 @@ class AnggotaController extends Controller
 		$cariSekaaGong = $request->cariSekaaGong;
  
         // mengambil data dari table anggota sesuai pencarian data
-		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaGong ."%")->paginate(10);
+		if($request->has('cariSekaaGong')){
+            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaGong ."%")->paginate(10);
+        }else{
+            $anggota = Anggota::all();
+        }
  
     	// mengirim data anggota ke view index
         return view('pengurus/anggota/sekaa-gong',['anggota' => $anggota]);
@@ -380,7 +347,11 @@ class AnggotaController extends Controller
 		$cariSekaaSanti = $request->cariSekaaSanti;
  
         // mengambil data dari table anggota sesuai pencarian data
-		$anggota = Anggota::where('nama', 'like', "%" .$cariSekaaSanti ."%")->paginate(10);
+		if($request->has('cariSekaaSanti')){
+            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaSanti ."%")->paginate(10);
+        }else{
+            $anggota = Anggota::all();
+        }
  
     	// mengirim data anggota ke view index
         return view('pengurus/anggota/sekaa-santi',['anggota' => $anggota]);
@@ -393,8 +364,12 @@ class AnggotaController extends Controller
         $cariPKK = $request->cariPKK;
  
         // mengambil data dari table anggota sesuai pencarian data
-        $anggota = Anggota::where('nama', 'like', "%" .$cariPKK ."%")->paginate(10);
- 
+        if($request->has('cariPKK')){
+            $anggota = Anggota::where('nama', 'like', "%" .$request->cariPKK ."%")->paginate(10);
+        }else{
+            $anggota = Anggota::all();
+        }
+
         // mengirim data anggota ke view index
         return view('pengurus/anggota/pkk',['anggota' => $anggota]);
  

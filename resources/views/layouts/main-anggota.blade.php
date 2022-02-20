@@ -97,10 +97,10 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="/pengurus-crud/profil-pengurus">
+                            <a class="profile-pic" href="#">
                             <img src="{{asset('template')}}/plugins/images/user.png" alt="" width="36"
                                     class="img-circle"> <span class="text-white font-medium"> 
-                                   {{ Auth::guard('pengurus')->user()->nama }} </span></a>
+                                   {{ Auth::guard('anggota')->user()->nama }} </span></a>
                         </li>
 
                         <!-- ============================================================== -->
@@ -125,83 +125,35 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus/dashboard"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/dashboard-anggota"
                                 aria-expanded="false">
                                 <i class="bi bi-house-fill" aria-hidden="true"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item selected">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
-                                <i class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-people-fill" aria-hidden="true"></i> Anggota
-                                </i> 
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-teruna" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Teruna</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-gong" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Gong</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-santi" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Santi</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/pkk" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">PKK</span>
-                                    </a>
-                                </li>  
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengurus-crud/pengurus"
-                                aria-expanded="false">
-                                <i class="bi bi-person-fill" aria-hidden="true"></i>
-                                <span class="hide-menu">Pengurus</span>
+                                <span class="hide-menu">Home</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/organisasi/organisasi"
-                                aria-expanded="false">
-                                <i class="bi bi-diagram-3-fill" aria-hidden="true"></i>
-                                <span class="hide-menu">Organisasi</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/kegiatan/kegiatan"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/kegiatan"
                                 aria-expanded="false">
                                 <i class="bi bi-calendar-week-fill" aria-hidden></i>
                                 <span class="hide-menu">Kegiatan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengumuman/pengumuman"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengumuman"
                                 aria-expanded="false">
                                 <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Pengumuman</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/absensi/absensi"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/absensi"
                                 aria-expanded="false">
                                 <i class="bi bi-list-check" aria-hidden="true"></i>
                                 <span class="hide-menu">Absensi</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/laporan/laporan-keuangan"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/laporan-keuangan"
                                 aria-expanded="false">
                                 <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Laporan Keuangan</span>

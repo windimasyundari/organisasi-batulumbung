@@ -148,4 +148,11 @@ class PengumumanController extends Controller
 
         return redirect('/pengumuman/pengumuman')-> with('alert', 'Data Pengumuman Berhasil Dihapus!');
     }
+
+    public function indexAnggota()
+    {
+        $pengumuman = Pengumuman::paginate(10);
+        return view('anggota/pengumuman', compact('pengumuman'));
+    }
+
 }

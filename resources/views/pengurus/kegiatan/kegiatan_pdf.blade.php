@@ -9,14 +9,14 @@
     </div>   
     <div>
         <table>
-        @foreach ($kegiatan as $kegiatann)
+        @if($kegiatan)
             <tr>
                 <th>Nama Kegiatan</th>
                 <td>{{$kegiatan->nama_kegiatan}}</td>
             </tr>
             <tr>
                 <th>Tanggal | Waktu</th>
-                <td>{{$kegiatann->tanggal}} | {{$kegiatann->tanggal}}</td>
+                <td>{{$kegiatan->tanggal}} | {{$kegiatan->tanggal}}</td>
             </tr>
             <tr>
                 <th>Tempat</th>
@@ -30,14 +30,14 @@
                 <th>Image</th>
                 <td> 
                     @if ($kegiatan->image)
-                    <div style="max-height: 350px; overflow:hidden">
+                    <div style="max-height: 500px; max:width: 200px; overflow:hidden">
                         <img src="{{ asset('storage/'.$kegiatan->image) }}" 
                         class="img-fluid mb-3">
                     </div>
                     @endif
                 </td>
             </tr>
-           @endforeach
+        @endif
         </table>
     </div>
             

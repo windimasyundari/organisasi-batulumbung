@@ -19,14 +19,6 @@
             <tr>
                 <th width ="200px ">Nama</th>
                 <td>{{ $anggota->nama }}</td>
-                <td rowspan = "5">
-                <!-- @if ($anggota->image)
-                    <div style="max-height: 350px; overflow:hidden">
-                        <img src="{{ asset('storage/'.$anggota->image) }}" 
-                        class="img-fluid mb-3">
-                    </div>
-                @endif -->
-                </td>
             </tr>
 
             <tr>
@@ -170,9 +162,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect">Jenis Kelamin</label>
                         <select name="jenis_kelamin" value="{{ $anggota->jenis_kelamin }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" id="exampleFormControlSelect">
-                            <option value="">--Pilih--</option>
-                            <option value="Laki-Laki">Laki-Laki</option>
-                            <option valie="Perempuan">Perempuan</option>
+                            <option value="Laki-Laki" @if($anggota->jenis_kelamin == "Laki-Laki") selected @endif>Laki-Laki</option>
+                            <option valie="Perempuan" @if($anggota->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option>
                         </select>
                     </div>
 
@@ -200,13 +191,12 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                        <select name="organisasi_id" value="{{ $anggota->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" 
+                        <select name="organisasi_id" class="form-control @error('organisasi_id') is-invalid @enderror" 
                         id="exampleFormControlSelect">
-                            <option value="">--Pilih--</option>
-                            <option value="1">Sekaa Teruna</option>
-                            <option value="2">Sekaa Gong</option>
-                            <option value="3">Sekaa Santi</option>
-                            <option value="4">PKK</option>
+                            <option value="1" @if($anggota->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
+                            <option value="2" @if($anggota->organisasi_id == "2") selected @endif>Sekaa Gong</option>
+                            <option value="3" @if($anggota->organisasi_id == "3") selected @endif>Sekaa Santi</option>
+                            <option value="4" @if($anggota->organisasi_id == "4") selected @endif>PKK</option>
                         </select>
                     </div>
 
@@ -214,9 +204,8 @@
                         <label for="exampleFormControlSelect">Status</label>
                         <select name="status" value="{{ $anggota->status }}" class="form-control @error('status') is-invalid @enderror" 
                         id="exampleFormControlSelect">
-                            <option value="">--Pilih--</option>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Tidak Aktif">Tidak Aktif</option>
+                            <option value="Aktif" @if($anggota->status == "Aktif") selected @endif>Aktif</option>
+                            <option value="Tidak Aktif" @if($anggota->status == "Tidak Aktif") selected @endif>Tidak Aktif</option>
                         </select>
                     </div>
                     <div class="form-group">

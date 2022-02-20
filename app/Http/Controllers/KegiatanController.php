@@ -75,17 +75,6 @@ class KegiatanController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kegiatan  $kegiatan
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(Kegiatan $kegiatan)
-    // {
-    //     return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
-    // }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -107,8 +96,8 @@ class KegiatanController extends Controller
         if($request->file('image')){
             if($request->oldImage) {
                 Storage::delete($request->oldImage);
-            }
-         $validateData['image'] = $request->file('image')->store('images-kegiatan');
+                }
+            $validateData['image'] = $request->file('image')->store('images-kegiatan');
         }
 
         Kegiatan::where('id', $kegiatan->id)
@@ -119,7 +108,7 @@ class KegiatanController extends Controller
                     'tempat'        =>$request->tempat,
                     'deskripsi'     =>$request->deskripsi,
                     'image'         =>$request->image,
-                    ]);
+                ]);
 
         return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
     }
@@ -172,4 +161,11 @@ class KegiatanController extends Controller
 
         return redirect('/kegiatan/kegiatan')-> with('alert', 'Data Kegiatan Berhasil Dihapus!');
     }
+
+    public function indexAnggota()
+    {
+        $kegiatan = Kegiatan::paginate(10);
+        return view('anggota/kegiatan', compact('kegiatan'));
+    }
+
 }

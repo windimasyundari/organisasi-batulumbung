@@ -143,4 +143,10 @@ class LaporanKeuanganController extends Controller
 
         return redirect('/laporan/laporan-keuangan')-> with('alert', 'Data Laporan Keuangan Berhasil Dihapus!');
     }
+
+    public function indexAnggota()
+    {
+        $laporan_keuangan = LaporanKeuangan::paginate(10);
+        return view('anggota.laporan-keuangan', compact('laporan_keuangan')); 
+    }
 }
