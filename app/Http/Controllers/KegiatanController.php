@@ -53,7 +53,7 @@ class KegiatanController extends Controller
 
         Kegiatan::create($validateData);
         
-        return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Ditambahkan!');
+        return redirect('/kegiatan/kegiatan')-> with('success', 'Data Kegiatan Berhasil Ditambahkan!');
     }
 
     /**
@@ -70,7 +70,6 @@ class KegiatanController extends Controller
     //    $kegiatan = Kegiatan::all();
        
         return view('pengurus.kegiatan.show-kegiatan', compact('kegiatan'));
-
 
     }
 
@@ -110,15 +109,17 @@ class KegiatanController extends Controller
                     'image'         =>$request->image,
                 ]);
 
-        return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Diubah!');
+        return redirect('/kegiatan/kegiatan')-> with('success', 'Data Kegiatan Berhasil Diubah!');
     }
 
     public function exportPDF(Request $request, $id) {
-        $data['kegiatan'] = Kegiatan::find($id);
+        $kegiatan['kegiatan'] = Kegiatan::find($id);
+    
 
-        $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', $data);
+        $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', $kegiatan);
+               
         return $pdf->stream('laporan-kegiatan.pdf');
-        dd($data);
+     
 
 
         // $kegiatan = Kegiatan::first();
@@ -159,7 +160,7 @@ class KegiatanController extends Controller
 
         Kegiatan::destroy($kegiatan -> id);
 
-        return redirect('/kegiatan/kegiatan')-> with('alert', 'Data Kegiatan Berhasil Dihapus!');
+        return redirect('/kegiatan/kegiatan')-> with('status', 'Data Kegiatan Berhasil Dihapus!');
     }
 
     public function indexAnggota()

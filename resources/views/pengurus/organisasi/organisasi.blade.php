@@ -17,27 +17,26 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                    <!-- <a href="/pengurus/organisasi/create-organisasi" class="btn btn-primary"><i class="bi bi-plus-lg"></i> TAMBAH</a>
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
-                        </div>
-                    @endif -->
-
+                
                 <!-- Tambah Data -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahData">
                 Tambah Data
                 </button>
 
-                 @if (session('status'))
-                    <div class="alert alert-success mt-3">
-                        {{ session('status') }}
-                    </div>
-                    @elseif (session('alert'))
-                    <div class="alert alert-danger mt-3">
-                        {{ session('alert') }}
-                    </div>
+                
+                @if(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                @if(session()->has('status'))
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 @endif
 
                 <!-- Modal -->
@@ -73,7 +72,7 @@
 
 
                 <div class="table-responsive mt-3">
-                    <table class="table text-nowrap">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="border-top-0">NO</th>

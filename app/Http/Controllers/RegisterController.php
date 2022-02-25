@@ -38,83 +38,46 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
+        $message = [
+            'required' => 'Wajib diisi!',
+            'min'      => 'Wajib diisi minimal : 5, maksimal : 8  karakter!',
+            'max'      => 'Wajib diisi minimal : 5, maksimal : 8 karakter!',
+            'unique'   => 'NIK sudah terdaftar'
+        ];
+
         $request->validate([
-            'nama' => 'required',
-            'nik' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:5|max:10',
-            'konfirmpassword' => 'required|min:5|max:10',
-            'no_telp' => 'required',
-            'jenis_kelamin' => 'required',
-            'pekerjaan' => 'required',
-            'alamat' => 'required',
-            'organisasi_id' => 'required',
-            'status' => 'required'
-        ]);
+            'nama'              => 'required',
+            'nik'               => 'required',
+            'tempat_lahir'      => 'required',
+            'tgl_lahir'         => 'required',
+            'email'             => 'required',
+            'password'          => 'required|min:5|max:10',
+            'konfirmpassword'   => 'required|min:5|max:10',
+            'no_telp'           => 'required',
+            'jenis_kelamin'     => 'required',
+            'pekerjaan'         => 'required',
+            'alamat'            => 'required',
+            'organisasi_id'     => 'required',
+            'status'            => 'required'
+        ], $message);
 
         Anggota :: create([
-            'nama' => $request->nama,
-            'nik' => $request->nik,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'no_telp' => $request->no_telp,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'pekerjaan' => $request->pekerjaan,
-            'alamat' => $request->alamat,
-            'organisasi_id' => $request->organisasi_id,
-            'status' => $request->status
+            'nama'              => $request->nama,
+            'nik'               => $request->nik,
+            'tempat_lahir'      => $request->tempat_lahir,
+            'tgl_lahir'         => $request->tgl_lahir,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'no_telp'           => $request->no_telp,
+            'jenis_kelamin'     => $request->jenis_kelamin,
+            'pekerjaan'         => $request->pekerjaan,
+            'alamat'            => $request->alamat,
+            'organisasi_id'     => $request->organisasi_id,
+            'status'            => $request->status
         ]); 
         
     // dd ($request->all());
-        return redirect('/pengurus/login')->with('success', 'Registrasi Berhasil!');
+        return redirect('/anggota/login')->with('success', 'Registrasi Berhasil!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Register $register)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Register $register)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Register $register)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Register  $register
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Register $register)
-    {
-        //
-    }
 }

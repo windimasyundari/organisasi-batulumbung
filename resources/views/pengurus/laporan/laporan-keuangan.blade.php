@@ -31,18 +31,22 @@
                     </button>
                     <a href="{{ route ('export_laporan-keuangan') }}" class="btn btn-success my-3 text-light" target="_blank">Export Data</a>
 
-                    @if (session('status'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('status') }}
-                        </div>
-                        @elseif (session('alert'))
-                        <div class="alert alert-danger mt-3">
-                            {{ session('alert') }}
-                        </div>
+                    @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
+
+                    @if(session()->has('status'))
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                        {{ session('status') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
 
                     <div class="table-responsive mt-3">
-                        <table class="table text-nowrap">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
@@ -151,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="/laporan/laporan-keuangan/{{ $laporan_keuangan->id }}" method="post" class="d-inline">
+                                <form action="/laporan/laporan-keuangan/{{$laporan_keuangan->id}}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
                                     <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>

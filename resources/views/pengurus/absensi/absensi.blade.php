@@ -18,6 +18,21 @@
             <div class="col-sm-12">
                 <div class="white-box">
 
+                
+                @if(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                @if(session()->has('status'))
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
                 <form class="form" method="get" action="{{ route ('cariNama') }}">
                     <div class="col-md-6">
                         <input type="text" name="cariNama" class="form-control w-75 d-inline" id="cariNama" placeholder="Cari Nama ...">
@@ -92,7 +107,7 @@
         <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3 text-light" target="_blank">EXPORT ABSENSI</a>
 
                     <div class="table-responsive mt-3">
-                        <table class="table text-nowrap">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
@@ -122,7 +137,42 @@
                                     <!-- carbon format (y-m-d) -->
                                     <td>{{$absen->jenis}}</td>
                                     <td>{{$absen->status}}</td>
-                                    <td><a href="\absensi\absensi\{{ $absen->id }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                    <td><a href="/absensi/absensi/{{$absen->id}}"  class="btn btn-primary" data-toggle="modal" data-target="#editData{{ $absen->id }}"><i class="bi bi-pencil-square"></i></a> |
+                                    <div class="modal fade" id="editData{{ $absen->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editDataLabel">Form Edit Data</h5>
+                                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <form method="post" action="{{ route ('editAbsensi', $absen->id)}}" style="width:100%">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect">Status</label>
+                                                        <select name="status" value="{{ $absen->status }}" class="form-control @error('status') is-invalid @enderror" 
+                                                        id="exampleFormControlSelect">
+                                                            <option value="HADIR" @if($absen->status == "HADIR") selected @endif>HADIR</option>
+                                                            <option value="TIDAK HADIR" @if($absen->status == "TIDAK HADIR") selected @endif>TIDAK HADIR</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-danger text-light" data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action="/absensi/absensi/{{$absen->id}}" method="post" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger text-light"><i class="bi bi-trash-fill"></i></button>
+                                    </form> 
+                                    </td>
                                 </tr>
                                 @empty
                                 <td colspan="8" class="table-active text-center">Tidak Ada Data</td>

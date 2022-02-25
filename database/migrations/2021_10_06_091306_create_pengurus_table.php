@@ -18,7 +18,7 @@ class CreatePengurusTable extends Migration
             $table->foreignId('organisasi_id');
             $table->string('nama');
             $table->string('jabatan');
-            $table->string('email');
+            $table->string('email')->unique;
             $table->string('password');
             $table->string('no_telp');
             $table->string('jenis_kelamin');

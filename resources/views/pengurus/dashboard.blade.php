@@ -33,20 +33,20 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Sekaa Teruna</h3>
+                            <h3 class="box-title"><a href="/anggota/sekaa-teruna" style="color:black">Sekaa Teruna</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash"><canvas width="67" height="30"
                                             style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
                                 </li>
-                                <li class="ms-auto"><span class="counter text-success"> {{ $sekaateruna }}</span></li>
-                            </ul>
+                                <li class="ms-auto"><span class="counter text-success"> {{ $sekaateruna }}</span></li> 
+                            </ul></a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Sekaa Gong</h3>
+                            <h3 class="box-title"><a href="/anggota/sekaa-gong" style="color:black">Sekaa Gong</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash2"><canvas width="67" height="30"
@@ -54,12 +54,12 @@
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-purple">{{ $sekaagong}}</span></li>
-                            </ul>
+                            </ul></a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Sekaa Santi</h3>
+                            <h3 class="box-title"><a href="/anggota/sekaa-santi" style="color:black">Sekaa Santi</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash3"><canvas width="67" height="30"
@@ -68,12 +68,12 @@
                                 </li>
                                 <li class="ms-auto"><span class="counter text-info">{{ $sekaasanti }}</span>
                                 </li>
-                            </ul>
+                            </ul></a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">PKK</h3>
+                            <h3 class="box-title"><a href="/anggota/pkk" style="color:black">PKK</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash4"><canvas width="67" height="30"
@@ -81,7 +81,7 @@
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-danger">{{ $pkk }}</span></li>
-                            </ul>
+                            </ul></a>
                         </div>
                     </div>
                 </div>

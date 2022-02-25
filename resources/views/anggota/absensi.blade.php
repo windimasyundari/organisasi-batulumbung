@@ -15,19 +15,19 @@
 
     <div class="container-fluid">
         <div class="row ">
-            <div class="card bg-purple" style="width: 100rem;">
-                <div class="card-body bg-purple">
+            <div class="card bg-light" style="width: 100rem;">
+                <div class="card-body bg-light">
                     <div class="table-responsive mt-3">
-                        <table class="table text-nowrap">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="border-top-0, text-white">NO</th>
-                                    <th class="border-top-0, text-white">ID ANGGOTA</th>
-                                    <th class="border-top-0, text-white">NAMA ANGGOTA</th>
-                                    <th class="border-top-0, text-white">NAMA KEGIATAN</th>
-                                    <th class="border-top-0, text-white">TANGGAL KEGIATAN</th>
-                                    <th class="border-top-0, text-white">JENIS ORGANISASI</th>
-                                    <th class="border-top-0, text-white">STATUS</th>
+                                    <th class="border-top-0" style="font-weight: 800">NO</th>
+                                    <th class="border-top-0" style="font-weight: 800">ID ANGGOTA</th>
+                                    <th class="border-top-0" style="font-weight: 800">NAMA ANGGOTA</th>
+                                    <th class="border-top-0" style="font-weight: 800">NAMA KEGIATAN</th>
+                                    <th class="border-top-0" style="font-weight: 800">TANGGAL KEGIATAN</th>
+                                    <th class="border-top-0" style="font-weight: 800">JENIS ORGANISASI</th>
+                                    <th class="border-top-0" style="font-weight: 800">STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,7 +37,7 @@
                             @endphp
 
                             @forelse ($absensi as $absen)
-                                <tr class="text-white">
+                                <tr>
                                     <th scope="row">{{ ++$no }}</th>
                                     <td>{{$absen->anggota_id}}</td>
                                     <td>{{$absen->nama}}</td>

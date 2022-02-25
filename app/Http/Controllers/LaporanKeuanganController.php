@@ -50,7 +50,7 @@ class LaporanKeuanganController extends Controller
 
         LaporanKeuangan :: create($validateData); 
         
-        return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Ditambahkan!');
+        return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Ditambahkan!');
     }
 
     public function cariTanggal(Request $request)
@@ -123,13 +123,23 @@ class LaporanKeuanganController extends Controller
             'pengurus_id'       => $request->pengurus_id
             ]);
 
-            return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Diubah!');
+            return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Diubah!');
     }
 
     public function export_excel()
 	{
-		return Excel::download(new LaporanKeuanganExport, 'laporan-keuangan.xlsx');
-	}
+        $nama_file = 'laporan_keuangan'.date('Y-m-d_H-i-s').'.xlsx';
+		return Excel::download(new LaporanKeuanganExport, $nama_file);
+    }
+    
+    // public function exportPDF() {
+    //     $laporan_keuangan = LaporanKeuangan::all();
+    
+
+    //     $pdf = PDF::loadview('/laporan/laporan-keuangan-pdf', $laporan_keuangan);
+               
+    //     return $pdf->stream('laporan-keuangan.pdf');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -141,7 +151,7 @@ class LaporanKeuanganController extends Controller
     {
         LaporanKeuangan::destroy($laporan_keuangan->id);
 
-        return redirect('/laporan/laporan-keuangan')-> with('alert', 'Data Laporan Keuangan Berhasil Dihapus!');
+        return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Dihapus!');
     }
 
     public function indexAnggota()

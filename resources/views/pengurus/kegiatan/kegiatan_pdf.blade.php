@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cetak Laporan</title>
+	<title>Cetak Laporan Kegiatan</title>
 </head> 
 <body>    
-    <div>
-        <h1> LAPORAN KEGIATAN </h1>
-    </div>   
-    <div>
-        <table>
-        @if($kegiatan)
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb bg-white">
+        <h2 style="text-align:center">LAPORAN KEGIATAN</h2>
+        
+        <table class="table table-borderless">
             <tr>
-                <th>Nama Kegiatan</th>
-                <td>{{$kegiatan->nama_kegiatan}}</td>
+                <td>Nama Kegiatan</td>
+                <td>{{$kegiatan['kegiatan']->nama_kegiatan}}</td>
             </tr>
             <tr>
-                <th>Tanggal | Waktu</th>
-                <td>{{$kegiatan->tanggal}} | {{$kegiatan->tanggal}}</td>
+                <td>Tanggal, Waktu</td>
+                <td>{{$kegiatan['kegiatan']->tanggal}}, {{$kegiatan['kegiatan']->waktu}}</td>
             </tr>
             <tr>
-                <th>Tempat</th>
-                <td>{{$kegiatan->tempat}}</td>
+                <td>Tempat</td>
+                <td>{{$kegiatan['kegiatan']->tempat}}</td>
             </tr>
             <tr>
-                <th>Deskripsi</th>
-                <td>{{$kegiatan->deskripsi}}</td>
+                <td>Deskripsi</td>
+                <td>{{$kegiatan['kegiatan']->deskripsi}}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td> 
-                    @if ($kegiatan->image)
-                    <div style="max-height: 500px; max:width: 200px; overflow:hidden">
-                        <img src="{{ asset('storage/'.$kegiatan->image) }}" 
-                        class="img-fluid mb-3">
-                    </div>
+                <td>Gambar</td>
+                <td>  
+                    @if($kegiatan['kegiatan']->image)
+                        <div style="overflow:hidden">
+                        <img src="{{ asset('storage/'. $kegiatan['kegiatan']->image) }}" class="img-fluid mb-3">
+                        </div>
                     @endif
                 </td>
-            </tr>
-        @endif
+            </tr>       
         </table>
+        
     </div>
+</div>
             
 </body>
 </html>

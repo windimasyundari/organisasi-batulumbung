@@ -70,7 +70,7 @@ class PengurusController extends Controller
             'status'          => $request->status
         ]); 
 
-        return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Ditambahkan!');
+        return redirect('/pengurus-crud/pengurus')-> with('success', 'Data Pengurus Berhasil Ditambahkan!');
     }
 
     /**
@@ -115,7 +115,7 @@ class PengurusController extends Controller
         Pengurus::where('id', $pengurus->id)
                 ->update($validateData);
 
-            return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus-crud/pengurus')-> with('success', 'Data Pengurus Berhasil Diubah!');
     }
 
     public function updateProfil(Request $request, Pengurus $pengurus)
@@ -132,14 +132,47 @@ class PengurusController extends Controller
         ]);
 
         Pengurus::where('id', $pengurus->id)
-                ->update($validateData);
+                ->update([
+                    'nama'          => $request->nama,
+                    'jabatan'       => $requese->jabatan,
+                    'email'         => $request->email,
+                    'no_telp'       => $request->no_telp,
+                    'jenis_kelamin' => $request->jenis_kelamin,
+                    'alamat'        => $request->alamat,
+                    'organisasi_id' => $request->organisasi_id,
+                    'status'        => $request->status,
+                ]);
 
-            return redirect('/pengurus-crud/profil-pengurus')-> with('status', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus-crud/profil-pengurus')-> with('success', 'Data Pengurus Berhasil Diubah!');
     }
 
-    public function editPassword()
+
+    public function updatePassword(Request $request)
     {
-        
+        $gantipass = bcrypt($request->passwordbaru);
+
+        //panggil id session yang login
+        $id = $request->session()->get('idlogin');
+
+        //cek password yang di db sesuai dengan id yg login
+        $cekpassdb = Pengurus::where('id', $id)->value('password');
+
+        if( $gantipass == $cekpassdb || $request->password == $request->konfirmpassword)
+        {
+            $request->validate([
+                'password'        => 'required|min:5|max:8',
+                'konfirmpassword' => 'required|min:5|max:8'
+            ]);
+
+            Pengurus::where('id', $id)->update([
+                'password' => bcrypt($request->password)
+            ]);
+            return redirect('/pengurus/login')->with('success', 'Password Berhasil Diubah!');
+        }
+        else
+        {
+            return back()->with('status', 'Gagal Ubah Password!');
+        }
     }
 
     /**
@@ -152,6 +185,6 @@ class PengurusController extends Controller
     {
         Pengurus::destroy($pengurus -> id);
 
-        return redirect('/pengurus-crud/pengurus')-> with('alert', 'Data Pengurus Berhasil Dihapus!');
+        return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Dihapus!');
     }
 }

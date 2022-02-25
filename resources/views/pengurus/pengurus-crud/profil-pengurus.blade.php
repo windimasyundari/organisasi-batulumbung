@@ -13,6 +13,21 @@
         </div>
     </div>
     <div class="container-fluid">
+        
+        @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session()->has('status'))
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <table class="table table-light table-borderless">
         @foreach($pengurus as $pengurus)
             <tr>
@@ -166,21 +181,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editPasswordLabel">Form Edit Password</h5>
+                        <h5 class="modal-title" id="editPasswordLabel">Edit Password</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     
                     <div class="modal-body">
 
-                    <form method="POST" action="/pengurus-crud/profil-pengurus/{{ $pengurus->id }}">
+                    <form method="POST" action="{{ route ('update_password') }}">
                     @method('patch')
                     @csrf
 
                     <div class="form-group row">
-                        <label for="passwordlama" class="col-md-4 col-form-label text-md-right">{{ __('Password Lama') }}</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password Saat Ini</label>
 
                         <div class="col-md-6">
-                            <input id="passwordlama" type="password" class="form-control @error('passwordlama') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -191,11 +206,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="passwordbaru" class="col-md-4 col-form-label text-md-right">{{ __('Password Baru') }}</label>
-
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password Baru</label>
                         <div class="col-md-6">
-                            <input id="passwordbaru" type="password" class="form-control @error('passwordbaru') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -205,10 +218,14 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="konfirm-password" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Password') }}</label>
-
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Konfirmasi Password</label>
                         <div class="col-md-6">
-                            <input id="confirm-password" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <input id="konfirmpassword" type="password" class="form-control" name="konfirmpassword" required>
+                            @error('konfirmpassword')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 

@@ -44,7 +44,7 @@ class OrganisasiController extends Controller
             'jenis' => $request->jenis
         ]); 
         
-        return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Ditambahkan!');
+        return redirect('/organisasi/organisasi')-> with('success', 'Data Organisasi Berhasil Ditambahkan!');
     }
 
     /**
@@ -76,7 +76,7 @@ class OrganisasiController extends Controller
                     'jenis'=>$request->jenis
                 ]);
 
-            return redirect('/organisasi/organisasi')-> with('status', 'Data Organisasi Berhasil Diubah!');
+            return redirect('/organisasi/organisasi')-> with('success', 'Data Organisasi Berhasil Diubah!');
     }
 
     /**
@@ -89,6 +89,6 @@ class OrganisasiController extends Controller
     {
         Organisasi::destroy($organisasi->id);
 
-        return redirect('/organisasi/organisasi')-> with('alert',' Data Organisasi Berhasil Dihapus!');
+        return redirect('/organisasi/organisasi')-> with('status',' Data Organisasi Berhasil Dihapus!');
     }
 }

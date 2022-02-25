@@ -97,7 +97,8 @@ class AbsensiController extends Controller
     
     public function export_excel()
 	{
-		return Excel::download(new AbsensiExport, 'absensi.xlsx');
+        $nama_file = 'absensi'.date('Y-m-d_H-i-s').'.xlsx';
+		return Excel::download(new AbsensiExport, $nama_file);
 	}
 
     /**
@@ -105,10 +106,10 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('pengurus.absensi.create-absensi');
-    }
+    // public function create()
+    // {
+    //     return view('pengurus.absensi.create-absensi');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -136,7 +137,7 @@ class AbsensiController extends Controller
             'status' => $request->status
         ]); 
         
-        return redirect('/absensi/absensi')-> with('status', 'Data Absensi Berhasil Ditambahkan!');
+        return redirect('/absensi/absensi')-> with('success', 'Data Absensi Berhasil Ditambahkan!');
     }
 
     /**
@@ -145,10 +146,10 @@ class AbsensiController extends Controller
      * @param  \App\Models\Absensi  $absensi
      * @return \Illuminate\Http\Response
      */
-    public function show(Absensi $absensi)
-    {
-        return view('pengurus.absensi.show-absensi', compact('absensi'));
-    }
+    // public function show(Absensi $absensi)
+    // {
+    //     return view('pengurus.absensi.show-absensi', compact('absensi'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -156,10 +157,10 @@ class AbsensiController extends Controller
      * @param  \App\Models\Absensi  $absensi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Absensi $absensi)
-    {
-        return view('pengurus.absensi.edit-absensi', compact('absensi'));
-    }
+    // public function edit(Absensi $absensi)
+    // {
+    //     return view('pengurus.absensi.edit-absensi', compact('absensi'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -179,7 +180,7 @@ class AbsensiController extends Controller
                     'status'=>$request->status
                 ]);
 
-            return redirect('/absensi/absensi')-> with('status', 'Data Absensi Berhasil Diubah!');
+            return redirect('/absensi/absensi')-> with('success', 'Data Absensi Berhasil Diubah!');
     }
 
     /**
@@ -190,7 +191,7 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $absensi)
     {
-        Absensi::destroy($absensi -> id);
+        Absensi::destroy($absensi->id);
 
         return redirect('/absensi/absensi')-> with('status', 'Data Absensi Berhasil Dihapus!');
     }

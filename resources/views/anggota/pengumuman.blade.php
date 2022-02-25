@@ -16,10 +16,10 @@
     <div class="container-fluid">
         <div class="row ">
         @foreach ($pengumuman as $pengumuman)
-            <div class="card bg-purple" style="width: 100rem;">
+            <div class="card bg-light" style="width: 100rem;">
                 <div class="card-body ">
-                    <h4 class="card-title text-light">{{$pengumuman->judul}}</h4>
-                    <p class="card-text text-light">{{$pengumuman->isi}}</p>
+                    <h4 class="card-title" style="font-weight: 800; ">{{$pengumuman->judul}}</h4>
+                    <p class="card-text">{{$pengumuman->isi}}</p>
                     <a href="{{route('file.download', $pengumuman->id)}}" class="btn btn-danger text-light"><i class="bi bi-download"></i> Download</a>
                 </div>
             </div>

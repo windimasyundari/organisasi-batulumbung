@@ -51,7 +51,7 @@ class PengumumanController extends Controller
 
         Pengumuman::create($validateData);
         
-        return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Ditambahkan!');
+        return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Ditambahkan!');
     }
 
     /**
@@ -108,7 +108,7 @@ class PengumumanController extends Controller
                     'file'=>$request->file
                 ]);
 
-        return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Diubah!');
+        return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Diubah!');
     }
 
     function download($id)
@@ -146,7 +146,7 @@ class PengumumanController extends Controller
 
         Pengumuman::destroy($pengumuman -> id);
 
-        return redirect('/pengumuman/pengumuman')-> with('alert', 'Data Pengumuman Berhasil Dihapus!');
+        return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Dihapus!');
     }
 
     public function indexAnggota()

@@ -23,15 +23,18 @@
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
-
-            
-                @if (session('status'))
-                <div class="alert alert-success mt-3">
-                    {{ session('status') }}
+             
+                @if(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @elseif (session('alert'))
-                <div class="alert alert-danger mt-3">
-                    {{ session('alert') }}
+                @endif
+
+                @if(session()->has('status'))
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
 
@@ -119,7 +122,7 @@
 
 
                     <div class="table-responsive mt-3">
-                        <table class="table text-nowrap">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>

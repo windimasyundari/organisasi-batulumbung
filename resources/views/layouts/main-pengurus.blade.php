@@ -100,7 +100,7 @@
                             <a class="profile-pic" href="/pengurus-crud/profil-pengurus">
                             <img src="{{asset('template')}}/plugins/images/user.png" alt="" width="36"
                                     class="img-circle"> <span class="text-white font-medium"> 
-                                   {{ Auth::guard('pengurus')->user()->nama }} </span></a>
+                                    {{ Auth::guard('pengurus')->user()->nama }} </span></a>
                         </li>
 
                         <!-- ============================================================== -->
