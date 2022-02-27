@@ -300,7 +300,6 @@ class AnggotaController extends Controller
             'status'        => 'required'
         ]);
 
-
         Anggota::where('id', $anggota->id)
         ->update($validateData);
         
@@ -309,70 +308,34 @@ class AnggotaController extends Controller
 
     public function cariSekaaTeruna(Request $request)
 	{
-		// menangkap data pencarian
-		$cariSekaaTeruna = $request->cariSekaaTeruna;
- 
-        // mengambil data dari table anggota sesuai pencarian data
-        if($request->has('cariSekaaTeruna')){
-            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaTeruna ."%")->paginate(10);
-        }else{
-            $anggota = Anggota::all();
-        }
- 
-    	// mengirim data anggota ke view index
-        return view('pengurus/anggota/sekaa-teruna',['anggota' => $anggota]);
- 
+		return view('pengurus/anggota/sekaa-teruna', [
+            "active" => "anggota", 
+            "anggota" => Anggota::latest()->filter(request(['cariSekaaTeruna', 'jenis']))->paginate(10)->withQueryString()
+        ]);
 	}
     
     public function cariSekaaGong(Request $request)
 	{
-        // menangkap data pencarian
-		$cariSekaaGong = $request->cariSekaaGong;
- 
-        // mengambil data dari table anggota sesuai pencarian data
-		if($request->has('cariSekaaGong')){
-            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaGong ."%")->paginate(10);
-        }else{
-            $anggota = Anggota::all();
-        }
- 
-    	// mengirim data anggota ke view index
-        return view('pengurus/anggota/sekaa-gong',['anggota' => $anggota]);
-        
+        return view('pengurus/anggota/sekaa-gong', [
+            "active" => "anggota", 
+            "anggota" => Anggota::latest()->filter(request(['cariSekaaGong', 'jenis']))->paginate(10)->withQueryString()
+        ]);
     }
     
     public function cariSekaaSanti(Request $request)
 	{
-		// menangkap data pencarian
-		$cariSekaaSanti = $request->cariSekaaSanti;
- 
-        // mengambil data dari table anggota sesuai pencarian data
-		if($request->has('cariSekaaSanti')){
-            $anggota = Anggota::where('nama', 'like', "%" .$request->cariSekaaSanti ."%")->paginate(10);
-        }else{
-            $anggota = Anggota::all();
-        }
- 
-    	// mengirim data anggota ke view index
-        return view('pengurus/anggota/sekaa-santi',['anggota' => $anggota]);
- 
+		return view('pengurus/anggota/sekaa-santi', [
+            "active" => "anggota", 
+            "anggota" => Anggota::latest()->filter(request(['cariSekaaSanti', 'jenis']))->paginate(10)->withQueryString()
+        ]);
     }
     
     public function cariPKK(Request $request)
     {
-        // menangkap data pencarian
-        $cariPKK = $request->cariPKK;
- 
-        // mengambil data dari table anggota sesuai pencarian data
-        if($request->has('cariPKK')){
-            $anggota = Anggota::where('nama', 'like', "%" .$request->cariPKK ."%")->paginate(10);
-        }else{
-            $anggota = Anggota::all();
-        }
-
-        // mengirim data anggota ke view index
-        return view('pengurus/anggota/pkk',['anggota' => $anggota]);
- 
+        return view('pengurus/anggota/PKK', [
+            "active" => "anggota", 
+            "anggota" => Anggota::latest()->filter(request(['cariPKK', 'jenis']))->paginate(10)->withQueryString()
+        ]);
     }
     
     /**

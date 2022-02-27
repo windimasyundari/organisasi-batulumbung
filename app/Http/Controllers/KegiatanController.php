@@ -21,16 +21,6 @@ class KegiatanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function create()
-    // {
-    //     return view('pengurus/kegiatan/kegiatan');
-    // }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,6 +33,7 @@ class KegiatanController extends Controller
             'tanggal'       => 'required',
             'waktu'         => 'required',
             'tempat'        => 'required',
+            'organisasi_id' => 'required',
             'deskripsi'     => 'required',
             'image'         => 'image|file|mimes:jpg,jpeg,png|max:1024'
         ]);
@@ -87,16 +78,18 @@ class KegiatanController extends Controller
             'tanggal'       => 'required',
             'waktu'         => 'required',
             'tempat'        => 'required',
+            'organisasi_id' => 'required',
             'deskripsi'     => 'required',
             'image'         => 'required|file|mimes:jpg,jpeg,png|max:1024'
         ]);
         
-
+        // dd($request->file('image')->hashName());
         if($request->file('image')){
             if($request->oldImage) {
                 Storage::delete($request->oldImage);
                 }
             $validateData['image'] = $request->file('image')->store('images-kegiatan');
+           
         }
 
         Kegiatan::where('id', $kegiatan->id)
@@ -105,18 +98,20 @@ class KegiatanController extends Controller
                     'tanggal'       =>$request->tanggal,
                     'waktu'         =>$request->waktu,
                     'tempat'        =>$request->tempat,
+                    'organisasi_id' =>$request->organisasi_id,
                     'deskripsi'     =>$request->deskripsi,
-                    'image'         =>$request->image,
+                    'image'         => 'images-kegiatan/'. $request->image->hashName(),
                 ]);
 
         return redirect('/kegiatan/kegiatan')-> with('success', 'Data Kegiatan Berhasil Diubah!');
     }
 
     public function exportPDF(Request $request, $id) {
-        $kegiatan['kegiatan'] = Kegiatan::find($id);
-    
+        $data = Kegiatan::find($id)->firstOrFail();
+        
+        // dd($data->nama_kegiatan);
 
-        $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', $kegiatan);
+        $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', compact('data'));
                
         return $pdf->stream('laporan-kegiatan.pdf');
      
@@ -135,15 +130,21 @@ class KegiatanController extends Controller
 
     public function cariKegiatan(Request $request)
 	{
-		// menangkap data pencarian
-		$cariKegiatan = $request->cariKegiatan;
+		return view('pengurus/kegiatan/kegiatan', [
+            "active" => "kegiatan", 
+            "kegiatan" => Kegiatan::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
+        ]);
  
-    	// mengambil data dari table Kegiatan sesuai pencarian data
-        $kegiatan = Kegiatan::where('nama_kegiatan', 'like', "%" .$cariKegiatan ."%")->paginate(10);
- 
-    	// mengirim data Kegiatan ke view index
-		return view('Pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan]);
- 
+    }
+
+    public function filterTanggal(Request $request)
+    {
+      $dari = $request->dari .'.'. '00:00:00';
+      $sampai = $request->sampai .'.'. '23:59:59';
+
+      $kegiatan = Kegiatan::whereBetween('tanggal', [$dari, $sampai])->get();
+
+      return view ('/pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan, 'dari' => $dari, 'sampai' => $sampai]);
     }
 
     /**
@@ -166,7 +167,19 @@ class KegiatanController extends Controller
     public function indexAnggota()
     {
         $kegiatan = Kegiatan::paginate(10);
-        return view('anggota/kegiatan', compact('kegiatan'));
+        return view('anggota/kegiatan', [
+            "kegiatan" => "All Kegiatan", 
+            "kegiatan"=> Kegiatan::latest()->get()
+        ]);
+    }
+
+    public function cariKegiatanAnggota(Request $request)
+	{
+		return view('anggota/kegiatan', [
+            "active" => "kegiatan", 
+            "kegiatan" => Kegiatan::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
+        ]);
+ 
     }
 
 }

@@ -20,9 +20,19 @@ class Organisasi extends Model
         return $this->HasMany(Pengurus::class);
     }
 
-    public function absensi()
+    public function kegiatan()
     {
-        return $this->HasMany(Absensi::class);
+        return $this->HasMany(Kegiatan::class);
+    }
+
+    public function pengumuman()
+    {
+        return $this->HasMany(Pengumuman::class);
+    }
+
+    public function laporanKeuangan()
+    {
+        return $this->HasMany(LaporanKeuangan::class);
     }
 }
 

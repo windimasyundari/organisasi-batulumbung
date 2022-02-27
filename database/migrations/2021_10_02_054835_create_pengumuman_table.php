@@ -15,6 +15,7 @@ class CreatePengumumanTable extends Migration
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organisasi_id');
             $table->string('judul');
             $table->date('tanggal');
             $table->time('waktu');

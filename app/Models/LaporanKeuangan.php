@@ -14,6 +14,7 @@ class LaporanKeuangan extends Model
         'jmlh_pengeluaran', 
         'tanggal',
         'keterangan', 
+        'organisasi_id',
         'kegiatan_id', 
         'pengurus_id'];
 
@@ -22,9 +23,14 @@ class LaporanKeuangan extends Model
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
 
-    public function pegurus()
+    public function pengurus()
     {
         return $this->belongsTo(pengurus::class);
+    }
+
+    public function organisasi()
+    {
+        return $this->belongsTo(Organisasi::class);
     }
 }
 

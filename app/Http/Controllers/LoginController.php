@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\Pengurus;
 use Illuminate\Support\Facades\Hash;
-//use Auth;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller

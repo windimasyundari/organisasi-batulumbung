@@ -38,18 +38,26 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'judul'     => 'required|max:255',
-            'tanggal'   => 'required',
-            'waktu'     => 'required',
-            'isi'       => 'required',
-            'file'      => 'file|mimes:pdf|max:1024'
+            'judul'             => 'required|max:255',
+            'tanggal'           => 'required',
+            'waktu'             => 'required',
+            'organisasi_id'     => 'required',
+            'isi'               => 'required',
+            'file'              => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
             $validateData['file'] = $request->file('file')->store('files-pengumuman');
         }
 
-        Pengumuman::create($validateData);
+        Pengumuman::create([
+            'judul'         => $request->judul,
+            'tanggal'       => $request->tanggal,
+            'waktu'         => $request->waktu,
+            'organisasi_id' => $request->organisasi_id,
+            'isi'           => $request->isi,
+            'file'          => $request->file->hashName(),
+        ]);
         
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Ditambahkan!');
     }
@@ -71,10 +79,10 @@ class PengumumanController extends Controller
      * @param  \App\Models\Pengumuman  $pengumuman
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengumuman $pengumuman)
-    {
-        return view('pengurus/pengumuman/show-pengumuman', compact('pengumuman'));
-    }
+    // public function edit(Pengumuman $pengumuman)
+    // {
+    //     return view('pengurus/pengumuman/show-pengumuman', compact('pengumuman'));
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -86,11 +94,12 @@ class PengumumanController extends Controller
     public function update(Request $request, Pengumuman $pengumuman)
     {
         $validateData = $request->validate([
-            'judul'     => 'required|max:255',
-            'tanggal'   => 'required',
-            'waktu'     => 'required',
-            'isi'       => 'required',
-            'file'      => 'file|mimes:pdf|max:1024'
+            'judul'             => 'required|max:255',
+            'tanggal'           => 'required',
+            'waktu'             => 'required',
+            'organisasi_id'     => 'required',
+            'isi'               => 'required',
+            'file'              => 'file|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -102,10 +111,10 @@ class PengumumanController extends Controller
         
         Pengumuman::where('id', $pengumuman->id)
                 ->update([
-                    'judul'=>$request->judul,
-                    'tanggal'=>$request->tanggal,
-                    'isi'=>$request->isi,
-                    'file'=>$request->file
+                    'judul'     =>$request->judul,
+                    'tanggal'   =>$request->tanggal,
+                    'isi'       =>$request->isi,
+                    'file'      =>$request->file->hashName(),
                 ]);
 
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Diubah!');
@@ -120,14 +129,10 @@ class PengumumanController extends Controller
 
     public function cariPengumuman(Request $request)
 	{
-		// menangkap data pencarian
-		$cariPengumuman = $request->cariPengumuman;
- 
-    	// mengambil data dari table pengumuman sesuai pencarian data
-        $pengumuman = Pengumuman::where('judul', 'like', "%" .$cariPengumuman ."%")->paginate(10);
- 
-    	// mengirim data Pengumuman ke view index
-		return view('Pengurus/pengumuman/pengumuman', ['pengumuman' => $pengumuman]);
+		return view('pengurus/pengumuman/pengumuman', [
+            "active" => "pengumuman", 
+            "pengumuman" => Pengumuman::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
+        ]);
  
     }
        
@@ -151,8 +156,21 @@ class PengumumanController extends Controller
 
     public function indexAnggota()
     {
+        
         $pengumuman = Pengumuman::paginate(10);
-        return view('anggota/pengumuman', compact('pengumuman'));
+        return view('anggota/pengumuman', [
+            "pengumuman" => "All Pengumuman", 
+            "pengumuman"=> Pengumuman::latest()->get()
+        ]);
+    }
+
+    public function cariPengumumanAnggota(Request $request)
+	{
+		return view('anggota/pengumuman', [
+            "active" => "pengumuman", 
+            "pengumuman" => Pengumuman::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
+        ]);
+ 
     }
 
 }

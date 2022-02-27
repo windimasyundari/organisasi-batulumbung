@@ -21,20 +21,24 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select name="jenis" id="jenis" class="form-control">
-                                    <option value="">Filter Organisasi</option>
-                                    <option value="Sekaa Teruna">Sekaa Teruna</option>
-                                    <option value="Sekaa Santi">Sekaa Santi</option>
-                                    <option value="Sekaa Gong">Sekaa Gong</option>
-                                    <option value="PKK">PKK</option>
+                                <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
+                                    <option value="" selected>Filter Organisasi</option>
+                                    @foreach($organisasi as $organisasis)
+                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">    
                             <div class="form-group">
-                                <input type="text" name="cariPengurus" class="form-control w-75 d-inline" id="cariPengurus" placeholder="Cari Nama ...">
-                                <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                                <input type="text" name="cariPengurus" class="form-control w-75 d-inline" id="cariPengurus" value="{{ request('cariPengurus')}}" placeholder="Cari Nama ...">
+                                <button type="submit" class="btn btn-primary mb-1 d-inline"><i class="fa fa-search"></i> Cari</button>
                             </div>  
+                        </div>
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                               
+                            </div>
                         </div>
                     </div>                    
                 </form>
@@ -215,6 +219,12 @@
                           
                             </tbody>
                         </table>
+
+                        <div class="d-flex center-content-end">
+                            {{$pengurus->links()}}
+                        </div>
+                      
+                       
 
                     </div>
                 </div>

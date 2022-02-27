@@ -36,7 +36,7 @@
                                 $no = 0;
                             @endphp
 
-                            @forelse ($absensi as $absen)
+                            @forelse ($data_absensi as $absen)
                                 <tr>
                                     <th scope="row">{{ ++$no }}</th>
                                     <td>{{$absen->anggota_id}}</td>

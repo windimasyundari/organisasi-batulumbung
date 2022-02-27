@@ -19,7 +19,7 @@
                 <div class="white-box">
                 <form class="form" method="get" action="{{ route ('cariPKK') }}">
                     <div class="col-md-6 ms-auto">
-                        <input type="text" name="cariPKK" class="form-control w-75 d-inline" id="cariPKK" placeholder="Cari Nama Anggota ...">
+                        <input type="text" name="cariPKK" class="form-control w-75 d-inline" value="{{ request('cariPKK')}}" id="cariPKK" placeholder="Cari Nama Anggota ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
@@ -230,11 +230,10 @@
                             </tbody>
                         </table>
 
-                        Halaman : {{ $anggota->currentPage() }} <br/>
-                        Total Data :  {{ $anggota->total() }} <br/>
-                        Data Per Halaman : {{ $anggota->perPage() }} <br/> <br>
-
-                        {{ $anggota->links() }}     
+                        <div class="d-flex justify-content-end">
+                            {{$anggota->links()}}
+                        </div>
+                           
                     </div>
                 </div>
             </div>

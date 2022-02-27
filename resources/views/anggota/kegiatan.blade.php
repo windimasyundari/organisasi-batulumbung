@@ -10,12 +10,20 @@
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                 <h4 class="page-title">Kegiatan</h4>
             </div>
+            <div class="col-md-6 ms-auto">
+                <form class="form mb-3" method="get" action="{{ route ('cariKegiatanAnggota') }}">
+                    <div class="col-md-6 ms-auto">
+                        <input type="text" name="cari" class="form-control w-75 d-inline" value="{{ request('cari')}}" id="cari" placeholder="Cari ...">
+                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                    </div>                    
+                </form>
+            </div>
         </div>
     </div>
 
     <div class="container-fluid">
         <div class="row ">
-            @foreach($kegiatan as $kegiatan)
+            @forelse($kegiatan as $kegiatan)
             <div class="card bg-light" style="width: 100rem;">
                 <div class="card-body ">
                     <h4 class="card-title" style="font-weight: 800; ">{{$kegiatan->nama_kegiatan}}</h4>
@@ -23,7 +31,9 @@
                     <a href="{{url('')}}/kegiatan/kegiatan_pdf/{id}" class="btn btn-danger text-white"><i class="bi bi-download"></i> Download</a>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="card-body bg-light"  style="font-weight: 800; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
+            @endforelse
             </div>                 
         </div>          
     </div>

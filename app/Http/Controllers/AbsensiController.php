@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Organisasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AbsensiImport;
 use App\Exports\AbsensiExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
+use Carbon\Carbon;
 
 
 class AbsensiController extends Controller
@@ -20,53 +23,46 @@ class AbsensiController extends Controller
     public function index()
     {
         $absensi = Absensi::paginate(10);
-        return view('pengurus.absensi.absensi', compact('absensi'));
+        $organisasi = Organisasi::all();
+
+        // dd($absensi);
+        return view('pengurus.absensi.absensi', compact('absensi', 'organisasi'));
     }
 
-    public function cariNama(Request $request)
+    public function cariAbsensi(Request $request)
 	{
-		// menangkap data pencarian
-		$cariNama = $request->cariNama;
- 
-    	// mengambil data dari table absensi sesuai pencarian data
-		$absensi = DB::table('absensi')
-		->where('nama','like',"%".$cariNama."%")
-		->paginate(10);
- 
-    	// mengirim data absensi ke view index
-		return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
- 
+        $organisasi = Organisasi::all();
+        $absensi = Absensi::latest()->filter(request(['cariAbsensi', 'jenis']))->paginate(10)->withQueryString();
+       
+		return view('pengurus/absensi/absensi', compact('absensi', 'organisasi'));
+    }
+
+    public function filterTanggal(Request $request)
+    {
+      $dari = $request->dari .'.'. '00:00:00';
+      $sampai = $request->sampai .'.'. '23:59:59';
+
+      $absensi = Absensi::whereBetween('tanggal', [$dari, $sampai])->get();
+
+      return view ('/pengurus/absensi/absensi', ['absensi' => $absensi, 'dari' => $dari, 'sampai' => $sampai]);
     }
     
-    public function cariTanggal(Request $request)
-	{
-		// menangkap data pencarian
-		$cariTanggal = $request->cariTanggal;
+    // public function cariTanggal(Request $request)
+	// {
+	// 	// menangkap data pencarian
+	// 	$cariTanggal = $request->cariTanggal;
  
-    	// mengambil data dari table absensi sesuai pencarian data
-		$absensi = DB::table('absensi')
-		->where('tanggal','like',"%".$cariTanggal."%")
-		->paginate(10);
+    // 	// mengambil data dari table absensi sesuai pencarian data
+	// 	$absensi = DB::table('absensi')
+	// 	->where('tanggal','like',"%".$cariTanggal."%")
+	// 	->paginate(10);
  
-    	// mengirim data absensi ke view index
-		return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
+    // 	// mengirim data absensi ke view index
+	// 	return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
  
-    }
-    
-    public function cariOrganisasi(Request $request)
-	{
-		// menangkap data pencarian
-		$cariOrganisasi = $request->cariOrganisasi;
- 
-    	// mengambil data dari table absensi sesuai pencarian data
-		$absensi = DB::table('absensi')
-		->where('jenis','like',"%".$cariOrganisasi."%")
-		->paginate(10);
- 
-    	// mengirim data absensi ke view index
-		return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
- 
-	}
+    // }
+
+
 
 
     public function import_excel(Request $request) 
@@ -196,9 +192,13 @@ class AbsensiController extends Controller
         return redirect('/absensi/absensi')-> with('status', 'Data Absensi Berhasil Dihapus!');
     }
 
-    public function indexAnggota()
+    public function indexAnggota(Request $request)
     {
-        $absensi = Absensi::paginate(10);
-        return view('anggota.absensi', compact('absensi'));
+        // dd(Auth::guard('anggota')->user()->id);
+        $absensi = Auth::guard('anggota')->user()->id;
+        $data_absensi = Absensi::where('anggota_id', $absensi)
+            ->paginate(10);
+
+        return view('anggota.absensi', compact('data_absensi'));
     }
 }

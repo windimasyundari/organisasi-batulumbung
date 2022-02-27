@@ -92,6 +92,7 @@ use App\Models\Absensi;
     Route::patch('/pengurus-crud/profil-pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@updateProfil');
     Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@profil');
     Route::get('/pengurus/cariPengurus','App\Http\Controllers\PengurusController@cariPengurus')->name('cariPengurus');
+  
     // Route::get('/pengurus-crud/profil-pengurus/change-password', 'App\Http\Controllers\PengurusController@changePassword')->name('change_password');
     Route::patch('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@updatePassword')->name('update_password');
 
@@ -116,6 +117,7 @@ use App\Models\Absensi;
     Route::get('/kegiatan/kegiatan_pdf/{id}', 'App\Http\Controllers\KegiatanController@exportPDF')->name('exportPDF');
     // Route::get('/kegiatan/kegiatan_pdf/{kegiatan}', 'App\Http\Controllers\KegiatanController@exportPDF')->name('exportPDF');
     Route::get('/kegiatan/cariKegiatan','App\Http\Controllers\KegiatanController@cariKegiatan')->name('cariKegiatan');
+    Route::post('/kegiatan/filterTanggal','App\Http\Controllers\KegiatanController@filterTanggal')->name('filterTanggalKegiatan');
 
     // Pengumuman
     Route::get('/pengumuman/pengumuman', 'App\Http\Controllers\PengumumanController@index');
@@ -138,8 +140,8 @@ use App\Models\Absensi;
     Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update')->name('editAbsensi');
     Route::post('/absensi/import_absensi', 'App\Http\Controllers\AbsensiController@import_excel');
     Route::get('/absensi/export_absensi', 'App\Http\Controllers\AbsensiController@export_excel')->name('export_absensi');
-    Route::get('/absensi/cariNama','App\Http\Controllers\AbsensiController@cariNama')->name('cariNama');
-    Route::get('/absensi/cariTanggal','App\Http\Controllers\AbsensiController@cariTanggal')->name('cariTanggal');
+    Route::get('/absensi/cariAbsensi','App\Http\Controllers\AbsensiController@cariAbsensi')->name('cariAbsensi');
+    Route::post('/absensi/filterTanggal','App\Http\Controllers\AbsensiController@filterTanggal')->name('filterTanggalAbsensi');
     Route::get('/absensi/cariOrganisasi','App\Http\Controllers\AbsensiController@cariOrganisasi')->name('cariOrganisasi');
  
 
@@ -147,13 +149,13 @@ use App\Models\Absensi;
     // Laporan Keuangan
     Route::get('/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@index');
     // Route::get('/pengurus/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@create');
-    // Route::get('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@show');
+    Route::get('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@show');
     Route::post('/pengurus/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@store')->name('tambahLaporan');
     Route::delete('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@destroy')->name('hapusLaporan');
     // Route::get('/laporan/laporan-keuangan/{laporan-keuangan}/edit', 'App\Http\Controllers\LaporanKeuanganController@edit');
-    Route::patch('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@update')->name('editLaporan');
+    Route::patch('/laporan/laporan-keuangan/{id}', 'App\Http\Controllers\LaporanKeuanganController@update')->name('editLaporan');
     Route::get('/laporan-keuangan/export_laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@export_excel')->name('export_laporan-keuangan');
-    Route::get('/laporan-keuangan/cariTanggal','App\Http\Controllers\LaporanKeuanganController@cariTanggal')->name('cariTanggal');
+    Route::post('/laporan-keuangan/filterTanggal','App\Http\Controllers\LaporanKeuanganController@filterTanggal')->name('filterTanggalKeuangan');
     // Route::get('/laporan-keuangan-pdf/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@exportPDF')->name('exportPDF');
 
 
@@ -179,6 +181,8 @@ use App\Models\Absensi;
      Route::get('/kegiatan', 'App\Http\Controllers\KegiatanController@indexAnggota');
      Route::get('/absensi', 'App\Http\Controllers\AbsensiController@indexAnggota');
      Route::get('/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@indexAnggota');
+     Route::get('/pengumuman/cariPengumumanAnggota','App\Http\Controllers\PengumumanController@cariPengumumanAnggota')->name('cariPengumumanAnggota');
+     Route::get('/kegiatan/cariKegiatanAnggota','App\Http\Controllers\KegiatanController@cariKegiatanAnggota')->name('cariKegiatanAnggota');
     
      
      // Logout

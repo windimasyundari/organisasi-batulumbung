@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class LaporanKeuanganController extends Controller
 {
@@ -45,6 +46,7 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'kegiatan_id'       => 'required',
+            'organisasi_id'     => 'required',
             'pengurus_id'       => 'required'
         ]);
 
@@ -53,25 +55,22 @@ class LaporanKeuanganController extends Controller
         return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Ditambahkan!');
     }
 
-    public function cariTanggal(Request $request)
-	{
-		// menangkap data pencarian
-		$cariTanggal = $request->cariTanggal;
- 
-    	// mengambil data dari table laporan keuangan sesuai pencarian data
-		$laporan_keuangan = DB::table('laporan_keuangan')
-		->where('tanggal','like',"%".$cariTanggal."%")
-		->paginate(10);
- 
-    	// mengirim data laporan keuangan ke view index
-		return view('pengurus/laporan/laporan-keuangan', ['laporan_keuangan' => $laporan_keuangan]);
- 
+  
+    public function filterTanggal(Request $request)
+    {
+      $dari = $request->dari .'.'. '00:00:00';
+      $sampai = $request->sampai .'.'. '23:59:59';
+
+      $laporan_keuangan = LaporanKeuangan::whereBetween('tanggal', [$dari, $sampai])->get();
+
+      return view ('/pengurus/laporan/laporan-keuangan', ['laporan_keuangan' => $laporan_keuangan, 'dari' => $dari, 'sampai' => $sampai]);
     }
 
-    public function number_format($angka) {
-        $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
-	    return $hasil_rupiah;
-    }
+
+    // public function number_format($angka) {
+    //     $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
+	//     return $hasil_rupiah;
+    // }
 
     /**
      * Display the specified resource.
@@ -81,19 +80,8 @@ class LaporanKeuanganController extends Controller
      */
     public function show(LaporanKeuangan $laporanKeuangan)
     {
-        return view('pengurus.laporan.show-laporan-keuangan', compact('laporan_keuangan'));
+        return view('pengurus/laporan/show-laporan-keuangan', compact('laporan_keuangan'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(LaporanKeuangan $laporanKeuangan)
-    // {
-    //     return view('pengurus.laporan.edit-laporan-keuangan', compact('laporan_keuangan'));
-    // }
 
     /**
      * Update the specified resource in storage.
@@ -102,7 +90,7 @@ class LaporanKeuanganController extends Controller
      * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LaporanKeuangan $laporan_keuangan)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'jmlh_pemasukan'    => 'required',
@@ -110,16 +98,18 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'kegiatan_id'       => 'required',
+            'organisasi_id'     => 'required',
             'pengurus_id'       => 'required'
         ]);
         
-        LaporanKeuangan::where('id', $laporan_keuangan->id)
+        LaporanKeuangan::where('id', $id)
                 ->update([
             'jmlh_pemasukan'    => $request->jmlh_pemasukan,
             'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
             'kegiatan_id'       => $request->kegiatan_id,
+            'organisasi_id'       => $request->organisasi_id,
             'pengurus_id'       => $request->pengurus_id
             ]);
 
@@ -157,6 +147,9 @@ class LaporanKeuanganController extends Controller
     public function indexAnggota()
     {
         $laporan_keuangan = LaporanKeuangan::paginate(10);
-        return view('anggota.laporan-keuangan', compact('laporan_keuangan')); 
+        return view('anggota.laporan-keuangan', [
+            "laporan_keuangan" => "All Laporan Keuangan", 
+            "laporan_keuangan"=> LaporanKeuangan::latest()->get()
+        ]); 
     }
 }

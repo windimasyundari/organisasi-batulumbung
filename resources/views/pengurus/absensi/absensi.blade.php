@@ -32,31 +32,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-
-                <form class="form" method="get" action="{{ route ('cariNama') }}">
+                <form action="{{ route ('filterTanggalKegiatan') }}" method="post">
+                @csrf
                     <div class="col-md-6">
-                        <input type="text" name="cariNama" class="form-control w-75 d-inline" id="cariNama" placeholder="Cari Nama ...">
-                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                        <div class="input-group mb-3" style="width:570px">
+                            <input type="text" class="form-control" name="dari" onfocusin="(this.type='date')" value="{{ request('dari')}}" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
+                            <input type="text" class="form-control" name="sampai" onfocusin="(this.type='date')" value="{{ request('sampai')}}" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
+                            <button class="btn btn-primary" type="submit" style="width:80px"> Filter</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <form class="form mb-3" method="get" action="{{ route ('cariAbsensi') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
+                                    <option value="" selected>Filter Organisasi</option>
+                                    @foreach($organisasi as $organisasis)
+                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                                <input type="text" name="cariAbsensi" class="form-control w-75 d-inline" value="{{ request('cariAbsensi')}}" id="cariAbsensi" placeholder="Cari ...">
+                                <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                            </div>  
+                        </div>
                     </div>                    
                 </form>
 
-                <form class="form" method="get" action="{{ route ('cariTanggal') }}">
-                <div class="col-md-6">
-                        <input type="date" name="cariTanggal" class="form-control w-75 d-inline" id="tanggal" placeholder="Masukkan keyword">
-                        <button type="submit" class="btn btn-primary mb-1"> <i class="fa fa-search"></i>Cari</button>
-                    </div>
-                </form>
-
-                <form class="form" method="get" action="{{ route ('cariOrganisasi') }}">
-                    <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                    <select class="form-select shadow-none">
-                            <option> <a href="/absensi/absensi?organisasi_id=1">Sekaa Teruna</a></option>
-                            <option> <a href="/absensi/absensi?organisasi_id=2">Sekaa Santi</a></option>
-                            <option> <a href="/absensi/absensi?organisasi_id=3">Sekaa Gong</a></option>
-                            <option> <a href="/absensi/absensi?organisasi_id=4">PKK</a></option>
-                    </select> 
-                    </div>
-                </form>
+              
                 
                 {{-- notifikasi form validasi --}}
                 @if ($errors->has('file'))
@@ -153,8 +161,8 @@
                                                         <label for="exampleFormControlSelect">Status</label>
                                                         <select name="status" value="{{ $absen->status }}" class="form-control @error('status') is-invalid @enderror" 
                                                         id="exampleFormControlSelect">
-                                                            <option value="HADIR" @if($absen->status == "HADIR") selected @endif>HADIR</option>
-                                                            <option value="TIDAK HADIR" @if($absen->status == "TIDAK HADIR") selected @endif>TIDAK HADIR</option>
+                                                            <option value="Hadir" @if($absen->status == "Hadir") selected @endif>Hadir</option>
+                                                            <option value="Tidak Hadir" @if($absen->status == "Tidak Hadir") selected @endif>TIDAK HADIR</option>
                                                         </select>
                                                     </div>
 
@@ -179,12 +187,13 @@
                                 @endforelse
                             </tbody>
                         </table>  
-
-                        Halaman  : {{ $absensi->currentPage() }} <br/>
-                        Total Data  : {{ $absensi->total() }} <br/>
-                        Data Per Halaman : {{ $absensi->perPage() }} <br/> <br>
-
-                        {{ $absensi->links() }}                          
+                        @if ($absensi->hasPages())
+                            <div class="row">
+                                <div class="col">
+                                    {{ $absensi->links('pagination::bootstrap-4') }}
+                                </div>
+                            </div>
+                        @endif                
                     </div>
                 </div>
             </div>

@@ -25,6 +25,11 @@
             <th>Tanggal | Waktu</th>
             <td>{{ $pengumuman->tanggal }} | {{ $pengumuman->waktu }}</td>
         </tr>
+
+        <tr>
+            <th>Jenis Organisasi</th>
+            <td>{{ $pengumuman->organisasi->jenis }}</td>
+        </tr>
         
         <tr>
             <th>Isi Pengumuman</th>
@@ -85,7 +90,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="waktu">waktu</label> 
+                            <label for="waktu">Waktu</label> 
                             <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
                             id="waktu">
                             @error ('waktu')
@@ -93,6 +98,17 @@
                                 {{ $message }}
                             </div>
                             @enderror
+                        </div>
+
+                        <div class="form-group">
+                        <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                            <select name="organisasi_id" value="{{ $pengumuman->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" 
+                            id="exampleFormControlSelect">
+                                <option value="1" @if($pengumuman->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
+                                <option value="2" @if($pengumuman->organisasi_id == "2") selected @endif>Sekaa Gong</option>
+                                <option value="3" @if($pengumuman->organisasi_id == "3") selected @endif>Sekaa Santi</option>
+                                <option value="4" @if($pengumuman->organisasi_id == "4") selected @endif>PKK</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

@@ -31,6 +31,11 @@
             <th>Tempat</th>
             <td>{{ $kegiatan->tempat }}</td>
         </tr>
+
+        <tr>
+            <th>Jenis Organisasi</th>
+            <td>{{ $kegiatan->organisasi->jenis }}</td>
+        </tr>
         
         <tr>
             <th>Deskripsi</th>
@@ -41,8 +46,8 @@
             <th>Gambar</th>
             <td>  
             @if($kegiatan->image)
-                <div style="overflow:hidden">
-                   <img src="{{ asset('storage/'. $kegiatan->image) }}" class="img-fluid mb-3">
+                <div style="overflow:hidden; width:300px">
+                   <img src="{{ asset('storage/'. $kegiatan->image) }}" class="img-fluid mb-3"  style="width:100%">
                 </div>
             @endif
             </td>
@@ -127,6 +132,17 @@
                                 {{ $message }}
                             </div>
                             @enderror
+                        </div>
+
+                        <div class="form-group">
+                        <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                            <select name="organisasi_id" value="{{ $kegiatan->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" 
+                            id="exampleFormControlSelect">
+                                <option value="1" @if($kegiatan->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
+                                <option value="2" @if($kegiatan->organisasi_id == "2") selected @endif>Sekaa Gong</option>
+                                <option value="3" @if($kegiatan->organisasi_id == "3") selected @endif>Sekaa Santi</option>
+                                <option value="4" @if($kegiatan->organisasi_id == "4") selected @endif>PKK</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

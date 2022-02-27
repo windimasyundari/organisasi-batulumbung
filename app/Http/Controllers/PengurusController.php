@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengurus;
+use App\Models\Organisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
@@ -15,26 +16,21 @@ class PengurusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $pengurus = Pengurus::paginate(10);
-        return view('pengurus.pengurus-crud.pengurus', compact('pengurus'));
+        $organisasi = Organisasi::all();
+
+        return view('pengurus.pengurus-crud.pengurus', compact(['pengurus', 'organisasi']));
     }
 
     public function cariPengurus(Request $request)
 	{
-		// menangkap data pencarian
-		$cariPengurus = $request->cariPengurus;
- 
-        // mengambil data dari table absensi sesuai pencarian data
-        if($request->has('cariPengurus')){
-            $pengurus = Pengurus::where('nama', 'like', "%" .$request->cariPengurus ."%")->paginate(10);
-        }else{
-            $pengurus = Pengurus::all();
-        }
- 
-    	// mengirim data pengurus ke view index
-		return view('pengurus/pengurus-crud/pengurus', ['pengurus' => $pengurus]);
+        // dd($request->jenis);
+        $organisasi = Organisasi::all();
+        $pengurus = Pengurus::latest()->filter(request(['cariPengurus', 'jenis']))->paginate(10)->withQueryString();
+       
+		return view('pengurus/pengurus-crud/pengurus', compact('organisasi', 'pengurus'));
     }
 
     /**

@@ -22,6 +22,19 @@ class Pengurus extends Authenticatable
         'status',
     ];
 
+public function scopeFilter($query, array $filters) {
+       
+    $query->when($filters['cariPengurus'] ?? false, function($query, $cariPengurus) {
+        return $query->where('nama', 'like', '%' . $cariPengurus . '%');
+    });
+
+    $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+        return $query->whereHas('organisasi', function($query) use ($organisasi) {
+            $query->where('jenis', $organisasi);
+        });
+    });
+}
+
 
 public function organisasi()
     {

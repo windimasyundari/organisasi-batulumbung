@@ -17,10 +17,22 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form class="form mb-3" method="get" action="{{ route ('cariKegiatan') }}">
+                <form action="{{ route ('filterTanggalKegiatan') }}" method="post">
+                @csrf
                     <div class="col-md-6 ms-auto">
-                        <input type="text" name="cariKegiatan" class="form-control w-75 d-inline" id="cariKegiatan" placeholder="Cari Nama Kegiatan ...">
-                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                        <div class="input-group mb-3" style="width:590px">
+                            <input type="text" class="form-control" name="dari" value="{{ request('dari')}}" onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
+                            <input type="text" class="form-control" name="sampai" value="{{ request('sampai')}}" onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
+                            <button class="btn btn-primary" type="submit" style="width:80px"> Filter</button>
+                        </div>
+                    </div>
+                </form>
+                <form class="form" method="get" action="{{route('cariKegiatan')}}">
+                    <div class="col-md-6 ms-auto">
+                        <div class="input-group mb-3">
+                            <input type="text" name="cari" class="form-control w-75 d-inline" id="cari" value="{{ request('cari')}}" placeholder="Cari Nama Kegiatan ...">
+                            <button type="submit" class="btn btn-primary" style="width:80px"><i class="fa fa-search"></i> Cari</button> 
+                        </div>
                     </div>                    
                 </form>
 
@@ -112,6 +124,17 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                                        <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
+                                            <option value="">--Pilih--</option>
+                                            <option value="1">Sekaa Teruna</option>
+                                            <option value="2">Sekaa Gong</option>
+                                            <option value="3">Sekaa Santi</option>
+                                            <option value="4">PKK</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="image" class="form-label">Image</label>
                                         <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
                                         id="image">
@@ -139,6 +162,8 @@
                                 <th class="border-top-0">NO</th>
                                 <th class="border-top-0">ID KEGIATAN</th>
                                 <th class="border-top-0">NAMA KEGIATAN</th>
+                                <th class="border-top-0">TANGGAL</th>
+                                <th class="border-top-0">JENIS ORGANISASI</th>
                                 <th class="border-top-0">AKSI</th>
                             </tr>
                         </thead>
@@ -148,20 +173,20 @@
                                 <th scope="row">{{ $loop->iteration}}</th>
                                 <td>{{$kegiatans->id}}</td>
                                 <td>{{$kegiatans->nama_kegiatan}}</td>
+                                <td>{{$kegiatans->tanggal}}</td>
+                                <td>{{$kegiatans->organisasi->jenis}}</td>
                                 <td><a href="\kegiatan\kegiatan\{{ $kegiatans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                             </tr>
                             @empty
-                            <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
+                            <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
                         @endforelse
                         </tbody>
                     </table>
 
-                        
-                    Halaman : {{ $kegiatan->currentPage() }} <br>
-                    Total data :{{ $kegiatan->total() }} <br/>
-                    Data Per Halaman : {{ $kegiatan->perPage() }} <br/> <br>
-
-                    {{  $kegiatan->links()}}
+                    <div class="d-flex justify-content-end">
+                            {{$kegiatan->links()}}
+                    </div>
+                   
                     </div>
                 </div>
             </div>

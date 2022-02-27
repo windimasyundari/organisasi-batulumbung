@@ -15,6 +15,7 @@ class CreateKegiatanTable extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('organisasi_id');
             $table->string('nama_kegiatan');
             $table->date('tanggal');
             $table->time('waktu');

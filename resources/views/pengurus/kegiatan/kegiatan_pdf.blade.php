@@ -12,26 +12,26 @@
         <table class="table table-borderless">
             <tr>
                 <td>Nama Kegiatan</td>
-                <td>{{$kegiatan['kegiatan']->nama_kegiatan}}</td>
+                <td>{{$data->nama_kegiatan}}</td>
             </tr>
             <tr>
                 <td>Tanggal, Waktu</td>
-                <td>{{$kegiatan['kegiatan']->tanggal}}, {{$kegiatan['kegiatan']->waktu}}</td>
+                <td>{{$data->tanggal}}, {{$data->waktu}}</td>
             </tr>
             <tr>
                 <td>Tempat</td>
-                <td>{{$kegiatan['kegiatan']->tempat}}</td>
+                <td>{{$data->tempat}}</td>
             </tr>
             <tr>
                 <td>Deskripsi</td>
-                <td>{{$kegiatan['kegiatan']->deskripsi}}</td>
+                <td>{{$data->deskripsi}}</td>
             </tr>
             <tr>
                 <td>Gambar</td>
                 <td>  
-                    @if($kegiatan['kegiatan']->image)
-                        <div style="overflow:hidden">
-                        <img src="{{ asset('storage/'. $kegiatan['kegiatan']->image) }}" class="img-fluid mb-3">
+                    @if(!empty($data->image))
+                        <div style="overflow:hidden; width:300px">
+                        <img src="{{ public_path('storage/'. $data->image) }}" class="img-fluid mb-3" style="width:100%">
                         </div>
                     @endif
                 </td>

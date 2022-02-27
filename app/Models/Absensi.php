@@ -16,26 +16,30 @@ class Absensi extends Model
         'jenis', 
         'status'];
 
-    // public function absensiFilter($query, array $filter)
-    // {
-    //     $query->when($filter['tanggal'] ?? false, function ($query, $tanggal) {
-    //         return $query->where('tanggal', $tanggal);
-    //     });
-    // }
+    public function scopeFilter($query, array $filters) {
+    
+        $query->when($filters['cariAbsensi'] ?? false, function($query, $cariAbsensi) {
+            return $query->where('nama', 'like', '%' . $cariAbsensi . '%')
+            ->orWhere('status', 'like', '%' . $cariAbsensi . '%');
+        });
+    
+        $query->when($filters['jenis'] ?? false, function($query, $absensi) {
+            return $query->whereHas('absensi', function($query) use ($absensi) {
+                $query->where('jenis', $absensi);
+            });
+        });
+    }
 
+    // relasi
     public function anggota()
     {
         return $this->belongsTo(Anggota::class);
     }
 
-    public function organisasi()
+    // scope
+    public function scopeSearch($query, $nama)
     {
-        return $this->belongsTo(Organisasi::class);
-    }
-
-    public function kegiatan()
-    {
-        return $this->belongsTo(Kegiatan::class);
+        return $query->where('nama', 'LIKE', "%{$nama}%");
     }
 
 }

@@ -19,7 +19,7 @@
                 <div class="white-box">
                 <form class="form mb-3" method="get" action="{{ route ('cariPengumuman') }}">
                     <div class="col-md-6 ms-auto">
-                        <input type="text" name="cariPengumuman" class="form-control w-75 d-inline" id="cariPengumuman" placeholder="Cari Judul ...">
+                        <input type="text" name="cari" class="form-control w-75 d-inline" value="{{ request('cari')}}" id="cari" placeholder="Cari Judul ...">
                         <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
                     </div>                    
                 </form>
@@ -79,7 +79,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="waktu">waktu</label> 
+                                            <label for="waktu">Waktu</label> 
                                             <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
                                             id="waktu">
                                             @error ('waktu')
@@ -87,6 +87,17 @@
                                                 {{ $message }}
                                             </div>
                                             @enderror
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                                            <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
+                                                <option value="">--Pilih--</option>
+                                                <option value="1">Sekaa Teruna</option>
+                                                <option value="2">Sekaa Gong</option>
+                                                <option value="3">Sekaa Santi</option>
+                                                <option value="4">PKK</option>
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
@@ -129,6 +140,7 @@
                                     <th class="border-top-0">ID PENGUMUMAN</th>
                                     <th class="border-top-0">JUDUL PENGUMUMAN</th>
                                     <th class="border-top-0">TANGGAL</th>
+                                    <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
@@ -139,19 +151,19 @@
                                     <td>{{$pengumumans->id}}</td>
                                     <td>{{$pengumumans->judul}}</td>
                                     <td>{{$pengumumans->tanggal}}</td>
+                                    <td>{{$pengumumans->organisasi->jenis}}</td>
                                     <td><a href="\pengumuman\pengumuman\{{ $pengumumans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
-                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
                             @endforelse
                             </tbody>
                         </table>
 
-                        Halaman : {{ $pengumuman->currentPage() }} <br>
-                        Total Data :{{ $pengumuman->total() }} <br/>
-                        Data Per Halaman : {{ $pengumuman->perPage() }} <br/> <br>
+                        <div class="d-flex justify-content-end">
+                            {{$pengumuman->links()}}
+                        </div>
 
-                        {{  $pengumuman->links()}}
                     </div>
                 </div>
             </div>
