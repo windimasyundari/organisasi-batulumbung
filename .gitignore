@@ -16,3 +16,5 @@ yarn-error.log
 Dockerfile
 docker-compose.yml
 /docker-config
+/public/files_absensi
+/public/files_pengumuman
