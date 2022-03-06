@@ -84,7 +84,7 @@ class LaporanKeuanganController extends Controller
      */
     public function show(LaporanKeuangan $laporanKeuangan, $id)
     {
-        $laporan = LaporanKeuangan::find($id);
+        $laporan = LaporanKeuangan::with('pengurus')->find($id);
         return view('pengurus/laporan/show-laporan-keuangan', compact('laporan'));
     }
 
