@@ -97,7 +97,7 @@
 
                         <div class="form-group">
                             <label for="waktu">Waktu</label> 
-                            <input type="time" name="waktu" value="{{ old ('waktu') }}" class="form-control @error('waktu') is-invalid @enderror" 
+                            <input type="time" name="waktu" value="{{ $pengumuman->waktu }}" class="form-control @error('waktu') is-invalid @enderror" 
                             id="waktu">
                             @error ('waktu')
                             <div class="invalid-feedback">
@@ -136,7 +136,7 @@
                                 @else
                                     <img class="img-preview img-fluid mb-3 col=sm-5">
                                 @endif
-                            <input type="file" name="file" value="{{ old ('file') }}" class="form-control @error('file') is-invalid @enderror" 
+                            <input type="file" name="file" accept="application/pdf" value="{{ old ('file') }}" class="form-control @error('file') is-invalid @enderror" 
                             id="file" placeholder="Masukkan file">
                             @error ('file')
                             <div class="invalid-feedback">
