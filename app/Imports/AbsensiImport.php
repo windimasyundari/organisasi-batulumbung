@@ -14,13 +14,15 @@ class AbsensiImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new Absensi([
+        $absensi = [
             'anggota_id'    => $row['anggota_id'],
             'nama'          => $row['nama'],
             'nama_kegiatan' => $row['nama_kegiatan'],
             'tanggal'       => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['tanggal']),
             'jenis'         => $row['jenis'],
             'status'        => $row['status']
-        ]);
+        ];
+
+        return new Absensi($absensi);
     }
 }

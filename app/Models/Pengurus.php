@@ -43,7 +43,7 @@ public function organisasi()
 
 public function laporanKeuangan()
     {
-        return $this->HasMany(LaporanKeuangan::class);
+        return $this->hasMany(LaporanKeuangan::class);
     }
 
 

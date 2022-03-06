@@ -15,6 +15,12 @@
     </div>
     
     <div class="container-fluid">
+        @if(session()->has('file_404'))
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                {{ session('file_404') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     <table class="table table-light table-borderless">
         <tr>
             <th width ="200px ">Judul</th>

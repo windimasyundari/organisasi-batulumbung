@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengumuman;
 use App\Models\Organisasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
@@ -39,7 +40,8 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        // $validateData = $request->validate([
+        $request->validate([
             'judul'             => 'required|max:255',
             'tanggal'           => 'required',
             'waktu'             => 'required',
@@ -48,19 +50,29 @@ class PengumumanController extends Controller
             'file'              => 'file|nullable|mimes:pdf|max:1024'
         ]);
 
-        if($request->file('file')) {
-            
-            $validateData['file'] = $request->file('file')->store('files-pengumuman');
-        }
-
-        Pengumuman::create([
+        $create_data = [
             'judul'         => $request->judul,
             'tanggal'       => $request->tanggal,
             'waktu'         => $request->waktu,
             'organisasi_id' => $request->organisasi_id,
             'isi'           => $request->isi,
-            'file'          => $request->file->getClientOriginalName(),
-        ]);
+        ];
+
+        if($request->file('file')) {
+            $file = $request->file('file');
+
+            // membuat nama file unik
+            $nama_file = rand() . $file->getClientOriginalName();
+    
+            // upload ke folder file_pengumuman di dalam folder public
+            $file->move('files_pengumuman', $nama_file);
+
+            $create_data['file'] = $nama_file;
+
+            // $validateData['file'] = $request->file('file')->store('files-pengumuman');
+        }
+
+        Pengumuman::create($create_data);
         
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Ditambahkan!');
     }
@@ -105,28 +117,43 @@ class PengumumanController extends Controller
             'file'              => 'file|nullable|mimes:pdf|max:1024'
         ]);
 
+        $update_data = [
+            'judul'     => $request->judul,
+            'tanggal'   => $request->tanggal,
+            'isi'       => $request->isi,
+        ];
+
         if($request->file('file')) {
-             if($request->oldFile) {
+            if($request->oldFile) {
                 Storage::delete($request->oldFile);
             }
-            $validateData['file'] = $request->file('file')->store('files-pengumuman');
+
+            $file = $request->file('file');
+
+            // membuat nama file unik
+            $nama_file = rand() . $file->getClientOriginalName();
+    
+            // upload ke folder file_pengumuman di dalam folder public
+            $file->move('files_pengumuman', $nama_file);
+
+            $update_data['file'] = $nama_file;
+            // $validateData['file'] = $request->file('file')->store('files-pengumuman');
         }
         
-        Pengumuman::where('id', $pengumuman->id)
-                ->update([
-                    'judul'     => $request->judul,
-                    'tanggal'   => $request->tanggal,
-                    'isi'       => $request->isi,
-                    'file'      => $request->file->getClientOriginalName(),
-                ]);
+        Pengumuman::where('id', $pengumuman->id)->update($update_data);
 
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Diubah!');
     }
 
     function download($id)
     {
-        $pengumuman = Pengumuman::find($id)->firstOrFail();
-        $pathToFile = public_path('storage/' . $pengumuman->file);
+        $pengumuman = Pengumuman::findOrFail($id);
+        $pathToFile = public_path('files_pengumuman/' . $pengumuman->file);
+        
+        if(!File::exists($pathToFile)){
+            return redirect('pengumuman/pengumuman/'.$id)->with('file_404', 'Berkas/file tidak ditemukan');
+        }
+
         return response()->download($pathToFile, $pengumuman->file_name);
     }      
 
