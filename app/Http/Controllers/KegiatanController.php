@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Models\Organisasi;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +17,28 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::paginate(10);
-        return view('pengurus/kegiatan/kegiatan', compact('kegiatan'));
+        $organisasi = Organisasi::all();
+        $kegiatan = Kegiatan::latest()->paginate(10);
+        return view('pengurus/kegiatan/kegiatan', compact(['kegiatan', 'organisasi']));
+    }
+
+    public function cariKegiatan(Request $request)
+	{
+        $organisasi = Organisasi::all();
+        $kegiatan = Kegiatan::latest()->filter(request(['cariKegiatan', 'jenis']))->paginate(10)->withQueryString();
+       
+		return view('pengurus/kegiatan/kegiatan', compact(['organisasi', 'kegiatan']));
+ 
+    }
+
+    public function filterTanggal(Request $request)
+    {
+        $dari = $request->dari .'.'. '00:00:00';
+        $sampai = $request->sampai .'.'. '23:59:59';
+
+        $kegiatan = Kegiatan::whereBetween('tanggal', [$dari, $sampai])->get();
+
+        return view ('/pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan, 'dari' => $dari, 'sampai' => $sampai]);
     }
 
     /**
@@ -88,8 +109,7 @@ class KegiatanController extends Controller
             if($request->oldImage) {
                 Storage::delete($request->oldImage);
                 }
-            $validateData['image'] = $request->file('image')->store('images-kegiatan');
-           
+            $validateData['image'] = $request->file('image')->store('images-kegiatan');  
         }
 
         Kegiatan::where('id', $kegiatan->id)
@@ -107,44 +127,14 @@ class KegiatanController extends Controller
     }
 
     public function exportPDF(Request $request, $id) {
-        $data = Kegiatan::find($id)->firstOrFail();
+        $data = Kegiatan::Where('id', $id)->firstOrFail();
         
         // dd($data->nama_kegiatan);
+        // dd($data);
 
         $pdf = PDF::loadview('pengurus/kegiatan/kegiatan_pdf', compact('data'));
                
         return $pdf->stream('laporan-kegiatan.pdf');
-     
-
-
-        // $kegiatan = Kegiatan::first();
-        
-        // $nama = Kegiatan::where('id', $kegiatan->id)->value('image');
-        // $image = base64_encode(file_get_contents(public_path($nama)));
-        // $pdf = PDF::loadView('pengurus/kegiatan/kegiatan_pdf', ['kegiatan' => $kegiatan, 'image' => $image]) 
-        // -> stream('laporan-kegiatan.pdf');
-
-        // return view ('/pengurus/kegiatan/kegiatan_pdf', compact('kegiatan'));
-        // return $pdf->download('laporan-kegiatan.pdf');
-    }
-
-    public function cariKegiatan(Request $request)
-	{
-		return view('pengurus/kegiatan/kegiatan', [
-            "active" => "kegiatan", 
-            "kegiatan" => Kegiatan::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
-        ]);
- 
-    }
-
-    public function filterTanggal(Request $request)
-    {
-      $dari = $request->dari .'.'. '00:00:00';
-      $sampai = $request->sampai .'.'. '23:59:59';
-
-      $kegiatan = Kegiatan::whereBetween('tanggal', [$dari, $sampai])->get();
-
-      return view ('/pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan, 'dari' => $dari, 'sampai' => $sampai]);
     }
 
     /**

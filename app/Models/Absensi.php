@@ -23,9 +23,9 @@ class Absensi extends Model
             ->orWhere('status', 'like', '%' . $cariAbsensi . '%');
         });
     
-        $query->when($filters['jenis'] ?? false, function($query, $absensi) {
-            return $query->whereHas('absensi', function($query) use ($absensi) {
-                $query->where('jenis', $absensi);
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
             });
         });
     }

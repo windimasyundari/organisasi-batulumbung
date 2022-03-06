@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanKeuangan;
+use App\Models\Organisasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
@@ -18,8 +19,28 @@ class LaporanKeuanganController extends Controller
      */
     public function index()
     {
-        $laporan_keuangan = LaporanKeuangan::paginate(10);
-        return view('pengurus.laporan.laporan-keuangan', compact('laporan_keuangan')); 
+        $organisasi = Organisasi::all();
+        $laporan = LaporanKeuangan::latest()->paginate(10);
+        return view('pengurus.laporan.laporan-keuangan', compact('laporan', 'organisasi')); 
+    }
+
+    public function cariLaporan(Request $request)
+	{
+        // dd($request->jenis);
+        $organisasi = Organisasi::all();
+        $laporan = LaporanKeuangan::latest()->filter(request(['cariLaporan', 'jenis']))->paginate(10)->withQueryString();
+       
+		return view('pengurus/laporan/laporan-keuangan', compact('organisasi', 'laporan'));
+    }
+
+    public function filterTanggal(Request $request)
+    {
+        $dari = $request->dari .'.'. '00:00:00';
+        $sampai = $request->sampai .'.'. '23:59:59';
+
+        $laporan = LaporanKeuangan::whereBetween('tanggal', [$dari, $sampai])->get();
+
+        return view ('/pengurus/laporan/laporan-keuangan', compact('dari', 'sampai', 'laporan'));
     }
 
     /**
@@ -46,8 +67,8 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'kegiatan_id'       => 'required',
-            'organisasi_id'     => 'required',
-            'pengurus_id'       => 'required'
+            'jenis'             => 'required',
+            'nama'              => 'required'
         ]);
 
         LaporanKeuangan :: create($validateData); 
@@ -55,32 +76,16 @@ class LaporanKeuanganController extends Controller
         return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Ditambahkan!');
     }
 
-  
-    public function filterTanggal(Request $request)
-    {
-      $dari = $request->dari .'.'. '00:00:00';
-      $sampai = $request->sampai .'.'. '23:59:59';
-
-      $laporan_keuangan = LaporanKeuangan::whereBetween('tanggal', [$dari, $sampai])->get();
-
-      return view ('/pengurus/laporan/laporan-keuangan', ['laporan_keuangan' => $laporan_keuangan, 'dari' => $dari, 'sampai' => $sampai]);
-    }
-
-
-    // public function number_format($angka) {
-    //     $hasil_rupiah = "Rp" . number_format($angka,0,',','.');
-	//     return $hasil_rupiah;
-    // }
-
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
      * @return \Illuminate\Http\Response
      */
-    public function show(LaporanKeuangan $laporanKeuangan)
+    public function show(LaporanKeuangan $laporanKeuangan, $id)
     {
-        return view('pengurus/laporan/show-laporan-keuangan', compact('laporan_keuangan'));
+        $laporan = LaporanKeuangan::find($id);
+        return view('pengurus/laporan/show-laporan-keuangan', compact('laporan'));
     }
 
     /**
@@ -97,9 +102,9 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
             'keterangan'        => 'required',
-            'kegiatan_id'       => 'required',
+            'nama_kegiatan'     => 'required',
             'organisasi_id'     => 'required',
-            'pengurus_id'       => 'required'
+            'nama'              => 'required'
         ]);
         
         LaporanKeuangan::where('id', $id)
@@ -108,9 +113,9 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
-            'kegiatan_id'       => $request->kegiatan_id,
-            'organisasi_id'       => $request->organisasi_id,
-            'pengurus_id'       => $request->pengurus_id
+            'nama_kegiatan'     => $request->kegiatan->nama_kegiatan,
+            'jenis'             => $request->organisasi->jenis,
+            'pengurus_id'       => $request->pengurus->nama
             ]);
 
             return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Diubah!');
@@ -139,17 +144,14 @@ class LaporanKeuanganController extends Controller
      */
     public function destroy(LaporanKeuangan $laporanKeuangan)
     {
-        LaporanKeuangan::destroy($laporan_keuangan->id);
+        LaporanKeuangan::destroy($laporan->id);
 
         return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Dihapus!');
     }
 
     public function indexAnggota()
     {
-        $laporan_keuangan = LaporanKeuangan::paginate(10);
-        return view('anggota.laporan-keuangan', [
-            "laporan_keuangan" => "All Laporan Keuangan", 
-            "laporan_keuangan"=> LaporanKeuangan::latest()->get()
-        ]); 
+        $laporan = LaporanKeuangan::latest()->paginate(10);
+        return view('anggota.laporan-keuangan', compact('laporan')); 
     }
 }

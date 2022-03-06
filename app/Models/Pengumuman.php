@@ -18,9 +18,15 @@ class Pengumuman extends Model
 
     public function scopeFilter($query, array $filters) {
        
-        $query->when($filters['cari'] ?? false, function($query, $cari) {
-            return $query->where('judul', 'like', '%' . $cari . '%')
-            ->orWhere('isi', 'like', '%' . $cari . '%');        
+        $query->when($filters['cariPengumuman'] ?? false, function($query, $cariPengumuman) {
+            return $query->where('judul', 'like', '%' . $cariPengumuman . '%')
+            ->orWhere('isi', 'like', '%' . $cariPengumuman . '%');        
+        });
+
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
         });
     }
 

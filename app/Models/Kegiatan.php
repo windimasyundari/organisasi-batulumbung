@@ -26,15 +26,26 @@ class Kegiatan extends Model
 
     public function scopeFilter($query, array $filters) {
        
-        $query->when($filters['cari'] ?? false, function($query, $cari) {
-            return $query->where('nama_kegiatan', 'like', '%' . $cari . '%')
-            ->orWhere('tempat', 'like', '%' . $cari . '%')
-            ->orWhere('deskripsi', 'like', '%' . $cari . '%');        
+        $query->when($filters['cariKegiatan'] ?? false, function($query, $cariKegiatan) {
+            return $query->where('nama_kegiatan', 'like', '%' . $cariKegiatan . '%')
+            ->orWhere('tempat', 'like', '%' . $cariKegiatan . '%')
+            ->orWhere('deskripsi', 'like', '%' . $cariKegiatan . '%');        
+        });
+
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
         });
     }
 
     public function organisasi()
     {
         return $this->belongsTo(Organisasi::class);
+    }
+
+    public function laporan_keuangan()
+    {
+        return $this->hasOne(LaporanKeuangan::class);
     }
 }

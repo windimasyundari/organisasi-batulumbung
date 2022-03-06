@@ -18,9 +18,23 @@
             <div class="col-sm-12">
                 <div class="white-box">
                 <form class="form mb-3" method="get" action="{{ route ('cariPengumuman') }}">
-                    <div class="col-md-6 ms-auto">
-                        <input type="text" name="cari" class="form-control w-75 d-inline" value="{{ request('cari')}}" id="cari" placeholder="Cari Judul ...">
-                        <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
+                                    <option value="" selected>Filter Organisasi</option>
+                                    @foreach($organisasi as $organisasis)
+                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ms-auto">
+                            <div class="form-group">
+                                <input type="text" name="cariPengumuman" class="form-control w-75 d-inline" value="{{ request('cariPengumuman')}}" id="cariPengumuman" placeholder="Cari ...">
+                                <button type="submit" class="btn btn-primary mb-1"><i class="fa fa-search"></i> Cari</button>  
+                            </div>
+                        </div>
                     </div>                    
                 </form>
              

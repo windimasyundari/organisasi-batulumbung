@@ -15,10 +15,10 @@
     </div>
     
     <div class="container-fluid">
-    <table class="table table-light table-borderless">
+    <table class="table table-light table-borderless" style="text-align:justify">
         
         <tr>
-            <th>Nama Kegiatan</th>
+            <th style="width:150px">Nama Kegiatan</th>
             <td>{{$kegiatan->nama_kegiatan}}</td>
         </tr>
 
@@ -62,7 +62,7 @@
             <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>
         
-        <a href="{{url('')}}/kegiatan/kegiatan_pdf/{{$kegiatan->id}}" target="_blank" class="btn btn-warning text-light"> Download</a>
+        <a href="/kegiatan/kegiatan_pdf/{{$kegiatan->id}}" target="_blank" class="btn btn-warning text-light"> Download</a>
         <a href="/kegiatan/kegiatan" class=" btn btn-success card-link text-light">Kembali</a>
        
     </div>

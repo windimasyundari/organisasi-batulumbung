@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengumuman;
+use App\Models\Organisasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,18 +16,19 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::paginate(10);
-        return view('pengurus/pengumuman/pengumuman', compact('pengumuman'));
+        $organisasi = Organisasi::all();
+        $pengumuman = Pengumuman::latest()->paginate(10);
+        return view('pengurus/pengumuman/pengumuman', compact('pengumuman', 'organisasi'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pengurus/pengumuman/pengumuman');
+    public function cariPengumuman(Request $request)
+	{
+		$organisasi = Organisasi::all();
+        $pengumuman = Pengumuman::latest()->filter(request(['cariPengumuman', 'jenis']))->paginate(10)->withQueryString();
+       
+		return view('pengurus/pengumuman/pengumuman', compact('organisasi', 'pengumuman'));
+ 
+ 
     }
 
     /**
@@ -43,10 +45,11 @@ class PengumumanController extends Controller
             'waktu'             => 'required',
             'organisasi_id'     => 'required',
             'isi'               => 'required',
-            'file'              => 'file|mimes:pdf|max:1024'
+            'file'              => 'file|nullable|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
+            
             $validateData['file'] = $request->file('file')->store('files-pengumuman');
         }
 
@@ -56,7 +59,7 @@ class PengumumanController extends Controller
             'waktu'         => $request->waktu,
             'organisasi_id' => $request->organisasi_id,
             'isi'           => $request->isi,
-            'file'          => $request->file->hashName(),
+            'file'          => $request->file->getClientOriginalName(),
         ]);
         
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Ditambahkan!');
@@ -99,7 +102,7 @@ class PengumumanController extends Controller
             'waktu'             => 'required',
             'organisasi_id'     => 'required',
             'isi'               => 'required',
-            'file'              => 'file|mimes:pdf|max:1024'
+            'file'              => 'file|nullable|mimes:pdf|max:1024'
         ]);
 
         if($request->file('file')) {
@@ -111,10 +114,10 @@ class PengumumanController extends Controller
         
         Pengumuman::where('id', $pengumuman->id)
                 ->update([
-                    'judul'     =>$request->judul,
-                    'tanggal'   =>$request->tanggal,
-                    'isi'       =>$request->isi,
-                    'file'      =>$request->file->hashName(),
+                    'judul'     => $request->judul,
+                    'tanggal'   => $request->tanggal,
+                    'isi'       => $request->isi,
+                    'file'      => $request->file->getClientOriginalName(),
                 ]);
 
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Diubah!');
@@ -122,20 +125,10 @@ class PengumumanController extends Controller
 
     function download($id)
     {
-        $file = Pengumuman::where('id', $id)->firstOrFail();
-        $pathToFile = public_path('storage/' . $file->file);
-        return response()->download($pathToFile, $file->file_name);
-    }
-
-    public function cariPengumuman(Request $request)
-	{
-		return view('pengurus/pengumuman/pengumuman', [
-            "active" => "pengumuman", 
-            "pengumuman" => Pengumuman::latest()->filter(request(['cari']))->paginate(10)->withQueryString()
-        ]);
- 
-    }
-       
+        $pengumuman = Pengumuman::find($id)->firstOrFail();
+        $pathToFile = public_path('storage/' . $pengumuman->file);
+        return response()->download($pathToFile, $pengumuman->file_name);
+    }      
 
     /**
      * Remove the specified resource from storage.
@@ -149,19 +142,16 @@ class PengumumanController extends Controller
             Storage::delete($pengumuman->file);
         }
 
-        Pengumuman::destroy($pengumuman -> id);
+        Pengumuman::destroy($pengumuman->id);
 
         return redirect('/pengumuman/pengumuman')-> with('status', 'Data Pengumuman Berhasil Dihapus!');
     }
 
     public function indexAnggota()
-    {
+    {   
         
-        $pengumuman = Pengumuman::paginate(10);
-        return view('anggota/pengumuman', [
-            "pengumuman" => "All Pengumuman", 
-            "pengumuman"=> Pengumuman::latest()->get()
-        ]);
+        $pengumuman = Pengumuman::latest()->paginate(10);
+        return view('anggota/pengumuman', compact('pengumuman'));
     }
 
     public function cariPengumumanAnggota(Request $request)

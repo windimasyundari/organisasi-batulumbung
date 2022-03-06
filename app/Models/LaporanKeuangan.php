@@ -18,6 +18,19 @@ class LaporanKeuangan extends Model
         'kegiatan_id', 
         'pengurus_id'];
 
+    public function scopeFilter($query, array $filters) {
+
+        $query->when($filters['cariLaporan'] ?? false, function($query, $cariLaporan) {
+            return $query->where('keterangan', 'like', '%' . $cariLaporan . '%');
+        });
+    
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
+        });
+    }
+
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
@@ -25,13 +38,14 @@ class LaporanKeuangan extends Model
 
     public function pengurus()
     {
-        return $this->belongsTo(pengurus::class);
+        return $this->hasOne(pengurus::class);
     }
 
     public function organisasi()
     {
         return $this->belongsTo(Organisasi::class);
     }
+
 }
 
 

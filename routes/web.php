@@ -127,7 +127,7 @@ use App\Models\Absensi;
     Route::delete('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@destroy');
     // Route::get('/pengumuman/pengumuman/{pengumuman}/edit', 'App\Http\Controllers\PengumumanController@edit');
     Route::patch('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@update');
-    Route::get('/pengumuman/{id}/download', 'App\Http\Controllers\PengumumanController@download')->name('file.download');
+    Route::get('/pengumuman/download/{id}', 'App\Http\Controllers\PengumumanController@download')->name('file.download');
     Route::get('/pengumuman/cariPengumuman','App\Http\Controllers\PengumumanController@cariPengumuman')->name('cariPengumuman');
     
     // Absensi
@@ -148,16 +148,14 @@ use App\Models\Absensi;
 
     // Laporan Keuangan
     Route::get('/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@index');
-    // Route::get('/pengurus/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@create');
-    Route::get('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@show');
+    Route::get('/laporan/laporan-keuangan/{laporan}', 'App\Http\Controllers\LaporanKeuanganController@show');
     Route::post('/pengurus/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@store')->name('tambahLaporan');
     Route::delete('/laporan/laporan-keuangan/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@destroy')->name('hapusLaporan');
-    // Route::get('/laporan/laporan-keuangan/{laporan-keuangan}/edit', 'App\Http\Controllers\LaporanKeuanganController@edit');
-    Route::patch('/laporan/laporan-keuangan/{id}', 'App\Http\Controllers\LaporanKeuanganController@update')->name('editLaporan');
+    Route::put('/laporan/laporan-keuangan/{id}', 'App\Http\Controllers\LaporanKeuanganController@update')->name('editLaporan');
     Route::get('/laporan-keuangan/export_laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@export_excel')->name('export_laporan-keuangan');
     Route::post('/laporan-keuangan/filterTanggal','App\Http\Controllers\LaporanKeuanganController@filterTanggal')->name('filterTanggalKeuangan');
     // Route::get('/laporan-keuangan-pdf/{laporan-keuangan}', 'App\Http\Controllers\LaporanKeuanganController@exportPDF')->name('exportPDF');
-
+    Route::get('/laporan/cariLaporan','App\Http\Controllers\LaporanKeuanganController@cariLaporan')->name('cariLaporan');
 
 
     //=====================================ANGGOTA================================

@@ -35,11 +35,6 @@
                                 <button type="submit" class="btn btn-primary mb-1 d-inline"><i class="fa fa-search"></i> Cari</button>
                             </div>  
                         </div>
-                        <div class="col-md-6">    
-                            <div class="form-group">
-                               
-                            </div>
-                        </div>
                     </div>                    
                 </form>
 

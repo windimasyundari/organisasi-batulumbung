@@ -19,8 +19,8 @@
                 <div class="white-box">
                 <form action="{{ route ('filterTanggalKegiatan') }}" method="post">
                 @csrf
-                    <div class="col-md-6 ms-auto">
-                        <div class="input-group mb-3" style="width:590px">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3" style="width:570px">
                             <input type="text" class="form-control" name="dari" value="{{ request('dari')}}" onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
                             <input type="text" class="form-control" name="sampai" value="{{ request('sampai')}}" onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
                             <button class="btn btn-primary" type="submit" style="width:80px"> Filter</button>
@@ -28,12 +28,24 @@
                     </div>
                 </form>
                 <form class="form" method="get" action="{{route('cariKegiatan')}}">
-                    <div class="col-md-6 ms-auto">
-                        <div class="input-group mb-3">
-                            <input type="text" name="cari" class="form-control w-75 d-inline" id="cari" value="{{ request('cari')}}" placeholder="Cari Nama Kegiatan ...">
-                            <button type="submit" class="btn btn-primary" style="width:80px"><i class="fa fa-search"></i> Cari</button> 
+                <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
+                                    <option value="" selected>Filter Organisasi</option>
+                                    @foreach($organisasi as $organisasis)
+                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>                    
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                                <input type="text" name="cariKegiatan" class="form-control w-75 d-inline" id="cariKegiatan" value="{{ request('cariKegiatan')}}" placeholder="Cari ...">
+                                <button type="submit" class="btn btn-primary mb-1 d-inline"><i class="fa fa-search"></i> Cari</button>
+                            </div>  
+                        </div>
+                    </div>                        
                 </form>
 
                 <!-- Tambah Data -->

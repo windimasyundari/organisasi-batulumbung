@@ -15,17 +15,19 @@
 
     <div class="container-fluid">
         <div class="row ">
-            @foreach($laporan_keuangan as $laporan_keuangan)
-            <div class="card bg-light" style="width: 100rem;">
-                <div class="card-body bg-light">
-                    <h4 class="card-title" style="font-weight: 800; "> {{$laporan_keuangan->kegiatan->nama_kegiatan}}</h4>
-                    <p class="card-title">Jumlah Pemasukan : Rp {{ number_format($laporan_keuangan ->jmlh_pemasukan) }}</p>
-                    <p class="card-text">Jumlah Pengeluaran : Rp {{ number_format($laporan_keuangan ->jmlh_pengeluaran) }}</p>
-                    <p class="card-text">Tanggal : {{$laporan_keuangan->tanggal}}</p>
-                    <p class="card-text">Keterangan : {{$laporan_keuangan->keterangan}}</p>
+            @forelse($laporan as $laporans)
+            <div class="card bg-purple" style="width: 100rem;">
+                <div class="card-body bg-purple" style="color:white">
+                    <h4 class="card-title" style="font-weight: 800; "> {{$laporans->kegiatan->nama_kegiatan}}</h4>
+                    <p class="card-title">Jumlah Pemasukan : Rp {{ number_format($laporans ->jmlh_pemasukan) }}</p>
+                    <p class="card-text">Jumlah Pengeluaran : Rp {{ number_format($laporans ->jmlh_pengeluaran) }}</p>
+                    <p class="card-text">Tanggal : {{$laporans->tanggal}}</p>
+                    <p class="card-text">Keterangan : {{$laporans->keterangan}}</p>
                 </div>  
             </div>  
-            @endforeach
+            @empty
+            <div class="card-body bg-purple"  style="font-weight: 800; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
+            @endforelse
             </div>                 
         </div>          
     </div>

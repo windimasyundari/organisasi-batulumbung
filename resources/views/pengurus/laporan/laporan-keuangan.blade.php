@@ -19,11 +19,32 @@
                 <div class="white-box">
                 <form action="{{ route ('filterTanggalKeuangan') }}" method="post">
                 @csrf
-                    <div class="input-group mb-3 ms-auto" style="width:500px">
+                    <div class="input-group mb-3" style="width:570px">
                         <input type="text" class="form-control" name="dari" onfocusin="(this.type='date')" value="{{ request('dari')}}" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
                         <input type="text" class="form-control" name="sampai" onfocusin="(this.type='date')" value="{{ request('sampai')}}" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
                         <button class="btn btn-primary" type="submit" style="width:80px">Filter</button>
                     </div>
+                </form>
+
+                <form class="form mb-3" method="get" action="{{ route ('cariLaporan') }}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
+                                    <option value="" selected>Filter Organisasi</option>
+                                    @foreach($organisasi as $organisasis)
+                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">    
+                            <div class="form-group">
+                                <input type="text" name="cariLaporan" class="form-control w-75 d-inline" id="cariLaporan" value="{{ request('cariLaporan')}}" placeholder="Cari ...">
+                                <button type="submit" class="btn btn-primary mb-1 d-inline"><i class="fa fa-search"></i> Cari</button>
+                            </div>  
+                        </div>
+                    </div>                    
                 </form>
                
                     <!-- Tambah Data -->
@@ -60,14 +81,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($laporan_keuangan as $laporan_keuangans)
+                            @forelse($laporan as $laporans)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration}}</th>
-                                    <td>Rp {{ number_format($laporan_keuangans ->jmlh_pemasukan) }}</td>
-                                    <td>Rp {{ number_format($laporan_keuangans ->jmlh_pengeluaran) }}</td>
-                                    <td>{{$laporan_keuangans->tanggal}}</td>
-                                    <td>{{$laporan_keuangans->organisasi->jenis}}</td>
-                                    <td><a href="\laporan\laporan-keuangan\{{ $laporan_keuangans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <td>Rp {{ number_format($laporans->jmlh_pemasukan) }}</td>
+                                    <td>Rp {{ number_format($laporans->jmlh_pengeluaran) }}</td>
+                                    <td>{{$laporans->tanggal}}</td>
+                                    <td>{{$laporans->organisasi->jenis}}</td>
+                                    <td><a href="\laporan\laporan-keuangan\{{ $laporans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                     
                         </tr>
                         @empty

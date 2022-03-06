@@ -22,7 +22,7 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensi = Absensi::paginate(10);
+        $absensi = Absensi::latest()->paginate(10);
         $organisasi = Organisasi::all();
 
         // dd($absensi);
@@ -34,7 +34,8 @@ class AbsensiController extends Controller
         $organisasi = Organisasi::all();
         $absensi = Absensi::latest()->filter(request(['cariAbsensi', 'jenis']))->paginate(10)->withQueryString();
        
-		return view('pengurus/absensi/absensi', compact('absensi', 'organisasi'));
+		return view('pengurus/absensi/absensi', compact('organisasi', 'absensi'));
+ 
     }
 
     public function filterTanggal(Request $request)
@@ -63,8 +64,6 @@ class AbsensiController extends Controller
     // }
 
 
-
-
     public function import_excel(Request $request) 
 	{
 		// validasi
@@ -83,9 +82,6 @@ class AbsensiController extends Controller
  
 		// import data
 		Excel::import(new AbsensiImport, public_path('files_absensi/'.$nama_file));
- 
-		// notifikasi dengan session
-		// Session::flash('sukses','Absensi Berhasil Diimport!');
  
 		// alihkan halaman kembali
 		return redirect('/absensi/absensi');

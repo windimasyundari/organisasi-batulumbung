@@ -9,33 +9,33 @@
     <div class="page-breadcrumb bg-white">
         <h2 style="text-align:center">LAPORAN KEGIATAN</h2>
         
-        <table class="table table-borderless">
+        <table class="table table-borderless" style="text-align:justify">
             <tr>
-                <td>Nama Kegiatan</td>
-                <td>{{$data->nama_kegiatan}}</td>
+                <th style="width:200px"> Nama Kegiatan</th>
+                <td> {{$data->nama_kegiatan}}</td>
             </tr>
             <tr>
-                <td>Tanggal, Waktu</td>
+                <th> Tanggal, Waktu</th>
                 <td>{{$data->tanggal}}, {{$data->waktu}}</td>
             </tr>
             <tr>
-                <td>Tempat</td>
+                <th> Tempat</th>
                 <td>{{$data->tempat}}</td>
             </tr>
             <tr>
-                <td>Deskripsi</td>
+                <th> Deskripsi</th>
                 <td>{{$data->deskripsi}}</td>
-            </tr>
-            <tr>
-                <td>Gambar</td>
+            </tr>         
+            <th></th>
                 <td>  
                     @if(!empty($data->image))
                         <div style="overflow:hidden; width:300px">
-                        <img src="{{ public_path('storage/'. $data->image) }}" class="img-fluid mb-3" style="width:100%">
+                        <img src="{{ public_path('storage/'. $data->image) }}" class="img-fluid mb-3 mt-4" style="width:100%, align-center">
                         </div>
                     @endif
                 </td>
-            </tr>       
+            </tr>
+               
         </table>
         
     </div>

@@ -24,15 +24,15 @@
     <div class="container-fluid">
         <div class="row ">
             @forelse ($pengumuman as $pengumuman)
-                <div class="card bg-light" style="width: 100rem;">
-                    <div class="card-body ">
+                <div class="card bg-purple" style="width: 100rem">
+                    <div class="card-body" style="color:white">
                         <h4 class="card-title" style="font-weight: 800; ">{{$pengumuman->judul}}</h4>
                         <p class="card-text">{{$pengumuman->isi}}</p>
                         <a href="{{route('file.download', $pengumuman->id)}}" class="btn btn-danger text-light"><i class="bi bi-download"></i> Download</a>
                     </div>
                 </div>
                 @empty
-                <div class="card-body bg-light"  style="font-weight: 800; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
+                <div class="card-body bg-purple"  style="font-weight: 800; color:white; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
             @endforelse
         </div>                 
     </div>          

@@ -15,19 +15,19 @@
 
     <div class="container-fluid">
         <div class="row ">
-            <div class="card bg-light" style="width: 100rem;">
-                <div class="card-body bg-light">
+            <div class="card bg-purple" style="width: 100rem;">
+                <div class="card-body bg-purple">
                     <div class="table-responsive mt-3">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="border-top-0" style="font-weight: 800">NO</th>
-                                    <th class="border-top-0" style="font-weight: 800">ID ANGGOTA</th>
-                                    <th class="border-top-0" style="font-weight: 800">NAMA ANGGOTA</th>
-                                    <th class="border-top-0" style="font-weight: 800">NAMA KEGIATAN</th>
-                                    <th class="border-top-0" style="font-weight: 800">TANGGAL KEGIATAN</th>
-                                    <th class="border-top-0" style="font-weight: 800">JENIS ORGANISASI</th>
-                                    <th class="border-top-0" style="font-weight: 800">STATUS</th>
+                                    <th class="text-white" style="font-weight: 800">NO</th>
+                                    <th class="text-white" style="font-weight: 800">ID ANGGOTA</th>
+                                    <th class="text-white" style="font-weight: 800">NAMA ANGGOTA</th>
+                                    <th class="text-white" style="font-weight: 800">NAMA KEGIATAN</th>
+                                    <th class="text-white" style="font-weight: 800">TANGGAL KEGIATAN</th>
+                                    <th class="text-white" style="font-weight: 800">JENIS ORGANISASI</th>
+                                    <th class="text-white" style="font-weight: 800">STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,7 +48,7 @@
                                     <td>{{$absen->status}}</td>
                                 </tr>
                                 @empty
-                                <td colspan="8" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="8" class="table-active text-center text-white">Tidak Ada Data</td>
                                 @endforelse
                             </tbody>
                         </table>  
