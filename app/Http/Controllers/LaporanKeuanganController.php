@@ -38,9 +38,26 @@ class LaporanKeuanganController extends Controller
         $dari = $request->dari .'.'. '00:00:00';
         $sampai = $request->sampai .'.'. '23:59:59';
 
-        $laporan = LaporanKeuangan::whereBetween('tanggal', [$dari, $sampai])->get();
+        if($request->dari == '' && $request->sampai == ''){
+            return redirect('laporan/laporan-keuangan');
+        }
 
-        return view ('/pengurus/laporan/laporan-keuangan', compact('dari', 'sampai', 'laporan'));
+        if($request->dari == ''){
+            return redirect()->back()->withInput()->with('status', 'Tanggal awal filter harus diisi');
+        }
+
+        if($request->sampai == ''){
+            return redirect()->back()->withInput()->with('status', 'Tanggal akhir filter harus diisi');
+        }
+        
+        if($request->dari > $request->sampai){
+            return redirect()->back()->withInput()->with('status', 'Tanggal awal tidak boleh lebih dari tanggal akhir filter');
+        }
+
+        $laporan = LaporanKeuangan::whereBetween('tanggal', [$dari, $sampai])->latest()->paginate(10);
+        $organisasi = Organisasi::all();
+
+        return view ('/pengurus/laporan/laporan-keuangan', ['laporan' => $laporan, 'dari' => $request->dari, 'sampai' => $request->sampai, 'organisasi' => $organisasi]);
     }
 
     /**

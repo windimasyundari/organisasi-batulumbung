@@ -36,9 +36,26 @@ class KegiatanController extends Controller
         $dari = $request->dari .'.'. '00:00:00';
         $sampai = $request->sampai .'.'. '23:59:59';
 
-        $kegiatan = Kegiatan::whereBetween('tanggal', [$dari, $sampai])->get();
+        if($request->dari == '' && $request->sampai == ''){
+            return redirect('kegiatan/kegiatan');
+        }
 
-        return view ('/pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan, 'dari' => $dari, 'sampai' => $sampai]);
+        if($request->dari == ''){
+            return redirect()->back()->withInput()->with('status', 'Tanggal awal filter harus diisi');
+        }
+
+        if($request->sampai == ''){
+            return redirect()->back()->withInput()->with('status', 'Tanggal akhir filter harus diisi');
+        }
+        
+        if($request->dari > $request->sampai){
+            return redirect()->back()->withInput()->with('status', 'Tanggal awal tidak boleh lebih dari tanggal akhir filter');
+        }
+
+        $kegiatan = Kegiatan::whereBetween('tanggal', [$dari, $sampai])->latest()->paginate(10);
+        $organisasi = Organisasi::all();
+
+        return view ('/pengurus/kegiatan/kegiatan', ['kegiatan' => $kegiatan, 'dari' => $request->dari, 'sampai' => $request->sampai, 'organisasi' => $organisasi]);
     }
 
     /**

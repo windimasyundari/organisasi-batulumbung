@@ -64,22 +64,6 @@ class AbsensiController extends Controller
         return view('/pengurus/absensi/absensi', ['absensi' => $absensi, 'dari' => $request->dari, 'sampai' => $request->sampai, 'organisasi' => $organisasi]);
     }
 
-    // public function cariTanggal(Request $request)
-    // {
-    // 	// menangkap data pencarian
-    // 	$cariTanggal = $request->cariTanggal;
-
-    // 	// mengambil data dari table absensi sesuai pencarian data
-    // 	$absensi = DB::table('absensi')
-    // 	->where('tanggal','like',"%".$cariTanggal."%")
-    // 	->paginate(10);
-
-    // 	// mengirim data absensi ke view index
-    // 	return view('pengurus/absensi/absensi', ['absensi' => $absensi]);
-
-    // }
-
-
     public function import_excel(Request $request)
     {
         // validasi
