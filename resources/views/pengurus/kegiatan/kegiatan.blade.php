@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form action="{{ route ('filterTanggalKegiatan') }}" method="post">
+                <form action="{{ route ('filterTanggalKegiatan') }}" method="get">
                 @csrf
                     <div class="col-md-6">
                         <div class="input-group mb-3" style="width:570px">

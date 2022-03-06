@@ -9,6 +9,7 @@ use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
+use PDF;
 
 class LaporanKeuanganController extends Controller
 {
@@ -84,8 +85,8 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'kegiatan_id'       => 'required',
-            'jenis'             => 'required',
-            'nama'              => 'required'
+            'organisasi_id'     => 'required',
+            'pengurus_id'       => 'required'
         ]);
 
         LaporanKeuangan :: create($validateData); 
@@ -121,7 +122,6 @@ class LaporanKeuanganController extends Controller
             'keterangan'        => 'required',
             'kegiatan_id'       => 'required',
             'organisasi_id'     => 'required',
-            'nama'              => 'required'
         ]);
         
         LaporanKeuangan::where('id', $id)
@@ -130,9 +130,9 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
-            'kegiatan_id'       => $request->kegiatan->nama_kegiatan,
-            'jenis'             => $request->organisasi->jenis,
-            'pengurus_id'       => $request->pengurus->nama
+            'kegiatan_id'       => $request->kegiatan_id,
+            'organisasi_id'     => $request->organisasi_id,
+
             ]);
 
             return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Diubah!');
@@ -144,14 +144,13 @@ class LaporanKeuanganController extends Controller
 		return Excel::download(new LaporanKeuanganExport, $nama_file);
     }
     
-    // public function exportPDF() {
-    //     $laporan_keuangan = LaporanKeuangan::all();
-    
+    public function exportPDFKeuangan(Request $request, $id) {
+        $data = LaporanKeuangan::Where('id', $id)->firstOrFail();
 
-    //     $pdf = PDF::loadview('/laporan/laporan-keuangan-pdf', $laporan_keuangan);
+        $pdf = PDF::loadview('pengurus/laporan/laporan_keuangan_pdf', compact('data'));
                
-    //     return $pdf->stream('laporan-keuangan.pdf');
-    // }
+        return $pdf->stream('laporan-keuangan.pdf');
+    }
 
     /**
      * Remove the specified resource from storage.

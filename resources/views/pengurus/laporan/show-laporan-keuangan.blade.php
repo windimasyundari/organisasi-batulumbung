@@ -57,6 +57,7 @@
             @csrf
             <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>
+        <a href="/laporan-keuangan/laporan_keuangan_pdf/{{$laporan->id}}" target="_blank" class="btn btn-warning text-light"> Download</a>
 
     <span class="btn btn-success"><a href="/laporan/laporan-keuangan" class="card-link text-light">Kembali</a></span>
     </div>
@@ -86,10 +87,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nama_kegiatan">Nama Kegiatan</label> 
-                        <input type="text" name="nama_kegiatan" value="{{ $laporan->kegiatan->nama_kegiatan }}" class="form-control @error('nama_kegiatan') is-invalid @enderror" 
-                        id="nama_kegiatan" placeholder="Masukkan Nama Kegiatan">
-                        @error ('nama_kegiatan')
+                        <label for="kegiatan_id">ID Kegiatan</label> 
+                        <input type="text" name="kegiatan_id" value="{{ $laporan->kegiatan_id }}" class="form-control @error('kegiatan_id') is-invalid @enderror" 
+                        id="kegiatan_id" placeholder="Masukkan Nama Kegiatan">
+                        @error ('kegiatan_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

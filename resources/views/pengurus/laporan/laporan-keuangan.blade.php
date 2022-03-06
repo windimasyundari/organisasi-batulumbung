@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form action="{{ route ('filterTanggalKeuangan') }}" method="post">
+                <form action="{{ route ('filterTanggalKeuangan') }}" method="get">
                 @csrf
                     <div class="input-group mb-3" style="width:570px">
                         <input type="text" class="form-control" name="dari" onfocusin="(this.type='date')" value="{{ isset($dari) ? $dari : old('dari')}}" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
@@ -52,7 +52,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahData">
                     Tambah Data
                     </button>
-                    <a href="{{ route ('export_laporan-keuangan') }}" class="btn btn-success my-3 text-light" target="_blank">Export Data</a>
+                    <a href="{{ route ('export_laporan-keuangan') }}" class="btn btn-success my-3 text-light" target="_blank">Download Data</a>
 
                     @if(session()->has('success'))
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
