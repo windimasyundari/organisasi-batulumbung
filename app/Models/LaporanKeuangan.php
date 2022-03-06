@@ -38,7 +38,7 @@ class LaporanKeuangan extends Model
 
     public function pengurus()
     {
-        return $this->hasOne(pengurus::class);
+        return $this->belongsTo(pengurus::class);
     }
 
     public function organisasi()

@@ -102,7 +102,7 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
             'keterangan'        => 'required',
-            'nama_kegiatan'     => 'required',
+            'kegiatan_id'       => 'required',
             'organisasi_id'     => 'required',
             'nama'              => 'required'
         ]);
@@ -113,7 +113,7 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
-            'nama_kegiatan'     => $request->kegiatan->nama_kegiatan,
+            'kegiatan_id'       => $request->kegiatan->nama_kegiatan,
             'jenis'             => $request->organisasi->jenis,
             'pengurus_id'       => $request->pengurus->nama
             ]);
