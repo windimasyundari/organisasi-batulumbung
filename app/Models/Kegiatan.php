@@ -19,11 +19,6 @@ class Kegiatan extends Model
         
     protected $guarded = ['id'];
 
-    public function laporanKeuangan()
-    {
-        return $this->HasMany(LaporanKeuangan::class);
-    }
-
     public function scopeFilter($query, array $filters) {
        
         $query->when($filters['cariKegiatan'] ?? false, function($query, $cariKegiatan) {
@@ -44,8 +39,10 @@ class Kegiatan extends Model
         return $this->belongsTo(Organisasi::class);
     }
 
-    public function laporan_keuangan()
+    public function laporanKeuangan()
     {
-        return $this->hasOne(LaporanKeuangan::class);
+        return $this->HasMany(LaporanKeuangan::class);
     }
+
+    
 }

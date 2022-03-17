@@ -23,7 +23,7 @@
 
             <tr>
                 <th> Nama Kegiatan</th>
-                <td>{{$laporan->kegiatan->nama_kegiatan}}</td>
+                <td>{{$laporan->kegiatan_id}}</td>
             </tr>
             <tr>
                 <th width ="200px ">Jumlah Pemasukan</th>
@@ -38,6 +38,11 @@
             <tr>
                 <th> Tanggal</th>
                 <td>{{$laporan->tanggal}}</td>
+            </tr>
+
+            <tr>
+                <th> Sumber Dana</th>
+                <td>{{$laporan->sumber_dana}}</td>
             </tr>
 
             <tr>

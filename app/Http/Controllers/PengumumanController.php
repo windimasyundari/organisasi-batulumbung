@@ -145,7 +145,7 @@ class PengumumanController extends Controller
         return redirect('/pengumuman/pengumuman')-> with('success', 'Data Pengumuman Berhasil Diubah!');
     }
 
-    function download($id)
+    function downloadPengumuman($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
         $pathToFile = public_path('files_pengumuman/' . $pengumuman->file);

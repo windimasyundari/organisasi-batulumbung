@@ -84,6 +84,7 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
             'keterangan'        => 'required',
+            'sumber_dana'       => 'required',
             'kegiatan_id'       => 'required',
             'organisasi_id'     => 'required',
             'pengurus_id'       => 'required'
@@ -120,6 +121,7 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => 'required',
             'tanggal'           => 'required',
             'keterangan'        => 'required',
+            'sumber_dana'       => 'required',
             'kegiatan_id'       => 'required',
             'organisasi_id'     => 'required',
         ]);
@@ -130,6 +132,7 @@ class LaporanKeuanganController extends Controller
             'jmlh_pengeluaran'  => $request->jmlh_pengeluaran,
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
+            'sumber_dana'       => $request->sumber_dana,
             'kegiatan_id'       => $request->kegiatan_id,
             'organisasi_id'     => $request->organisasi_id,
 
@@ -158,9 +161,10 @@ class LaporanKeuanganController extends Controller
      * @param  \App\Models\LaporanKeuangan  $laporanKeuangan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LaporanKeuangan $laporanKeuangan)
+    public function destroy(LaporanKeuangan $laporanKeuangan, $id)
     {
-        LaporanKeuangan::destroy($laporan->id);
+        $laporan = LaporanKeuangan::find($id);
+        $laporan->delete();
 
         return redirect('/laporan/laporan-keuangan')-> with('status', 'Data Laporan Keuangan Berhasil Dihapus!');
     }

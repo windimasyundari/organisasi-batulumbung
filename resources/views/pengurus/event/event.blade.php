@@ -1,6 +1,6 @@
 @extends('layouts.main-pengurus')
 
-@section('title', 'Kegiatan')
+@section('title', 'Event')
 
 @section('content')
 <div class="page-wrapper">
@@ -8,7 +8,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Daftar Kegiatan</h4>
+                <h4 class="page-title">Daftar Event</h4>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
-                <form action="{{ route ('filterTanggalKegiatan') }}" method="get">
+                <form action="{{ route ('filterTanggalEvent') }}" method="get">
                 @csrf
                     <div class="col-md-6">
                         <div class="input-group mb-3" style="width:570px">
@@ -27,8 +27,8 @@
                         </div>
                     </div>
                 </form>
-                <form class="form" method="get" action="{{route('cariKegiatan')}}">
-                    <div class="row mb-3">
+                <form class="form" method="get" action="{{route('cariEvent')}}">
+                <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-6">    
                             <div class="form-group">
-                                <input type="text" name="cariKegiatan" class="form-control w-75 d-inline" id="cariKegiatan" value="{{ request('cariKegiatan')}}" placeholder="Cari ...">
+                                <input type="text" name="cariEvent" class="form-control w-75 d-inline" id="cariEvent" value="{{ request('cariEvent')}}" placeholder="Cari ...">
                                 <button type="submit" class="btn btn-primary mb-1 d-inline"><i class="fa fa-search"></i> Cari</button>
                             </div>  
                         </div>
@@ -78,13 +78,13 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="/pengurus/kegiatan/kegiatan" enctype="multipart/form-data" style="width:100%">
+                                <form method="post" action="/pengurus/event/event" enctype="multipart/form-data" style="width:100%">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="nama_kegiatan">Nama Kegiatan</label> 
-                                        <input type="text" name="nama_kegiatan" value="{{ old ('nama_kegiatan') }}" class="form-control @error('nama_kegiatan') is-invalid @enderror" 
-                                        id="nama_kegiatan" placeholder="Masukkan Nama Kegiatan">
-                                        @error ('nama_kegiatan')
+                                        <label for="nama_event">Nama Event</label> 
+                                        <input type="text" name="nama_event" value="{{ old ('nama_event') }}" class="form-control @error('nama_event') is-invalid @enderror" 
+                                        id="nama_event" placeholder="Masukkan Nama Event">
+                                        @error ('nama_event')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -125,10 +125,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                                        <input type="deskripsi" name="deskripsi" value="{{ old ('deskripsi') }}" class="form-control @error('deskripsi') is-invalid @enderror" 
-                                        id="deskripsi" placeholder="Masukkan Deskripsi Kegiatan">
-                                        @error ('deskripsi')
+                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <input type="keterangan" name="keterangan" value="{{ old ('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror" 
+                                        id="keterangan" placeholder="Masukkan Keterangan event">
+                                        @error ('keterangan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -147,16 +147,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="image" class="form-label">Image</label>
-                                        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
-                                        id="image">
-                                        @error ('image')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Tambah</button>
                                     </div>
@@ -172,22 +162,22 @@
                         <thead>
                             <tr>
                                 <th class="border-top-0">NO</th>
-                                <th class="border-top-0">ID KEGIATAN</th>
-                                <th class="border-top-0">NAMA KEGIATAN</th>
+                                <th class="border-top-0">ID EVENT</th>
+                                <th class="border-top-0">NAMA EVENT</th>
                                 <th class="border-top-0">TANGGAL</th>
                                 <th class="border-top-0">JENIS ORGANISASI</th>
                                 <th class="border-top-0">AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($kegiatan as $result => $kegiatans)
+                        @forelse($event as $result => $events)
                             <tr>
-                                <th scope="row">{{ $result + $kegiatan->firstitem() }}</th>
-                                <td>{{$kegiatans->id}}</td>
-                                <td>{{$kegiatans->nama_kegiatan}}</td>
-                                <td>{{$kegiatans->tanggal}}</td>
-                                <td>{{$kegiatans->organisasi->jenis}}</td>
-                                <td><a href="\kegiatan\kegiatan\{{ $kegiatans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                <th scope="row">{{ $result + $event->firstItem()}}</th>
+                                <td>{{$events->id}}</td>
+                                <td>{{$events->nama_event}}</td>
+                                <td>{{$events->tanggal}}</td>
+                                <td>{{$events->organisasi->jenis}}</td>
+                                <td><a href="\event\event\{{ $events->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                             </tr>
                             @empty
                             <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
@@ -196,7 +186,7 @@
                     </table>
 
                     <div class="d-flex justify-content-start">
-                            {{$kegiatan->links()}}
+                        {{$event->links()}}
                     </div>
                    
                     </div>

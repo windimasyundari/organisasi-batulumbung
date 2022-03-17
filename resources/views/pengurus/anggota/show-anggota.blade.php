@@ -17,16 +17,13 @@
     <div class="container-fluid">
         <table class="table table-light table-borderless">
             <tr>
-                <th width ="200px ">Nama</th>
+                <th width ="200px">ID Anggota</th>
+                <td>{{ $anggota->id }}</td>
+            </tr>
+
+            <tr>
+                <th>Nama</th>
                 <td>{{ $anggota->nama }}</td>
-                <td rowspan = "5"> 
-                    <!-- @if ($anggota->image)
-                        <div style="max-height: 350px; overflow:hidden">
-                            <img src="{{ asset('storage/'.$anggota->image) }}" 
-                            class="img-fluid mb-3">
-                        </div>
-                    @endif -->
-                </td>
             </tr>
 
             <tr>
@@ -80,9 +77,9 @@
             </tr>
         </table>
 
-        <a href ="{{ $anggota->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editSekaaTeruna">Edit</a>
+        <a href ="{{ $anggota->id }}/edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAnggota">Edit</a>
 
-        <form action="{{ route('hapusSekaaTeruna', $anggota->id) }}" method="post" class="d-inline">
+        <form action="{{ route('hapusAnggota', $anggota->id) }}" method="post" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-danger text-light">Delete</button>
         </form>
@@ -91,15 +88,15 @@
 
     <!-- Edit Sekaa Teruna -->
     <!-- Modal -->
-    <div class="modal fade" id="editSekaaTeruna" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editSekaaTerunaLabel" aria-hidden="true">
+    <div class="modal fade" id="editAnggota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editAnggotaLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editSekaaTerunaLabel">Form Edit Data</h5>
+                    <h5 class="modal-title" id="editAnggotaLabel">Form Edit Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="/anggota/sekaa-teruna/{{ $anggota->id }}" style="width:100%">
+                <form method="post" action="/anggota/anggota/{{ $anggota->id }}" style="width:100%">
                 @method('patch')
                 @csrf
                     <div class="form-group">

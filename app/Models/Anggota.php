@@ -30,17 +30,14 @@ class Anggota extends Authenticatable
 
     public function scopeFilter($query, array $filters) {
        
-        $query->when($filters['cariSekaaTeruna'] ?? false, function($query, $cariSekaaTeruna) {
-            return $query->where('nama', 'like', '%' . $cariSekaaTeruna . '%');
+        $query->when($filters['cariAnggota'] ?? false, function($query, $cariAnggota) {
+            return $query->where('nama', 'like', '%' . $cariAnggota . '%');
         });
-        $query->when($filters['cariSekaaGong'] ?? false, function($query, $cariSekaaGong) {
-            return $query->where('nama', 'like', '%' . $cariSekaaGong . '%');
-        });
-        $query->when($filters['cariSekaaSanti'] ?? false, function($query, $cariSekaaSanti) {
-            return $query->where('nama', 'like', '%' . $cariSekaaSanti . '%');
-        });
-        $query->when($filters['cariPKK'] ?? false, function($query, $cariPKK) {
-            return $query->where('nama', 'like', '%' . $cariPKK . '%');
+
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
         });
 
     }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\Pengurus;
+use App\Models\Kegiatan;
+use App\Models\Pengumuman;
+use App\Models\Organisasi;
+use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,17 +73,21 @@ class LoginController extends Controller
     {
         $id = $request->session()->get('idlogin');
         $semua = Pengurus::where('id', $id)->get(); 
+        $kegiatan = Kegiatan::all();
+        $organisasi = Organisasi::all();
+        $pengumuman = Pengumuman::all();
+        $event = Event::all();
 
         //hitung
-        $sekaateruna = Anggota::where(['organisasi_id' => '1'])->count();
-        $sekaagong = Anggota::where(['organisasi_id' => '2'])->count();
-        $sekaasanti = Anggota::where(['organisasi_id' => '3'])->count();
-        $pkk = Anggota::where(['organisasi_id' => '4'])->count();
-        return view('/pengurus/dashboard', compact(['sekaateruna', 'sekaagong', 'sekaasanti', 'pkk']));
+        $hitunganggota= Anggota::all()->count();
+        $hitungevent = Event::all()->count();
+        $hitungkegiatan = Kegiatan::all()->count();
+        $hitungpengumuman = Pengumuman::all()->count();
+        return view('/pengurus/dashboard', compact(['kegiatan', 'organisasi', 'pengumuman', 'event', 'hitunganggota', 'hitungevent', 'hitungkegiatan', 'hitungpengumuman']));
 
     }
 
-    public function logout(Request $request)
+    public function logoutPengurus(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();

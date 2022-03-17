@@ -82,37 +82,73 @@
                 @endif
 
                 <button type="button" class="btn btn-primary mr-5" target="_blank" data-toggle="modal" data-target="#importExcel">
-                    IMPORT ABSENSI
+                    TAMBAH DATA ABSENSI
                 </button>
 
                 <!-- Import Excel -->
                 <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <form method="post" action="/absensi/import_absensi" enctype="multipart/form-data">
+                        <form method="post" action="/pengurus/absensi/absensi" enctype="multipart/form-data">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
                                 </div>
                                 <div class="modal-body">
+                                    {{ csrf_field() }}
+                                    
+                                    <div class="form-group">
+                                        <label for="nama_kegiatan">Nama Kegiatan</label> 
+                                        <input type="text" name="nama_kegiatan" value="{{ old ('nama_kegiatan') }}" class="form-control @error('nama_kegiatan') is-invalid @enderror" 
+                                        id="nama_kegiatan" placeholder="Masukkan Nama Kegiatan">
+                                        @error ('nama_kegiatan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tanggal">Tanggal</label> 
+                                        <input type="date" name="tanggal" value="{{ old ('tanggal') }}" class="form-control @error('tanggal') is-invalid @enderror" 
+                                        id="tanggal" placeholder="Masukkan Tanggal">
+                                        @error ('tanggal')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                                        <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
+                                            <option value="">--Pilih--</option>
+                                            <option value="1">Sekaa Teruna</option>
+                                            <option value="2">Sekaa Gong</option>
+                                            <option value="3">Sekaa Santi</option>
+                                            <option value="4">PKK</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file" class="form-label">Pilih File Excel</label>
+                                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" 
+                                        id="file">
+                                        @error ('file')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Import</button>
+                                    </div>
 
-                            {{ csrf_field() }}
- 
-							<label>Pilih file excel</label>
-							<div class="form-group">
-								<input type="file" name="file" required="required">
-							</div>
- 
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Import</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-        <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3 text-light" target="_blank">EXPORT ABSENSI</a>
+                    <a href="{{ route ('export_absensi') }}" class="btn btn-success my-3 text-light" target="_blank">EXPORT ABSENSI</a>
 
                     <div class="table-responsive mt-3">
                         <table class="table table-striped">
@@ -122,7 +158,7 @@
                                     <th class="border-top-0">ID ANGGOTA</th>
                                     <th class="border-top-0">NAMA ANGGOTA</th>
                                     <th class="border-top-0">NAMA KEGIATAN</th>
-                                    <th class="border-top-0">TANGGAL KEGIATAN</th>
+                                    <th class="border-top-0">TANGGAL</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">STATUS</th>
                                     <th class="border-top-0">AKSI</th>
@@ -130,20 +166,15 @@
                             </thead>
                             
                             <tbody>
-                            <!-- melakukan looping data -->
-                            @php
-                                $no = 0;
-                            @endphp
-
-                            @forelse ($absensi as $absen)
+                            @forelse ($absensi as $result => $absen)
                                 <tr>
-                                    <th scope="row">{{ ++$no }}</th>
+                                    <th scope="row">{{ $result + $absensi->firstitem() }}</th>
                                     <td>{{$absen->anggota_id}}</td>
                                     <td>{{$absen->nama}}</td>
                                     <td>{{$absen->nama_kegiatan}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('d/m/Y')}}</td> 
+                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('Y-m-d')}}</td> 
                                     <!-- carbon format (y-m-d) -->
-                                    <td>{{$absen->jenis}}</td>
+                                    <td>{{$absen->organisasi->jenis}}</td>
                                     <td>{{$absen->status}}</td>
                                     <td><a href="/absensi/absensi/{{$absen->id}}"  class="btn btn-primary" data-toggle="modal" data-target="#editData{{ $absen->id }}"><i class="bi bi-pencil-square"></i></a> |
                                     <div class="modal fade" id="editData{{ $absen->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
@@ -162,7 +193,7 @@
                                                         <select name="status" value="{{ $absen->status }}" class="form-control @error('status') is-invalid @enderror" 
                                                         id="exampleFormControlSelect">
                                                             <option value="Hadir" @if($absen->status == "Hadir") selected @endif>Hadir</option>
-                                                            <option value="Tidak Hadir" @if($absen->status == "Tidak Hadir") selected @endif>TIDAK HADIR</option>
+                                                            <option value="Tidak Hadir" @if($absen->status == "Tidak Hadir") selected @endif>Tidak Hadir</option>
                                                         </select>
                                                     </div>
 
@@ -187,13 +218,9 @@
                                 @endforelse
                             </tbody>
                         </table>  
-                        @if ($absensi->hasPages())
-                            <div class="row">
-                                <div class="col">
-                                    {{ $absensi->links('pagination::bootstrap-4') }}
-                                </div>
-                            </div>
-                        @endif                
+                        <div class="d-flex justify-content-start">
+                            {{$absensi->links()}}
+                        </div>          
                     </div>
                 </div>
             </div>

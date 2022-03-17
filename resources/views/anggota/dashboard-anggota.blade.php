@@ -50,11 +50,11 @@
                     <div class="card-body">
                         <table class="table bg-light table-borderless">
                         @foreach($semua as $anggota)
-                            <tr>
+                               <tr>
                                 <th style="width:200px">Nama</th>
                                 <th>:</th>
                                 <td>{{ $anggota->nama}}</td>
-                                <th style="width:200px">Pekerjaan</th>
+                                    <th style="width:200px">Pekerjaan</th>
                                 <th>:</th>
                                 <td>{{ $anggota->pekerjaan}}</td>
                             </tr>

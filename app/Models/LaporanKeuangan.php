@@ -13,7 +13,8 @@ class LaporanKeuangan extends Model
         'jmlh_pemasukan', 
         'jmlh_pengeluaran', 
         'tanggal',
-        'keterangan', 
+        'keterangan',
+        'sumber_dana', 
         'organisasi_id',
         'kegiatan_id', 
         'pengurus_id'];

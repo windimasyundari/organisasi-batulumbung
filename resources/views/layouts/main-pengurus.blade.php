@@ -132,37 +132,10 @@
                             </a>
                         </li>
                         <li class="sidebar-item selected">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
-                                <i class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-people-fill" aria-hidden="true"></i> Anggota
-                                </i> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/anggota/anggota" aria-expanded="false">
+                                <i class="bi bi-people-fill" aria-hidden="true"></i>
+                                <span class="hide-menu">Anggota</span>
                             </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-teruna" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Teruna</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-gong" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Gong</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/sekaa-santi" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">Sekaa Santi</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/anggota/pkk" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu">PKK</span>
-                                    </a>
-                                </li>  
-                            </ul>
                         </li>
 
                         <li class="sidebar-item">
@@ -180,9 +153,16 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/event/event"
+                                aria-expanded="false">
+                                <i class="bi bi-calendar2-week-fill" aria-hidden="true"></i>
+                                <span class="hide-menu">Event</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/kegiatan/kegiatan"
                                 aria-expanded="false">
-                                <i class="bi bi-calendar-week-fill" aria-hidden></i>
+                                <i class="bi bi-calendar2-check-fill" aria-hidden="true"></i>
                                 <span class="hide-menu">Kegiatan</span>
                             </a>
                         </li>

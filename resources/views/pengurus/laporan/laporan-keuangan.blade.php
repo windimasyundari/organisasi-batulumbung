@@ -77,26 +77,30 @@
                                     <th class="border-top-0">PENGELUARAN</th>
                                     <th class="border-top-0">TANGGAL</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
+                                    <th class="border-top-0">SUMBER DANA</th>
+                                    <th class="border-top-0">KETERANGAN</th>
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($laporan as $laporans)
+                            @forelse($laporan as $result => $laporans)
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration}}</th>
+                                    <th scope="row">{{ $result + $laporan->firstItem()}}</th>
                                     <td>Rp {{ number_format($laporans->jmlh_pemasukan) }}</td>
                                     <td>Rp {{ number_format($laporans->jmlh_pengeluaran) }}</td>
                                     <td>{{$laporans->tanggal}}</td>
                                     <td>{{$laporans->organisasi->jenis}}</td>
+                                    <td>{{$laporans->sumber_dana}}</td>
+                                    <td>{{$laporans->keterangan}}</td>
                                     <td><a href="\laporan\laporan-keuangan\{{ $laporans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                     
-                        </tr>
-                        @empty
-                        <td colspan="9" class="table-active text-center">Tidak Ada Data</td>
-                    @endforelse
-                    <tbody>
-                </table> 
-            </div>
+                                </tr>
+                                @empty
+                                <td colspan="9" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
+                            <tbody>
+                        </table> 
+                    </div>
 
                     <!-- Tambah Data -->
                     <!-- Modal -->
@@ -155,6 +159,17 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="sumber_dana">Sumber Dana</label> 
+                                        <input type="text" name="sumber_dana" value="{{ old ('sumber_dana') }}" class="form-control @error('sumber_dana') is-invalid @enderror" 
+                                        id="sumber_dana" placeholder="Masukkan Sumber Dana">
+                                        @error ('sumber_dana')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="keterangan">Keterangan</label> 
                                         <input type="text" name="keterangan" value="{{ old ('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror" 
                                         id="keterangan" placeholder="Masukkan Keterangan">
@@ -195,8 +210,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                       
+                    <div class="d-flex justify-content-start">
+                        {{$laporan->links()}}
                     </div>
   
                 </div>

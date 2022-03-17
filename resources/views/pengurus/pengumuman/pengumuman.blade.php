@@ -159,9 +159,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($pengumuman as $pengumumans)
+                            @forelse($pengumuman as $result => $pengumumans)
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration}}</th>
+                                    <th scope="row">{{ $result + $pengumuman -> firstItem()}}</th>
                                     <td>{{$pengumumans->id}}</td>
                                     <td>{{$pengumumans->judul}}</td>
                                     <td>{{$pengumumans->tanggal}}</td>
@@ -174,7 +174,7 @@
                             </tbody>
                         </table>
 
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-start">
                             {{$pengumuman->links()}}
                         </div>
 

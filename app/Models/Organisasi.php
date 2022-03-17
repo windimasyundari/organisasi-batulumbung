@@ -24,6 +24,15 @@ class Organisasi extends Model
     {
         return $this->HasMany(Kegiatan::class);
     }
+    public function absensi()
+    {
+        return $this->HasMany(Absensi::class);
+    }
+
+    public function event()
+    {
+        return $this->HasMany(Event::class);
+    }
 
     public function pengumuman()
     {

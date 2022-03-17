@@ -179,7 +179,7 @@ class PengurusController extends Controller
      */
     public function destroy(Pengurus $pengurus)
     {
-        Pengurus::destroy($pengurus -> id);
+        Pengurus::destroy($pengurus->id);
 
         return redirect('/pengurus-crud/pengurus')-> with('status', 'Data Pengurus Berhasil Dihapus!');
     }

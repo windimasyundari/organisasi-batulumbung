@@ -5,25 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Absensi extends Model
+class Event extends Model
 {
-    protected $table = 'absensi';
+    // use HasFactory;
+    protected $table = 'event';
     protected $fillable = [
-        'anggota_id',
-        'organisasi_id',
-        'nama', 
-        'nama_kegiatan', 
-        'tanggal',
-        'status'
-    ];
-
+        'nama_event', 
+        'organisasi_id', 
+        'tanggal', 
+        'waktu', 
+        'tempat', 
+        'keterangan'];
+    
     public function scopeFilter($query, array $filters) {
     
-        $query->when($filters['cariAbsensi'] ?? false, function($query, $cariAbsensi) {
-            return $query->where('nama', 'like', '%' . $cariAbsensi . '%')
-            ->orWhere('status', 'like', '%' . $cariAbsensi . '%');
+        $query->when($filters['cariEvent'] ?? false, function($query, $cariEvent) {
+            return $query->where('nama_event', 'like', '%' . $cariEvent . '%')
+            ->orWhere('tempat', 'like', '%' . $cariEvent . '%')
+            ->orWhere('keterangan', 'like', '%' . $cariEvent . '%');        
         });
-    
+
         $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
             return $query->whereHas('organisasi', function($query) use ($organisasi) {
                 $query->where('jenis', $organisasi);
@@ -31,14 +32,9 @@ class Absensi extends Model
         });
     }
 
-    // relasi
-    public function anggota()
-    {
-        return $this->belongsTo(Anggota::class);
-    }
     public function organisasi()
     {
         return $this->belongsTo(Organisasi::class);
     }
-
+    
 }

@@ -199,9 +199,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse( $pengurus as $penguruss )
+                                @forelse( $pengurus as $result => $penguruss )
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration}}</th>
+                                    <th scope="row">{{ $result + $pengurus -> firstItem()}}</th>
                                     <td>{{$penguruss->id}}</td>
                                     <td>{{$penguruss->nama}}</td>
                                     <td>{{$penguruss->jabatan}}</td>
@@ -215,7 +215,7 @@
                             </tbody>
                         </table>
 
-                        <div class="d-flex center-content-end">
+                        <div class="d-flex center-content-start">
                             {{$pengurus->links()}}
                         </div>
                       
