@@ -22,17 +22,8 @@
             </tr>
 
             <tr>
-                <th> Nama Kegiatan</th>
-                <td>{{$laporan->kegiatan_id}}</td>
-            </tr>
-            <tr>
                 <th width ="200px ">Jumlah Pemasukan</th>
                 <td>Rp {{ number_format ($laporan->jmlh_pemasukan)}}</td>
-            </tr>
-
-            <tr>
-                <th>Jumlah Pengeluaran</th>
-                <td>Rp {{ number_format ($laporan->jmlh_pengeluaran)}}</td>
             </tr>
 
             <tr>
@@ -44,6 +35,27 @@
                 <th> Sumber Dana</th>
                 <td>{{$laporan->sumber_dana}}</td>
             </tr>
+            @isset($laporan->nama_barang)
+            <tr>
+                <th> Nama Barang</th>
+                <td>{{$laporan->nama_barang}}</td>
+            </tr>
+
+            <tr>
+                <th> Jumlah</th>
+                <td>{{$laporan->jumlah}}</td>
+            
+            </tr>
+            <tr>
+                <th> Harga Satuan</th>
+                <td>Rp {{ number_format ($laporan->harga_satuan)}}</td>
+            </tr>
+
+            <tr>
+                <th>Jumlah Pengeluaran</th>
+                <td>Rp {{ number_format ($laporan->jmlh_pengeluaran)}}</td>
+            </tr>
+            @endisset
 
             <tr>
                 <th> Jenis Organisasi</th>
@@ -92,17 +104,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kegiatan_id">ID Kegiatan</label> 
-                        <input type="text" name="kegiatan_id" value="{{ $laporan->kegiatan_id }}" class="form-control @error('kegiatan_id') is-invalid @enderror" 
-                        id="kegiatan_id" placeholder="Masukkan Nama Kegiatan">
-                        @error ('kegiatan_id')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="jmlh_pemasukan">Jumlah Pemasukkan</label> 
                         <input type="text" name="jmlh_pemasukan" value="{{ $laporan->jmlh_pemasukan}}" class="form-control @error('jmlh_pemasukan') is-invalid @enderror" 
                         id="jmlh_pemasukan" placeholder="Masukkan Jumlah Pemasukan">
@@ -123,6 +124,38 @@
                         </div>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="nama_barang">Nama Barang</label> 
+                        <input type="text" name="nama_barang" value="{{ $laporan->nama_barang }}"  class="form-control @error('nama_barang') is-invalid @enderror" 
+                        id="nama_barang" placeholder="Masukkan Nama Barang">
+                        @error ('nama_barang')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah Barang</label> 
+                        <input type="number" name="jumlah" value="{{ $laporan->jumlah }}" class="form-control @error('jumlah') is-invalid @enderror" 
+                        id="jumlah" placeholder="Masukkan Jumlah Barang">
+                        @error ('jumlah')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="harga_satuan">Harga Satuan Barang</label> 
+                        <input type="text" name="harga_satuan" value="{{ $laporan->harga_satuan }}"  class="form-control @error('harga_satuan') is-invalid @enderror" 
+                        id="harga_satuan" placeholder="Masukkan Harga Satuan Barang">
+                        @error ('harga_satuan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
 
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label> 
@@ -146,6 +179,17 @@
                         </select>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="sumber_dana">Sumber Dana</label> 
+                        <input type="text" name="sumber_dana" value="{{ $laporan->sumber_dana }}" class="form-control @error('sumber_dana') is-invalid @enderror" 
+                        id="sumber_dana" placeholder="Masukkan Sumber Dana">
+                        @error ('sumber_dana')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label> 
                         <input type="text" name="keterangan" value="{{ $laporan->keterangan }}" class="form-control @error('keterangan') is-invalid @enderror" 

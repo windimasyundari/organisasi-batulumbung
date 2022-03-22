@@ -97,7 +97,7 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
-                            <a class="profile-pic" href="#"  data-bs-toggle="modal" data-bs-target="#profil">
+                            <a class="profile-pic" href="/dashboard-anggota">
                             <img src="{{asset('template')}}/plugins/images/user.png" alt="" width="36"
                             class="img-circle"> <span class="text-white font-medium"> 
                             {{ Auth::guard('anggota')->user()->nama }}</span></a>

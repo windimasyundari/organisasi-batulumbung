@@ -108,7 +108,7 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'judul'             => 'required|max:255',
             'tanggal'           => 'required',
             'waktu'             => 'required',
@@ -118,9 +118,11 @@ class PengumumanController extends Controller
         ]);
 
         $update_data = [
-            'judul'     => $request->judul,
-            'tanggal'   => $request->tanggal,
-            'isi'       => $request->isi,
+            'judul'             => $request->judul,
+            'tanggal'           => $request->tanggal,
+            'waktu'             => $request->waktu,
+            'organisasi_id'     => $request->organisasi_id,
+            'isi'               => $request->isi,
         ];
 
         if($request->file('file')) {

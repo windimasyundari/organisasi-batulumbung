@@ -7,8 +7,6 @@ use App\Models\Organisasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
-use DB;
-use Carbon\Carbon;
 use PDF;
 
 class LaporanKeuanganController extends Controller
@@ -85,7 +83,9 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'sumber_dana'       => 'required',
-            'kegiatan_id'       => 'required',
+            'nama_barang'       => 'nullable',
+            'jumlah'            => 'nullable',
+            'harga_satuan'      => 'nullable',
             'organisasi_id'     => 'required',
             'pengurus_id'       => 'required'
         ]);
@@ -122,7 +122,9 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => 'required',
             'keterangan'        => 'required',
             'sumber_dana'       => 'required',
-            'kegiatan_id'       => 'required',
+            'nama_barang'       => 'nullable',
+            'jumlah'            => 'nullable',
+            'harga_satuan'      => 'nullable',
             'organisasi_id'     => 'required',
         ]);
         
@@ -133,12 +135,14 @@ class LaporanKeuanganController extends Controller
             'tanggal'           => $request->tanggal,
             'keterangan'        => $request->keterangan,
             'sumber_dana'       => $request->sumber_dana,
-            'kegiatan_id'       => $request->kegiatan_id,
+            'nama_barang'       => $request->nama_barang,
+            'jumlah'            => $request->jumlah,  
+            'harga_satuan'      => $request->harga_satuan,
             'organisasi_id'     => $request->organisasi_id,
 
             ]);
 
-            return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Diubah!');
+        return redirect('/laporan/laporan-keuangan')-> with('success', 'Data Laporan Keuangan Berhasil Diubah!');
     }
 
     public function export_excel()

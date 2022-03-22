@@ -16,10 +16,10 @@ class CreateAbsensiTable extends Migration
         Schema::create('absensi', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('anggota_id');
+            $table->foreignId('organisasi_id');
             $table->string('nama');
             $table->string('nama_kegiatan');
             $table->string('tanggal');
-            $table->string('jenis');
             $table->string('status');
             $table->timestamps();
         });

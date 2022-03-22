@@ -73,25 +73,27 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
+                                    <th class="border-top-0">TANGGAL</th>
                                     <th class="border-top-0">PEMASUKAN</th>
                                     <th class="border-top-0">PENGELUARAN</th>
-                                    <th class="border-top-0">TANGGAL</th>
+                                    <th class="border-top-0">NAMA BARANG</th>
+                                    <th class="border-top-0">RINCIAN</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">SUMBER DANA</th>
-                                    <th class="border-top-0">KETERANGAN</th>
                                     <th class="border-top-0">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse($laporan as $result => $laporans)
+                            @forelse($laporan as $laporans)
                                 <tr>
-                                    <th scope="row">{{ $result + $laporan->firstItem()}}</th>
+                                    <th scope="row">{{ $loop->iteration}}</th>
+                                    <td>{{$laporans->tanggal}}</td>
                                     <td>Rp {{ number_format($laporans->jmlh_pemasukan) }}</td>
                                     <td>Rp {{ number_format($laporans->jmlh_pengeluaran) }}</td>
-                                    <td>{{$laporans->tanggal}}</td>
+                                    <td>{{$laporans->nama_barang}}</td>
+                                    <td>{{$laporans->jumlah}} * Rp {{ number_format($laporans->harga_satuan) }}</td>
                                     <td>{{$laporans->organisasi->jenis}}</td>
                                     <td>{{$laporans->sumber_dana}}</td>
-                                    <td>{{$laporans->keterangan}}</td>
                                     <td><a href="\laporan\laporan-keuangan\{{ $laporans->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                     
                                 </tr>
@@ -130,6 +132,36 @@
                                         <input type="text" name="jmlh_pengeluaran" value="{{ old ('jmlh_pengeluaran') }}" class="form-control @error('jmlh_pengeluaran') is-invalid @enderror" 
                                         id="jmlh_pengeluaran" placeholder="Masukkan Jumlah Pengeluaran">
                                         @error ('jmlh_pengeluaran')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nama_barang">Nama Barang</label> 
+                                        <input type="text" name="nama_barang" value="{{ old ('nama_barang') }}" class="form-control" 
+                                        id="nama_barang" placeholder="Masukkan Nama Barang">
+                                        @error ('nama_barang')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jumlah">Jumlah Barang</label> 
+                                        <input type="number" name="jumlah" value="{{ old ('jumlah') }}" class="form-control" 
+                                        id="jumlah" placeholder="Masukkan Jumlah Barang">
+                                        @error ('jumlah')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="harga_satuan">Harga Satuan Barang</label> 
+                                        <input type="text" name="harga_satuan" value="{{ old ('harga_satuan') }}" class="form-control" 
+                                        id="harga_satuan" placeholder="Masukkan Harga Satuan Barang">
+                                        @error ('harga_satuan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -181,17 +213,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kegiatan_id" class="form-label">ID Kegiatan</label>
-                                        <input type="text" name="kegiatan_id" value="{{ old ('kegiatan_id') }}" class="form-control @error('kegiatan_id') is-invalid @enderror" 
-                                        id="kegiatan_id" placeholder="Masukkan ID Kegiatan">
-                                        @error ('kegiatan_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="pengurus_id" class="form-label">ID Pengurus</label>
                                         <input type="text" name="pengurus_id" readonly value="{{ Auth::guard('pengurus')->user()->id }} " class="form-control @error('pengurus_id') is-invalid @enderror" 
                                         id="pengurus_id" >
@@ -210,8 +231,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-start">
-                        {{$laporan->links()}}
+                    <div class="d-flex justify-content-end">
+                       
                     </div>
   
                 </div>

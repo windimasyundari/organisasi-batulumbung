@@ -131,11 +131,7 @@
                         <div class="form-group">
                             <label for="file" class="form-label">File</label>
                             <label type="hidden" name="oldFile" value="{{$pengumuman->file}}"></label>
-                             @if($pengumuman->file)
-                                    <img src="{{ asset('storage/'.$pengumuman->file) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
-                                @else
-                                    <img class="img-preview img-fluid mb-3 col=sm-5">
-                                @endif
+                            
                             <input type="file" name="file" accept="application/pdf" value="{{ old ('file') }}" class="form-control @error('file') is-invalid @enderror" 
                             id="file" placeholder="Masukkan file">
                             @error ('file')

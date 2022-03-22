@@ -38,11 +38,5 @@ class Kegiatan extends Model
     {
         return $this->belongsTo(Organisasi::class);
     }
-
-    public function laporanKeuangan()
-    {
-        return $this->HasMany(LaporanKeuangan::class);
-    }
-
     
 }

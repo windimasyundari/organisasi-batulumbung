@@ -31,7 +31,8 @@ class Anggota extends Authenticatable
     public function scopeFilter($query, array $filters) {
        
         $query->when($filters['cariAnggota'] ?? false, function($query, $cariAnggota) {
-            return $query->where('nama', 'like', '%' . $cariAnggota . '%');
+            return $query->where('nama', 'like', '%' . $cariAnggota . '%')
+            ->orWhere('nik', 'like', '%' . $cariAnggota . '%');
         });
 
         $query->when($filters['jenis'] ?? false, function($query, $organisasi) {

@@ -127,13 +127,11 @@ use App\Models\Absensi;
     Route::delete('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@destroy');
     // Route::get('/absensi/absensi/{absensi}/edit', 'App\Http\Controllers\AbsensiController@edit');
     Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update')->name('editAbsensi');
-    Route::post('/absensi/absensi', 'App\Http\Controllers\AbsensiController@import_excel');
+    // Route::post('/absensi/absensi', 'App\Http\Controllers\AbsensiController@import_excel');
     Route::get('/absensi/export_absensi', 'App\Http\Controllers\AbsensiController@export_excel')->name('export_absensi');
     Route::get('/absensi/cariAbsensi','App\Http\Controllers\AbsensiController@cariAbsensi')->name('cariAbsensi');
     Route::get('/absensi/filterTanggal','App\Http\Controllers\AbsensiController@filterTanggal')->name('filterTanggalAbsensi');
     Route::get('/absensi/cariOrganisasi','App\Http\Controllers\AbsensiController@cariOrganisasi')->name('cariOrganisasi');
- 
-
 
     // Laporan Keuangan
     Route::get('/laporan/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@index');

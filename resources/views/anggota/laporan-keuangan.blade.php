@@ -15,20 +15,36 @@
 
     <div class="container-fluid">
         <div class="row ">
-            @forelse($laporan as $laporans)
-            <div class="card bg-purple" style="width: 100rem;">
-                <div class="card-body bg-purple" style="color:white">
-                    <h4 class="card-title" style="font-weight: 800; "> {{$laporans->kegiatan->nama_kegiatan}}</h4>
-                    <p class="card-title">Jumlah Pemasukan : Rp {{ number_format($laporans ->jmlh_pemasukan) }}</p>
-                    <p class="card-text">Jumlah Pengeluaran : Rp {{ number_format($laporans ->jmlh_pengeluaran) }}</p>
-                    <p class="card-text">Tanggal : {{$laporans->tanggal}}</p>
-                    <p class="card-text">Keterangan : {{$laporans->keterangan}}</p>
-                </div>  
-            </div>  
-            @empty
-            <div class="card-body bg-purple"  style="font-weight: 800; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
-            @endforelse
-            </div>                 
+        <table class="table table-primary">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">NO</th>
+                                    <th class="border-top-0">TANGGAL</th>
+                                    <th class="border-top-0">PEMASUKAN</th>
+                                    <th class="border-top-0">PENGELUARAN</th>
+                                    <th class="border-top-0">NAMA BARANG</th>
+                                    <th class="border-top-0">JENIS ORGANISASI</th>
+                                    <th class="border-top-0">SUMBER DANA</th>
+                                    <th class="border-top-0">RINCIAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($laporan as $laporans)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration}}</th>
+                                    <td>{{$laporans->tanggal}}</td>
+                                    <td>Rp {{ number_format($laporans->jmlh_pemasukan) }}</td>
+                                    <td>Rp {{ number_format($laporans->jmlh_pengeluaran) }}</td>                                    
+                                    <td>{{$laporans->nama_barang}}</td>
+                                    <td>{{$laporans->organisasi->jenis}}</td>
+                                    <td>{{$laporans->sumber_dana}}</td>
+                                    <td>{{$laporans->jumlah}} * Rp {{ number_format($laporans->harga_satuan) }}</td>
+                                </tr>
+                                @empty
+                                <td colspan="9" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
+                            <tbody>
+                        </table> 
         </div>          
     </div>
 @endsection

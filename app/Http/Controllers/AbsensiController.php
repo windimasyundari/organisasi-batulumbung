@@ -66,30 +66,30 @@ class AbsensiController extends Controller
         return view('/pengurus/absensi/absensi', ['absensi' => $absensi, 'dari' => $request->dari, 'sampai' => $request->sampai, 'organisasi' => $organisasi]);
     }
 
-    public function import_excel(Request $request)
-    {
-        // validasi
-        $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
+    // public function import_excel(Request $request)
+    // {
+    //     // validasi
+    //     $this->validate($request, [
+    //         'file' => 'required|mimes:csv,xls,xlsx'
+    //     ]);
 
-        if($request->file('file')) {
+    //     if($request->file('file')) {
 
-        // menangkap file excel
-        $file = $request->file('file');
+    //     // menangkap file excel
+    //     $file = $request->file('file');
 
-        // membuat nama file unik
-        $nama_file = rand() . $file->getClientOriginalName();
+    //     // membuat nama file unik
+    //     $nama_file = rand() . $file->getClientOriginalName();
 
-        // upload ke folder file_absensi di dalam folder public
-        $file->move('files_absensi', $nama_file);
-        // import data
-        Excel::import(new AbsensiImport, public_path('files_absensi/' . $nama_file));
-        }
+    //     // upload ke folder file_absensi di dalam folder public
+    //     $file->move('files_absensi', $nama_file);
+    //     // import data
+    //     Excel::import(new AbsensiImport, public_path('files_absensi/' . $nama_file));
+    //     }
        
-        // alihkan halaman kembali
-        return redirect('/absensi/absensi');
-    }
+    //     // alihkan halaman kembali
+    //     return redirect('/absensi/absensi');
+    // }
 
     public function export_excel()
     {
@@ -123,8 +123,6 @@ class AbsensiController extends Controller
             'file'          => 'required|mimes:csv,xls,xlsx'
         ]);
 
-       
-
         // dd($request->validate);
 
         if($request->file('file')) {
@@ -153,7 +151,6 @@ class AbsensiController extends Controller
             'status'        => $key->status,      
         ];
         
-
         Absensi::create($create_data);
     }
     

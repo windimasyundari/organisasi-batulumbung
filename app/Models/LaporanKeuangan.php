@@ -15,8 +15,10 @@ class LaporanKeuangan extends Model
         'tanggal',
         'keterangan',
         'sumber_dana', 
+        'nama_barang', 
+        'jumlah', 
+        'harga_satuan', 
         'organisasi_id',
-        'kegiatan_id', 
         'pengurus_id'];
 
     public function scopeFilter($query, array $filters) {
@@ -48,5 +50,4 @@ class LaporanKeuangan extends Model
     }
 
 }
-
 

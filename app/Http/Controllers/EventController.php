@@ -59,7 +59,7 @@ class EventController extends Controller
             'waktu'         => 'required',
             'tempat'        => 'required',
             'organisasi_id' => 'required',
-            'keterangan'     => 'required',
+            'keterangan'    => 'required',
         ]);
 
         Event::create($validateData);
@@ -74,7 +74,7 @@ class EventController extends Controller
 
     public function update(Request $request, Event $event)
     {
-        $validateData = $request->validate([
+       $request->validate([
             'nama_event'    => 'required',
             'tanggal'       => 'required',
             'waktu'         => 'required',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLaporanKeuanganTable extends Migration
+class CreatePengeluaranTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateLaporanKeuanganTable extends Migration
      */
     public function up()
     {
-        Schema::create('laporan_keuangan', function (Blueprint $table) {
+        Schema::create('pengeluaran', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('pengurus_id');
             $table->foreignId('organisasi_id');
-            $table->string('jmlh_pemasukan');
-            $table->string('jmlh_pengeluaran');
+            $table->foreignId('pengurus_id');
+            $table->string('total_pengeluaran');
             $table->date('tanggal');
+            $table->date('nama_barang');
+            $table->date('jmlh_barang');
+            $table->date('satuan_harga');
             $table->string('sumber_dana');
-            $table->string('nama_barang')->nullable();
-            $table->string('jumlah')->nullable();
-            $table->string('harga_satuan')->nullable();
             $table->string('keterangan');
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ class CreateLaporanKeuanganTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_keuangan');
+        Schema::dropIfExists('pengeluaran');
     }
 }

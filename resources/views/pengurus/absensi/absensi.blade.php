@@ -36,8 +36,8 @@
                 @csrf
                     <div class="col-md-6">
                         <div class="input-group mb-3" style="width:570px">
-                            <input type="text" class="form-control" name="dari" onfocusin="(this.type='date')" value="{{ isset($dari) ? $dari : old('dari')}}" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
-                            <input type="text" class="form-control" name="sampai" onfocusin="(this.type='date')" value="{{ isset($sampai) ? $sampai : old('sampai')}}" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
+                            <input type="text" class="form-control" name="dari" value="{{ isset($dari) ? $dari : old('dari')}}" onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Awal">
+                            <input type="text" class="form-control" name="sampai" value="{{ isset($sampai) ? $sampai : old('sampai')}}"  onfocusin="(this.type='date')" outfocusin="(this.type='text)" placeholder="Tanggal Akhir">
                             <button class="btn btn-primary" type="submit" style="width:80px"> Filter</button>
                         </div>
                     </div>
