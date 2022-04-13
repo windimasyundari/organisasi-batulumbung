@@ -37,10 +37,12 @@ class OrganisasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kode' => 'required',
             'jenis' => 'required'
         ]);
 
         Organisasi :: create([
+            'kode' => $request->kode,
             'jenis' => $request->jenis
         ]); 
         
@@ -68,11 +70,13 @@ class OrganisasiController extends Controller
     public function update(Request $request, Organisasi $organisasi)
     {
         $request->validate([
+            'kode' => 'required',
             'jenis' => 'required'
         ]);
         
         Organisasi::where('id', $organisasi->id)
                 ->update([
+                    'kode'=>$request->kode,
                     'jenis'=>$request->jenis
                 ]);
 

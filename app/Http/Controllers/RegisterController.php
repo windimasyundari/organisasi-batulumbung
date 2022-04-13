@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Register;
-use App\Models\Anggota;
+use App\Models\User;
+use App\Models\DetailUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,14 +41,14 @@ class RegisterController extends Controller
     {
         $message = [
             'required' => 'Wajib diisi!',
-            'min'      => 'Wajib diisi minimal : 5, maksimal : 8  karakter!',
-            'max'      => 'Wajib diisi minimal : 5, maksimal : 8 karakter!',
+            'min'      => 'Wajib diisi minimal : 5, maksimal : 10  karakter!',
+            'max'      => 'Wajib diisi minimal : 5, maksimal : 10 karakter!',
             'unique'   => 'NIK sudah terdaftar'
         ];
 
         $request->validate([
             'nama'              => 'required',
-            'nik'               => 'required',
+            'nik'               => 'required|unique',
             'tempat_lahir'      => 'required',
             'tgl_lahir'         => 'required',
             'email'             => 'required',
@@ -57,27 +58,37 @@ class RegisterController extends Controller
             'jenis_kelamin'     => 'required',
             'pekerjaan'         => 'required',
             'alamat'            => 'required',
-            'organisasi_id'     => 'required',
+            'level'             => 'required',
             'status'            => 'required'
         ], $message);
 
-        Anggota :: create([
-            'nama'              => $request->nama,
-            'nik'               => $request->nik,
-            'tempat_lahir'      => $request->tempat_lahir,
-            'tgl_lahir'         => $request->tgl_lahir,
-            'email'             => $request->email,
-            'password'          => Hash::make($request->password),
-            'no_telp'           => $request->no_telp,
-            'jenis_kelamin'     => $request->jenis_kelamin,
-            'pekerjaan'         => $request->pekerjaan,
-            'alamat'            => $request->alamat,
-            'organisasi_id'     => $request->organisasi_id,
-            'status'            => $request->status
-        ]); 
+        $user = User :: create([
+                'nama'              => $request->nama,
+                'nik'               => $request->nik,
+                'tempat_lahir'      => $request->tempat_lahir,
+                'tgl_lahir'         => $request->tgl_lahir,
+                'email'             => $request->email,
+                'password'          => Hash::make($request->password),
+                'no_telp'           => $request->no_telp,
+                'jenis_kelamin'     => $request->jenis_kelamin,
+                'pekerjaan'         => $request->pekerjaan,
+                'alamat'            => $request->alamat,
+                'level'             => $request->level,
+                'status'            => $request->status
+            ]); 
+
+            $organisasi = collect($request->organisasi_id);
+            $indeks = count($organisasi);
+        
+            for($i=0;$i<$indeks;$i++){
+                DetailUser::create([
+                    'user_id' => $user->id,
+                    'organisasi_id' => $organisasi[$i],
+                ]);
+            }
         
     // dd ($request->all());
-        return redirect('/anggota/login')->with('success', 'Registrasi Berhasil!');
+        return redirect('/pengurus/login')->with('success', 'Registrasi Berhasil!');
     }
 
 }

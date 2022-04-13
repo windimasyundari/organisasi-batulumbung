@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Organisasi extends Model
 {
     protected $table = 'organisasi';
-    protected $fillable = ['jenis'];
+    protected $fillable = ['jenis', 'kode'];
 
-    public function anggota()
+    public function user()
     {
-        return $this->HasMany(Anggota::class);
+        return $this->HasMany(User::class);
     }
 
-    public function pengurus()
+    public function detailUser()
     {
-        return $this->HasMany(Pengurus::class);
+        return $this->HasMany(DetailUser::class);
     }
 
     public function kegiatan()

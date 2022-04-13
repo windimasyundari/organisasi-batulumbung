@@ -16,7 +16,7 @@ class CreatePengeluaranTable extends Migration
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('organisasi_id');
-            $table->foreignId('pengurus_id');
+            $table->foreignId('user_id');
             $table->string('total_pengeluaran');
             $table->date('tanggal');
             $table->date('nama_barang');

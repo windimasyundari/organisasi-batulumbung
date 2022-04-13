@@ -18,7 +18,7 @@
         <table class="table table-light table-borderless">
             <tr>
                 <th>Nama Pengurus</th>
-                <td>{{$laporan->pengurus->nama}}</td>
+                <td>{{$laporan->user->nama}}</td>
             </tr>
 
             <tr>
@@ -94,7 +94,7 @@
                 @csrf
                     <div class="form-group">
                         <label for="nama">Nama Pengurus</label> 
-                        <input type="text" readonly name="nama" value="{{ $laporan->pengurus->nama }}" class="form-control @error('nama') is-invalid @enderror" 
+                        <input type="text" readonly name="nama" value="{{ $laporan->user->nama }}" class="form-control @error('nama') is-invalid @enderror" 
                         id="nama" placeholder="Masukkan Nama">
                         @error ('nama')
                         <div class="invalid-feedback">

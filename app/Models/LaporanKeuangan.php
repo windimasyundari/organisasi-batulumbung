@@ -19,7 +19,7 @@ class LaporanKeuangan extends Model
         'jumlah', 
         'harga_satuan', 
         'organisasi_id',
-        'pengurus_id'];
+        'user_id'];
 
     public function scopeFilter($query, array $filters) {
 
@@ -39,9 +39,9 @@ class LaporanKeuangan extends Model
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
 
-    public function pengurus()
+    public function user()
     {
-        return $this->belongsTo(Pengurus::class, 'pengurus_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function organisasi()

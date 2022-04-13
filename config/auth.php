@@ -48,25 +48,7 @@ return [
             'hash' => false,
         ],
 
-        'anggota' => [
-            'driver' => 'session',
-            'provider' => 'anggotas',
-        ],
-
-        'anggota-api' => [
-            'driver' => 'token',
-            'provider' => 'anggotas',
-        ],
-
-        'pengurus' => [
-            'driver' => 'session',
-            'provider' => 'penguruss', 
-        ],
-
-        'pengurus-api' => [
-            'driver' => 'token',
-            'provider' => 'penguruss',
-        ],
+        
     ],
 
     /*
@@ -98,15 +80,7 @@ return [
         // ],
 
         //baru ditambahin
-        'anggotas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Anggota::class,
-        ],
-
-        'penguruss' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Pengurus::class,
-        ]
+     
     ],
 
     /*

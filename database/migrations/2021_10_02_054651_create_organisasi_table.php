@@ -15,6 +15,7 @@ class CreateOrganisasiTable extends Migration
     {
         Schema::create('organisasi', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('kode')->unique;
             $table->string('jenis');
             $table->timestamps();
         });

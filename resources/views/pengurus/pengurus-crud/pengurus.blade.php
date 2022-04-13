@@ -68,12 +68,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                                 <div class="modal-body">
-                                <form method="post" action="{{ route('tambahPengurus')}}" style="width:100%" enctype="multipart/form-data">
+                                <form method="post" action="{{ route('tambahUser')}}" style="width:100%" enctype="multipart/form-data">
                                     @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label> 
                                             <input type="text" name="nama" value="{{ old ('nama') }}" class="form-control @error('nama') is-invalid @enderror" 
-                                            id="nama" placeholder="Masukkan Nama">
+                                            id="nama" placeholder="Masukkan Nama Lengkap">
                                             @error ('nama')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -82,19 +82,41 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect">Jabatan</label>
-                                            <select name="jabatan" value="{{ old ('jabatan') }}" class="form-control" id="exampleFormControlSelect">
-                                                <option value="">--Pilih--</option>
-                                                <option value="Ketua">Ketua</option>
-                                                <option value="Wakil Ketua">Wakil Ketua</option>
-                                                <option value="Sekretaris">Sekretaris</option>
-                                                <option value="Bendahara">Bendahara</option>
-                                            </select>
+                                            <label for="nik">NIK</label> 
+                                            <input type="text" name="nik" value="{{ old ('nik') }}" class="form-control @error('nik') is-invalid @enderror" 
+                                            id="nik" placeholder="Masukkan NIK">
+                                            @error ('nik')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                            <input type="text" name="tempat_lahir" value="{{ old ('tempat_lahir') }}" class="form-control @error('tempat_lahir') is-invalid @enderror" 
+                                            id="tempat_lahir" placeholder="Masukkan Tempat Lahir">
+                                            @error ('tempat_lahir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                            <input type="date" name="tgl_lahir" value="{{ old ('tgl_lahir') }}" class="form-control @error('tgl_lahir') is-invalid @enderror" 
+                                            id="tgl_lahir" placeholder="Tanggal Lahir">
+                                            @error ('tgl_lahir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="text" name="email" value="{{ old ('email') }}" class="form-control @error('email') is-invalid @enderror" 
+                                            <input type="email" name="email" value="{{ old ('email') }}" class="form-control @error('email') is-invalid @enderror" 
                                             id="email" placeholder="Masukkan Email">
                                             @error ('email')
                                             <div class="invalid-feedback">
@@ -124,11 +146,11 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
-                                            <label for="no_telp" class="form-label">No Telp</label>
+                                            <label for="no_telp" class="form-label">Telp</label>
                                             <input type="text" name="no_telp" value="{{ old ('no_telp') }}" class="form-control @error('no_telp') is-invalid @enderror" 
-                                            id="no_telp" placeholder="Masukkan No Telp">
+                                            id="no_telp" placeholder="Masukkan Nomor Telp">
                                             @error ('no_telp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -138,12 +160,27 @@
 
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect">Jenis Kelamin</label>
-                                            <select name="jenis_kelamin" value="{{ old ('jenis_kelamin') }}" class="form-control" id="exampleFormControlSelect">
+                                            <select name="jenis_kelamin" value="{{ old ('jenis_kelamin') }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
                                                 <option value="Laki-Laki">Laki-Laki</option>
                                                 <option valie="Perempuan">Perempuan</option>
                                             </select>
-                                        
+                                            @error ('jenis_kelamin')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                                            <input type="text" name="pekerjaan" value="{{ old ('pekerjaan') }}" class="form-control @error('pekerjaan') is-invalid @enderror" 
+                                            id="pekerjaan" placeholder="Masukkan Pekerjaan">
+                                            @error ('pekerjaan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group">
@@ -158,25 +195,50 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                                            <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
+                                            <label for="organisasi_id" class="form-label">Jenis Organisasi</label> <br>
+                                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="1"> Sekaa Teruna<br>
+                                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="2"> Sekaa Gong <br>
+                                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaasanti" value="3"> Sekaa Santi <br>
+                                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="pkk" value="4"> PKK <br>
+                                            @error ('organisasi_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect">Jabatan</label>
+                                            <select name="level" value="{{ old ('level') }}" class="form-control @error ('level') is-invalid @enderror" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
-                                                <option value="1">Sekaa Teruna</option>
-                                                <option value="2">Sekaa Gong</option>
-                                                <option value="3">Sekaa Santi</option>
-                                                <option value="4">PKK</option>
+                                                <option value="Ketua">Ketua</option>
+                                                <option value="Wakil Ketua">Wakil Ketua</option>
+                                                <option value="Sekretaris">Sekretaris</option>
+                                                <option value="Bendahara">Bendahara</option>
+                                                <option value="Anggota">Anggota</option>
                                             </select>
+                                            @error ('level')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect">Status</label>
-                                            <select name="status" value="{{ old ('status') }}" class="form-control" id="exampleFormControlSelect">
+                                            <select name="status" value="{{ old ('status') }}" class="form-control @error ('status') is-invalid @enderror" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
                                                 <option value="Aktif">Aktif</option>
                                                 <option value="Tidak Aktif">Tidak Aktif</option>
                                             </select>
+                                            @error ('status')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
-                                        <div class="form-group  " >
+
+                                        <div class="form-group" >
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Tambah</button>
                                         </div>
@@ -192,6 +254,7 @@
                                 <tr>
                                     <th class="border-top-0">NO</th>
                                     <th class="border-top-0">ID PENGURUS</th>
+                                    <th class="border-top-0">NIK</th>
                                     <th class="border-top-0">NAMA</th>
                                     <th class="border-top-0">JABATAN</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
@@ -199,24 +262,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse( $pengurus as $result => $penguruss )
+                            @forelse($user as $result => $users)
                                 <tr>
-                                    <th scope="row">{{ $result + $pengurus -> firstItem()}}</th>
-                                    <td>{{$penguruss->id}}</td>
-                                    <td>{{$penguruss->nama}}</td>
-                                    <td>{{$penguruss->jabatan}}</td>
-                                    <td>{{$penguruss->organisasi->jenis}}</td>
-                                    <td><a href="\pengurus-crud\pengurus\{{ $penguruss->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
+                                    <th scope="row">{{ $result + $user->firstItem() }}</th>
+                                    <td>{{$users->id}}</td>
+                                    <td>{{$users->nik}}</td>
+                                    <td>{{$users->nama}}</td>
+                                    <td>{{$users->level}}</td>
+                                    <td></td>
+                                    
+                                    <td><a href="\pengurus-crud\pengurus\{{ $users->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty
-                                <td colspan="6" class="table-active text-center">Tidak Ada Data</td>
+                                <td colspan="8" class="table-active text-center">Tidak Ada Data</td>
                             @endforelse
                           
                             </tbody>
                         </table>
 
                         <div class="d-flex center-content-start">
-                            {{$pengurus->links()}}
+                            {{$user->links()}}
                         </div>
                       
                        

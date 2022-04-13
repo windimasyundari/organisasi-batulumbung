@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LaporanKeuangan;
 use App\Models\Organisasi;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanKeuanganExport;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class LaporanKeuanganController extends Controller
     {
         $organisasi = Organisasi::all();
         $laporan = LaporanKeuangan::latest()->paginate(10);
-        return view('pengurus.laporan.laporan-keuangan', compact('laporan', 'organisasi')); 
+        return view('pengurus.laporan.laporan-keuangan', compact(['laporan', 'organisasi'])); 
     }
 
     public function cariLaporan(Request $request)
@@ -87,7 +88,7 @@ class LaporanKeuanganController extends Controller
             'jumlah'            => 'nullable',
             'harga_satuan'      => 'nullable',
             'organisasi_id'     => 'required',
-            'pengurus_id'       => 'required'
+            'user_id'           => 'required'
         ]);
 
         LaporanKeuangan :: create($validateData); 
@@ -103,7 +104,7 @@ class LaporanKeuanganController extends Controller
      */
     public function show(LaporanKeuangan $laporanKeuangan, $id)
     {
-        $laporan = LaporanKeuangan::with('pengurus')->find($id);
+        $laporan = LaporanKeuangan::with('user')->find($id);
         return view('pengurus/laporan/show-laporan-keuangan', compact('laporan'));
     }
 

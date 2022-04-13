@@ -20,7 +20,7 @@ class CreateKegiatanTable extends Migration
             $table->date('tanggal');
             $table->time('waktu');
             $table->text('tempat');
-            $table->text('deskripsi');
+            $table->longText('deskripsi');
             $table->string('image')->nullable();
             $table->timestamps();
         });

@@ -37,7 +37,7 @@ use App\Models\Absensi;
     Route::post('pengurus/login', 'App\Http\Controllers\LoginController@prosesLogin')->name('loginPost');
 
     // Logout
-    Route::get('/logout', 'App\Http\Controllers\LoginController@logoutPengurus');
+    Route::get('/logout', 'App\Http\Controllers\LoginController@logout');
     
 
    
@@ -48,30 +48,30 @@ use App\Models\Absensi;
     Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardPengurus');
     
     // Anggota
-    Route::get('/anggota/anggota', 'App\Http\Controllers\AnggotaController@indexAnggota');
+    Route::get('/anggota/anggota', 'App\Http\Controllers\UserController@indexAnggota');
     //tambah anggota
-    Route::post('/pengurus/anggota/anggota', 'App\Http\Controllers\AnggotaController@storeAnggota')->name('tambahAnggota');
+    Route::post('/pengurus/anggota/anggota', 'App\Http\Controllers\UserController@storeUser')->name('tambahUser');
     //tampil detail anggota
-    Route::get('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@showAnggota');
+    Route::get('/anggota/anggota/{user}', 'App\Http\Controllers\UserController@showUser');
     //hapus anggota
-    Route::post('/pengurus/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@destroyAnggota')->name('hapusAnggota');
+    Route::delete('/pengurus/anggota/anggota/{user}', 'App\Http\Controllers\UserController@destroyUser')->name('hapusUser');
     //update anggota
-    Route::patch('/anggota/anggota/{anggota}', 'App\Http\Controllers\AnggotaController@updateAnggota');
+    Route::patch('/anggota/anggota/{user}', 'App\Http\Controllers\UserController@updateUser');
     //cari anggota
-    Route::get('/anggota/cariAnggota','App\Http\Controllers\AnggotaController@cariAnggota')->name('cariAnggota');
+    Route::get('/anggota/cariAnggota','App\Http\Controllers\UserController@cariAnggota')->name('cariAnggota');
 
     
-    // Pengurus
-    Route::get('/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@index');
+    // // Pengurus
+    Route::get('/pengurus-crud/pengurus', 'App\Http\Controllers\UserController@indexPengurus');
     // Route::get('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@create');
-    Route::get('/pengurus-crud/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@show')->name('showPengurus');
-    Route::post('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@store')->name('tambahPengurus');
-    Route::delete('/pengurus/pengurus-crud/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@destroy')->name('hapusPengurus');
-    // Route::get('/pengurus/pengurus-crud/{pengurus}/edit', 'App\Http\Controllers\PengurusController@edit');
-    Route::patch('/pengurus-crud/pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@update');
-    Route::patch('/pengurus-crud/profil-pengurus/{pengurus}', 'App\Http\Controllers\PengurusController@updateProfil');
-    Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@profil');
-    Route::get('/pengurus/cariPengurus','App\Http\Controllers\PengurusController@cariPengurus')->name('cariPengurus');
+    Route::get('/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@showUser')->name('showPengurus');
+    Route::post('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\UserController@storeUser')->name('tambahUser');
+    Route::delete('/pengurus/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@destroyUser')->name('hapusUser');
+    Route::get('/pengurus/pengurus-crud/{user}/edit', 'App\Http\Controllers\UserController@edit');
+    Route::patch('/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@update');
+    Route::patch('/pengurus-crud/profil-pengurus/{user}', 'App\Http\Controllers\UserController@updateProfilPengurus');
+    Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\UserController@profilPengurus');
+    Route::get('/pengurus/cariPengurus','App\Http\Controllers\UserController@cariPengurus')->name('cariPengurus');
   
     // Route::get('/pengurus-crud/profil-pengurus/change-password', 'App\Http\Controllers\PengurusController@changePassword')->name('change_password');
     Route::patch('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@updatePassword')->name('update_password');
@@ -129,6 +129,7 @@ use App\Models\Absensi;
     Route::patch('/absensi/absensi/{absensi}', 'App\Http\Controllers\AbsensiController@update')->name('editAbsensi');
     // Route::post('/absensi/absensi', 'App\Http\Controllers\AbsensiController@import_excel');
     Route::get('/absensi/export_absensi', 'App\Http\Controllers\AbsensiController@export_excel')->name('export_absensi');
+    Route::get('/absensi/daftar_absensi', 'App\Http\Controllers\AbsensiController@daftarAbsensi')->name('daftar_absensi');
     Route::get('/absensi/cariAbsensi','App\Http\Controllers\AbsensiController@cariAbsensi')->name('cariAbsensi');
     Route::get('/absensi/filterTanggal','App\Http\Controllers\AbsensiController@filterTanggal')->name('filterTanggalAbsensi');
     Route::get('/absensi/cariOrganisasi','App\Http\Controllers\AbsensiController@cariOrganisasi')->name('cariOrganisasi');
@@ -155,7 +156,7 @@ use App\Models\Absensi;
      // Login
      Route::get('anggota/login', 'App\Http\Controllers\LoginController@indexAnggota');
      Route::post('anggota/login', 'App\Http\Controllers\LoginController@prosesLoginAnggota')->name('loginPostAnggota');
-     Route::get('/dashboard-anggota', 'App\Http\Controllers\LoginController@dashboardAnggota');
+     Route::get('anggota/dashboard-anggota', 'App\Http\Controllers\LoginController@dashboardAnggota');
      Route::patch('/dashboard-anggota/{anggota}', 'App\Http\Controllers\AnggotaController@updateProfil')->name('updateProfil');
      Route::patch('/dashboard-anggota', 'App\Http\Controllers\AnggotaController@updatePassword')->name('update_password');
 
@@ -173,7 +174,7 @@ use App\Models\Absensi;
     
      
      // Logout
-     Route::get('/logout', 'App\Http\Controllers\LoginController@logoutAnggota');
+    //  Route::get('/logout', 'App\Http\Controllers\LoginController@logoutAnggota');
 
 
     // Route::get('/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@show')->name('showKegiatan');

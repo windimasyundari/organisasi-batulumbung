@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use App\Models\Organisasi;
+use App\Models\Kegiatan;
 use App\Models\ExcelAbsensi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AbsensiImport;
@@ -25,9 +26,20 @@ class AbsensiController extends Controller
     {
         $absensi = Absensi::latest()->paginate(10);
         $organisasi = Organisasi::all();
+        $kegiatan = Kegiatan::all();
 
         // dd($absensi);
-        return view('pengurus.absensi.absensi', compact('absensi', 'organisasi'));
+        return view('pengurus.absensi.absensi', compact('absensi', 'organisasi', 'kegiatan'));
+    }
+
+    public function daftarAbsensi(Absensi $absensi)
+    {
+        $absensi = Absensi::latest()->paginate(10);
+        $organisasi = Organisasi::all();
+        $kegiatan = Kegiatan::all();
+
+        // dd($absensi);
+        return view('pengurus/absensi/daftar_absensi', compact('absensi', 'organisasi', 'kegiatan'));
     }
 
     public function cariAbsensi(Request $request)

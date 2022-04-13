@@ -214,7 +214,7 @@
 
                                     <div class="form-group">
                                         <label for="pengurus_id" class="form-label">ID Pengurus</label>
-                                        <input type="text" name="pengurus_id" readonly value="{{ Auth::guard('pengurus')->user()->id }} " class="form-control @error('pengurus_id') is-invalid @enderror" 
+                                        <input type="text" name="pengurus_id" readonly value="{{ Auth::guard('web')->user()->id }} " class="form-control @error('pengurus_id') is-invalid @enderror" 
                                         id="pengurus_id" >
                                         @error ('pengurus_id')
                                         <div class="invalid-feedback">

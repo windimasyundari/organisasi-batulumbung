@@ -100,7 +100,7 @@
                             <a class="profile-pic" href="/dashboard-anggota">
                             <img src="{{asset('template')}}/plugins/images/user.png" alt="" width="36"
                             class="img-circle"> <span class="text-white font-medium"> 
-                            {{ Auth::guard('anggota')->user()->nama }}</span></a>
+                            {{ Auth::guard('web')->user()->nama }}</span></a>
                         </li>
 
                         <!-- ============================================================== -->

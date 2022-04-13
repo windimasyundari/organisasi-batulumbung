@@ -86,6 +86,38 @@
                 </div>
 
                 <!-- ============================================================== -->
+                <!-- GRAFIK-->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Grafik Absensi Kegiatan</h3>
+                            <div class="d-md-flex">
+                                <ul class="list-inline d-flex ms-auto">
+                                    <li class="ps-3">
+                                        <h5><i class="fa fa-circle me-1 text-info"></i>Sekaa Teruna</h5>
+                                    </li>
+                                    <li class="ps-3">
+                                        <h5><i class="fa fa-circle me-1 text-inverse"></i>Seka Gong</h5>
+                                    </li>
+                                    <li class="ps-3">
+                                        <h5><i class="fa fa-circle me-1 text-success"></i>Seka Santi</h5>
+                                    </li>
+                                    <li class="ps-3">
+                                        <h5><i class="fa fa-circle me-1 text-danger"></i>PKK</h5>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="ct-visits" style="height: 405px;">
+                                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
+                                        class="chartist-tooltip-value">6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
                 <!-- KEGIATAN TERBRU -->
                 <!-- ============================================================== -->
                 <div class="row">
@@ -136,8 +168,14 @@
                                 @foreach ($pengumuman as $pengumuman)
                                 <div class="card-body bg-primary mb-2">
                                     <h4 class="card-title" style="font-weight:800">{{$pengumuman->judul}}</h4>
-                                    <p class="card-text">{{$pengumuman->isi}}</p>
-                                    <a href="{{route('file.download', $pengumuman->id)}}" class="btn btn-danger text-light"><i class="bi bi-download"></i> Download</a>
+                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                        <li>
+                                            <span class="card-text ms-auto">{{$pengumuman->isi}}</span>
+                                        </li>
+                                        <li class="ms-auto">
+                                            <a href="{{route('file.download', $pengumuman->id)}}" class="btn btn-danger text-light"><i class="bi bi-download"></i> Download</a>
+                                        </li>
+                                    </ul>                                   
                                 </div>
                                 @endforeach
                             </div>   
@@ -152,8 +190,14 @@
                                 @foreach ($event as $events)
                                     <div class="card-body bg-success mb-2">
                                         <h4 class="card-title text-dark" style="font-weight:800" >{{$events->nama_event}}</h4>
-                                        <p class="card-text text-dark">Tanggal : {{$events->tanggal}}</p>
-                                        <a href="\event\event\{{ $events->id }}" class="btn btn-danger text-light"><i class="bi bi-eye-fill m-r-5"></i>Detail</a>
+                                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                            <li>
+                                                <span  class="card-text text-dark">Tanggal : {{$events->tanggal}}</span>
+                                            </li>
+                                            <li class="ms-auto">
+                                                <a href="\event\event\{{ $events->id }}" class="btn btn-danger text-light"><i class="bi bi-eye-fill m-r-5"></i>Detail</a>
+                                            </li>
+                                        </ul>                                            
                                     </div>
                                 @endforeach
                             </div>

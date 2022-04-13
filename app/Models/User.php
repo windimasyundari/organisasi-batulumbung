@@ -17,11 +17,56 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    protected $table = 'user';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nama', 
+        'nik', 
+        'tempat_lahir', 
+        'tgl_lahir', 
+        'email', 
+        'password', 
+        'no_telp', 
+        'jenis_kelamin', 
+        'pekerjaan', 
+        'alamat', 
+        'level',
+        'status',
     ];
+
+    public function scopeFilter($query, array $filters) {
+       
+        $query->when($filters['cariAnggota'] ?? false, function($query, $cariAnggota) {
+            return $query->where('nama', 'like', '%' . $cariAnggota . '%')
+            ->orWhere('nik', 'like', '%' . $cariAnggota . '%')
+            ->orWhere('alamat', 'like', '%' . $cariAnggota . '%');
+        });
+
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('detail_user', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
+        });
+
+        $query->when($filters['cariPengurus'] ?? false, function($query, $cariPengurus) {
+            return $query->where('nama', 'like', '%' . $cariPengurus . '%')
+            ->orWhere('nik', 'like', '%' . $cariPengurus . '%')
+            ->orWhere('alamat', 'like', '%' . $cariPengurus . '%');
+        });
+
+        $query->when($filters['jenis'] ?? false, function($query, $organisasi) {
+            return $query->whereHas('organisasi', function($query) use ($organisasi) {
+                $query->where('jenis', $organisasi);
+            });
+        });
+
+    }
+
+    public function detail_user()
+    {
+        return $this->hasMany(DetailUser::class);
+    }   
+
 
     /**
      * The attributes that should be hidden for serialization.

@@ -126,8 +126,8 @@
 
                                     <div class="form-group">
                                         <label for="deskripsi" class="form-label">Deskripsi</label>
-                                        <input type="deskripsi" name="deskripsi" value="{{ old ('deskripsi') }}" class="form-control @error('deskripsi') is-invalid @enderror" 
-                                        id="deskripsi" placeholder="Masukkan Deskripsi Kegiatan">
+                                        <textarea name="deskripsi" value="{{ old ('deskripsi') }}" class="form-control @error('deskripsi') is-invalid @enderror" 
+                                        id="mytextarea" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
                                         @error ('deskripsi')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -206,3 +206,12 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: '#mytextarea'
+});
+</script>
+@endpush

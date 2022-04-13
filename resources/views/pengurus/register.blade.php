@@ -24,7 +24,7 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-regist100">
-            <div class="login100-form-title" style="background-image: url({{asset('template')}}/plugins/images/img.jpeg);">
+            <div class="login100-form-title" style="background-image: url({{asset('template')}}/plugins/images/img.jpeg)">
                 <span class="login100-form-title-1">
                     Form Registrasi
                 </span>
@@ -125,12 +125,16 @@
 
             <div class="login100-form">
                 <label for="exampleFormControlSelect">Jenis Kelamin</label>
-                <select name="jenis_kelamin" value="{{ old ('jenis_kelamin') }}" class="form-control" id="exampleFormControlSelect">
+                <select name="jenis_kelamin" value="{{ old ('jenis_kelamin') }}" class="form-control @error('jenis_kelamin') is-invalid @enderror" id="exampleFormControlSelect">
                     <option value="">--Pilih--</option>
                     <option value="Laki-Laki">Laki-Laki</option>
                     <option valie="Perempuan">Perempuan</option>
                 </select>
-            
+                @error ('jenis_kelamin')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="login100-form">
@@ -156,15 +160,23 @@
             </div>
 
             <div class="login100-form">
-                <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                <select name="organisasi_id" class="form-control" id="exampleFormControlSelect">
-                    <option value="">--Pilih--</option>
-                    <option value="1">Sekaa Teruna</option>
-                    <option value="2">Sekaa Gong</option>
-                    <option value="3">Sekaa Santi</option>
-                    <option value="4">PKK</option>
-                </select>
+                <label for="organisasi_id" class="form-label">Jenis Organisasi</label> <br/>
+                <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="1"> Sekaa Teruna <br/>
+                <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="2"> Sekaa Gong  <br/>
+                <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaasanti" value="3"> Sekaa Santi <br/>
+                <input type="checkbox" class="check_all" name="organisasi_id[]" id="pkk" value="4"> PKK <br/>
+                @error ('organisasi_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror  
             </div>
+
+            <div class="login100-form">
+            <label for="level" class="form-label">Jabatan</label> <br/>
+            <input type="checkbox" class="check_all" name="level" id="anggota" value="Anggota" checked> Anggota<br/>
+               
+            </div>`
 
             <div class="login100-form">
                 <label for="exampleFormControlSelect">Status</label>

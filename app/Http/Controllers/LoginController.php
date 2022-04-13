@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Anggota;
-use App\Models\Pengurus;
+use App\Models\User;
+use App\Models\DetailUser;
 use App\Models\Kegiatan;
 use App\Models\Pengumuman;
 use App\Models\Organisasi;
 use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Carbon;
 
 class LoginController extends Controller
 {
@@ -32,7 +33,7 @@ class LoginController extends Controller
     public function prosesLogin(Request $request)
     {
         //login anggota
-        $emaillogin = Pengurus::where('email', $request->email)->first();
+        $emaillogin = User::where('email', $request->email)->first();
         // dd($emaillogin);
 
         if(!$emaillogin)
@@ -49,8 +50,8 @@ class LoginController extends Controller
             return redirect()->back()->with('status', 'Password salah');
         }
 
-        $loginpengurus = Auth::guard('pengurus')->attempt(['email' => $request->email, 'password' => $request->password]);
-        $id = Pengurus::where('email', $request->email)->value('id');  
+        $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
+        $id = User::where('email', $request->email)->value('id');  
                 session([
                     'idlogin' => $id,
                     // 'namalogin' => $tampilnama, 
@@ -59,8 +60,15 @@ class LoginController extends Controller
         if($loginpengurus)
         {
             $request->session()->regenerate();
-           
-            return redirect()->intended('/pengurus/dashboard');
+
+            $level = User::where('email', $request->email)->value('level');
+
+            if($level == "Anggota"){
+                return redirect()->intended('/anggota/dashboard-anggota');
+            }
+            else{
+                return redirect()->intended('/pengurus/dashboard');
+            }
         }
         // else
         // {
@@ -72,14 +80,14 @@ class LoginController extends Controller
     public function dashboardPengurus(Request $request)
     {
         $id = $request->session()->get('idlogin');
-        $semua = Pengurus::where('id', $id)->get(); 
-        $kegiatan = Kegiatan::all();
+        $semua = User::where('id', $id)->get(); 
+        $kegiatan = Kegiatan::whereYear('tanggal', date('Y'))->whereMonth('tanggal', date('m'))->get();
         $organisasi = Organisasi::all();
-        $pengumuman = Pengumuman::all();
-        $event = Event::all();
+        $pengumuman = Pengumuman::whereYear('tanggal', date('Y'))->whereMonth('tanggal', date('m'))->get();
+        $event = Event::whereYear('tanggal', date('Y'))->whereMonth('tanggal', date('m'))->get();
 
         //hitung
-        $hitunganggota= Anggota::all()->count();
+        $hitunganggota= User::where('level', 'Anggota')->count();
         $hitungevent = Event::all()->count();
         $hitungkegiatan = Kegiatan::all()->count();
         $hitungpengumuman = Pengumuman::all()->count();
@@ -87,7 +95,7 @@ class LoginController extends Controller
 
     }
 
-    public function logoutPengurus(Request $request)
+    public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
@@ -103,7 +111,7 @@ class LoginController extends Controller
     public function prosesLoginAnggota(Request $request)
     {
         //login anggota
-        $emaillogin = Anggota::where('email', $request->email)->first();
+        $emaillogin = User::where('email', $request->email)->first();
         // dd($emaillogin);
 
         if(!$emaillogin)
@@ -121,7 +129,7 @@ class LoginController extends Controller
         }
 
         $loginanggota = Auth::guard('anggota')->attempt(['email' => $request->email, 'password' => $request->password]);
-        $id = Anggota::where('email', $request->email)->value('id');  
+        $id = User::where('email', $request->email)->value('id');  
                 session([
                     'idlogin' => $id,
                     // 'namalogin' => $tampilnama, 
@@ -143,19 +151,20 @@ class LoginController extends Controller
     public function dashboardAnggota(Request $request)
     {
         $id = $request->session()->get('idlogin');
-        $semua = Anggota::where('id', $id)->get(); 
+        $semua = User::where('id', $id)->get(); 
+        $organisasis = DetailUser::where('user_id', $id)->get();
 
-        return view('/anggota/dashboard-anggota', (compact('semua')));
+        return view('/anggota/dashboard-anggota', (compact(['semua', 'organisasis'])));
 
     }
 
-    public function logoutAnggota(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/anggota/login');
-    }
+    // public function logoutAnggota(Request $request)
+    // {
+    //     Auth::logout();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+    //     return redirect('/anggota/login');
+    // }
     
 
     

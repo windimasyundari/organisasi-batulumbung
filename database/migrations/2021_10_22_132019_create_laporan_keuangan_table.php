@@ -15,7 +15,7 @@ class CreateLaporanKeuanganTable extends Migration
     {
         Schema::create('laporan_keuangan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('pengurus_id');
+            $table->foreignId('user_id');
             $table->foreignId('organisasi_id');
             $table->string('jmlh_pemasukan');
             $table->string('jmlh_pengeluaran');

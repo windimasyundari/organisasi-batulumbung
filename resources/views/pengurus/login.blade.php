@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Pengurus</title>
+    <title>Halaman Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -23,7 +23,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <div class="login100-form-title" style="background-image: url({{asset('template')}}/plugins/images/img.jpeg);">
+                <div class="login100-form-title" style="background-image: url({{asset('template')}}/plugins/images/img.jpeg)">
                     <span class="login100-form-title-1"> Sistem Informasi Organisasi Batulumbung </span>
                 </div>
               
@@ -65,6 +65,11 @@
                         <button class="login100-form-btn">
                             MASUK
                         </button>
+                    </div>
+                    <div class="txt1">
+                        <p>Belum punya akun?
+                            <a href="/register">Daftar Sekarang</a>
+                        </p>
                     </div>
                 </form>
             </div>

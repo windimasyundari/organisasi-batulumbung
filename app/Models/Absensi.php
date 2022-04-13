@@ -32,9 +32,9 @@ class Absensi extends Model
     }
 
     // relasi
-    public function anggota()
+    public function user()
     {
-        return $this->belongsTo(Anggota::class);
+        return $this->belongsTo(User::class);
     }
     public function organisasi()
     {

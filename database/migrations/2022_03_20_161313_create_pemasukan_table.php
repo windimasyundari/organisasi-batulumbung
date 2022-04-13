@@ -16,7 +16,7 @@ class CreatePemasukanTable extends Migration
         Schema::create('pemasukan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('organisasi_id');
-            $table->foreignId('pengurus_id');
+            $table->foreignId('user_id');
             $table->string('jmlh_pemasukan');
             $table->date('tanggal');
             $table->string('sumber_dana');
