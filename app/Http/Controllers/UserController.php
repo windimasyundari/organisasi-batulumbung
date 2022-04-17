@@ -110,21 +110,6 @@ class UserController extends Controller
         else{
             return redirect('/pengurus-crud/pengurus')-> with('success', 'Data Pengurus Berhasil Ditambahkan!');
         }
-
-        //     @if($users->organisasi->jenis == "Sekaa Teruna")
-        //     ST{{$users->id}}   
-        
-        // @elseif($users->organisasi->jenis == "Sekaa Gong")
-        //     SG{{$users->id}}
-
-        // @elseif($users->organisasi->jenis == "Sekaa Santi")
-        //     SS{{$users->id}}
-
-        // @else($users->organisasi->jenis == "PKK")
-        //     PKK{{$users->id}}
-        
-        // @endif
-        
        
     }
 
@@ -140,26 +125,19 @@ class UserController extends Controller
 
     public function updateUser(Request $request, Usur $user)
     {
-        $message = [
-            'required' => 'Wajib diisi!',
-            'min'      => 'Wajib diisi minimal : 5, maksimal : 10  karakter!',
-            'max'      => 'Wajib diisi minimal : 5, maksimal : 10 karakter!',
-            'unique'   => 'Data sudah terdaftar'
-        ];
-
         $validateData = $request->validate([
             'nama'          => 'required',
-            'nik'           => 'required|unique',
+            'nik'           => 'required',
             'tempat_lahir'  => 'required',
             'tgl_lahir'     => 'required',
-            'email'         => 'required|unique',
+            'email'         => 'required',
             'no_telp'       => 'required',
             'jenis_kelamin' => 'required',
             'pekerjaan'     => 'required',
             'alamat'        => 'required',
             'level'         => 'required',
             'status'        => 'required'
-        ], $message);
+        ]);
 
         User::where('id', $user->id)
         ->update($validateData);
@@ -185,14 +163,6 @@ class UserController extends Controller
         
     }
     
-    // public function destroyAnggota(User $user)
-    // {
-    //     User::where('id', $user->id)->delete();
-    //     if($user->level == "Anggota")
-    //         return redirect('/anggota/anggota')-> with('status', 'Data Anggota Berhasil Dihapus!');
-    //     }
-    // }
-    
     public function destroyUser(User $user)
     {
         User::where('id', $user->id)->delete();
@@ -204,7 +174,7 @@ class UserController extends Controller
         }
     }
 
-    public function updatePassword(Request $request)
+    public function updatePasswordPengurus(Request $request)
     {
         $gantipass = bcrypt($request->passwordbaru);
 
@@ -217,14 +187,14 @@ class UserController extends Controller
         if( $gantipass == $cekpassdb || $request->password == $request->konfirmpassword)
         {
             $request->validate([
-                'password'        => 'required|min:5|max:8',
-                'konfirmpassword' => 'required|min:5|max:8'
+                'password'        => 'required|min:5|max:10',
+                'konfirmpassword' => 'required|min:5|max:10'
             ]);
 
             User::where('id', $id)->update([
                 'password' => bcrypt($request->password)
             ]);
-            return redirect('/anggota/login')->with('success', 'Password Berhasil Diubah!');
+            return redirect('/pengurus/login')->with('success', 'Password Berhasil Diubah!');
         }
         else
         {
@@ -239,6 +209,38 @@ class UserController extends Controller
         $jenis = DetailUser::where('user_id', $id)->get();
         
         return view('pengurus.pengurus-crud.profil-pengurus', ['user' => $user, 'jenis' =>$jenis]);
+    }
+
+    public function updateProfilPengurus(Request $request, User $user)
+    {
+        $validateData = $request->validate([
+            'nama'          => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required',
+            'level'         => 'required',
+            'email'         => 'required',
+            'no_telp'       => 'required',
+            'jenis_kelamin' => 'required',
+            'pekerjaan'     => 'required',
+            'alamat'        => 'required',
+            'status'        => 'required'
+        ]);
+
+        User::where('id', $user->id)
+                ->update($validateData);
+        
+        $organisasi = collect($request->organisasi_id);
+        $indeks = count($organisasi);
+        
+        for($i=0;$i<$indeks;$i++){
+            DetailUser::create([
+                'user_id' => $user->id,
+                'organisasi_id' => $organisasi[$i],
+            ]);
+            
+        }
+
+        return redirect('pengurus-crud/profil-pengurus')-> with('success', 'Data Berhasil Diubah!');
     }
 
     public function updateProfilAnggota(Request $request, User $user)
@@ -279,42 +281,33 @@ class UserController extends Controller
         return redirect('/dashboard-anggota')-> with('success', 'Data Berhasil Diubah!');
     }
 
-    public function updateProfilPengurus(Request $request, User $user)
+    public function updatePasswordAnggota(Request $request)
     {
-        $message = [
-            'required' => 'Wajib diisi!',
-            'min'      => 'Wajib diisi minimal : 5, maksimal : 10  karakter!',
-            'max'      => 'Wajib diisi minimal : 5, maksimal : 10 karakter!',
-            'unique'   => 'Data sudah terdaftar'
-        ];
+        $gantipass = bcrypt($request->passwordbaru);
 
-        $validateData = $request->validate([
-            'nama'          => 'required',
-            'tempat_lahir'  => 'required',
-            'tgl_lahir'     => 'required',
-            'email'         => 'required|unique',
-            'no_telp'       => 'required',
-            'jenis_kelamin' => 'required',
-            'pekerjaan'     => 'required',
-            'alamat'        => 'required',
-            'status'        => 'required'
-        ], $message);
+        //panggil id session yang login
+        $id = $request->session()->get('idlogin');
 
-        User::where('id', $user->id)
-                ->update($validateData);
-        
-        $organisasi = collect($request->organisasi_id);
-        $indeks = count($organisasi);
-        
-        for($i=0;$i<$indeks;$i++){
-            DetailUser::create([
-                'user_id' => $user->id,
-                'organisasi_id' => $organisasi[$i],
+        //cek password yang di db sesuai dengan id yg login
+        $cekpassdb = User::where('id', $id)->value('password');
+
+        if( $gantipass == $cekpassdb || $request->password == $request->konfirmpassword)
+        {
+            $request->validate([
+                'password'        => 'required|min:5|max:10',
+                'konfirmpassword' => 'required|min:5|max:10'
             ]);
-            
+
+            User::where('id', $id)->update([
+                'password' => bcrypt($request->password)
+            ]);
+            return redirect('/pengurus/login')->with('success', 'Password Berhasil Diubah!');
         }
-
-        return redirect('pengurus-crud/profil-pengurus')-> with('success', 'Data Berhasil Diubah!');
+        else
+        {
+            return back()->with('status', 'Gagal Ubah Password!');
+        }
     }
-}
 
+    
+}

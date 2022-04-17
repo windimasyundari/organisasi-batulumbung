@@ -125,8 +125,8 @@
 
                         <div class="form-group">
                             <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <input type="deskripsi" name="deskripsi" value="{{ $kegiatan->deskripsi }}" class="form-control @error('deskripsi') is-invalid @enderror" 
-                            id="deskripsi" placeholder="Masukkan Deskripsi Kegiatan">
+                            <textarea type="deskripsi" name="deskripsi" value="{{ $kegiatan->deskripsi }}" class="form-control @error('deskripsi') is-invalid @enderror" 
+                            id="mytextarea" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
                             @error ('deskripsi')
                             <div class="invalid-feedback">
                                 {{ $message }}

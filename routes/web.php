@@ -66,15 +66,15 @@ use App\Models\Absensi;
     // Route::get('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@create');
     Route::get('/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@showUser')->name('showPengurus');
     Route::post('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\UserController@storeUser')->name('tambahUser');
-    Route::delete('/pengurus/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@destroyUser')->name('hapusUser');
-    Route::get('/pengurus/pengurus-crud/{user}/edit', 'App\Http\Controllers\UserController@edit');
-    Route::patch('/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@update');
-    Route::patch('/pengurus-crud/profil-pengurus/{user}', 'App\Http\Controllers\UserController@updateProfilPengurus');
+    // Route::delete('/pengurus/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@destroyUser')->name('hapusUser');
+    // Route::get('/pengurus/pengurus-crud/{user}/edit', 'App\Http\Controllers\UserController@edit');
+    // Route::patch('/pengurus-crud/pengurus/{user}', 'App\Http\Controllers\UserController@update');
+    Route::patch('/pengurus-crud/profil-pengurus/{user}', 'App\Http\Controllers\UserController@updateProfilPengurus')->name('updateProfilPengurus');
     Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\UserController@profilPengurus');
     Route::get('/pengurus/cariPengurus','App\Http\Controllers\UserController@cariPengurus')->name('cariPengurus');
   
     // Route::get('/pengurus-crud/profil-pengurus/change-password', 'App\Http\Controllers\PengurusController@changePassword')->name('change_password');
-    Route::patch('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\PengurusController@updatePassword')->name('update_password');
+    Route::patch('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\UserController@updatePasswordPengurus')->name('update_password_pengurus');
 
 
 
@@ -156,9 +156,9 @@ use App\Models\Absensi;
      // Login
      Route::get('anggota/login', 'App\Http\Controllers\LoginController@indexAnggota');
      Route::post('anggota/login', 'App\Http\Controllers\LoginController@prosesLoginAnggota')->name('loginPostAnggota');
-     Route::get('anggota/dashboard-anggota', 'App\Http\Controllers\LoginController@dashboardAnggota');
-     Route::patch('/dashboard-anggota/{anggota}', 'App\Http\Controllers\AnggotaController@updateProfil')->name('updateProfil');
-     Route::patch('/dashboard-anggota', 'App\Http\Controllers\AnggotaController@updatePassword')->name('update_password');
+     Route::get('/dashboard-anggota', 'App\Http\Controllers\LoginController@dashboardAnggota');
+     Route::patch('/dashboard-anggota/{anggota}', 'App\Http\Controllers\UserController@updateProfilAnggota')->name('updateProfilAnggota');
+     Route::patch('/dashboard-anggota', 'App\Http\Controllers\UserController@updatePasswordAnggota')->name('update_password_anggota');
 
     //Register
     Route::get('/register', 'App\Http\Controllers\RegisterController@index');

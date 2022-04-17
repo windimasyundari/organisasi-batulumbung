@@ -285,7 +285,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                            <form method="POST" action="{{ route ('update_password') }}">
+                            <form method="POST" action="{{ route ('update_password_anggota') }}">
                             @method('patch')
                             @csrf
 

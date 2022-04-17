@@ -64,7 +64,7 @@ class LoginController extends Controller
             $level = User::where('email', $request->email)->value('level');
 
             if($level == "Anggota"){
-                return redirect()->intended('/anggota/dashboard-anggota');
+                return redirect()->intended('/dashboard-anggota');
             }
             else{
                 return redirect()->intended('/pengurus/dashboard');

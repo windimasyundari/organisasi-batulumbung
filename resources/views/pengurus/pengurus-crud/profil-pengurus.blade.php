@@ -31,52 +31,61 @@
         <table class="table table-light table-borderless">
         @foreach($user as $user)
             <tr>
-                <th width ="200px ">Nama</th>
-                <td>{{$user->nama}}</td>
+                <th style="width:200px">ID</th>
+                <th>:</th>
+                <td>{{ $user->id}}</td>
+                    <th style="width:200px">Pekerjaan</th>
+                <th>:</th>
+                <td>{{ $user->pekerjaan}}</td>
             </tr>
+
+            <tr>
+                <th>Nama</th>
+                <th>:</th>
+                <td>{{ $user->nama}}</td>
+                <th>Jenis Kelamin</th>
+                <th>:</th>
+                <td>{{ $user->jenis_kelamin}}</td>
+            </tr>
+
             <tr>
                 <th>NIK</th>
-                <td>{{$user->nik}}</td>
+                <th>:</th>
+                <td>{{ $user->nik}}</td>
+                <th>Alamat</th>
+                <th>:</th>
+                <td>{{ $user->alamat}}</td>
             </tr>
-            <tr>
-                <th>Tempat, Tanggal Lahir</th>
-                <td>{{$user->tempat_lahir}}, {{$user->tgl_lahir}}</td>
-            </tr>
+
             <tr>
                 <th>Jabatan</th>
-                <td>{{$user->level}}</td>
+                <th>:</th>
+                <td>{{ $user->level}}</td>
+                <th>Tempat, Tanggal Lahir</th>
+                <th>:</th>
+                <td>{{ $user->tempat_lahir}}, {{ $user->tgl_lahir}}</td>
             </tr>
+            
             <tr>
                 <th>Email</th>
-                <td>{{$user->email}}</td>
-            </tr>
-            <tr>
-                <th>No Telp</th>
-                <td>{{$user->no_telp}}</td>
-            </tr>
-            <tr>
-                <th>Jenis Kelamin</th>
-                <td>{{$user->jenis_kelamin}}</td>
-            </tr>
-            <tr>
-                <th>Pekerjaan</th>
-                <td>{{$user->pekerjaan}}</td>
-            </tr>
-            <tr>
-                <th>Alamat</th>
-                <td>{{$user->alamat}}</td>
-            </tr>
-            <tr>
+                <th>:</th>
+                <td>{{ $user->email}}</td>
                 <th>Jenis Organisasi</th>
-                <td>
-                    @foreach( $jenis as $organisasi)
-                        {{ $organisasi->organisasi->jenis }}
-                    @endforeach
+                <th>:</th>
+                <td>  
+                @foreach( $jenis as $organisasi)
+                    {{ $organisasi->organisasi->jenis }}
+                @endforeach
                 </td>
             </tr>
+            
             <tr>
+                <th>Telp</th>
+                <th>:</th>
+                <td>{{ $user->no_telp}}</td>
                 <th>Status</th>
-                <td>{{$user->status}}</td>
+                <th>:</th>
+                <td>{{ $user->status}}</td>
             </tr>
             @endforeach
         </table>
@@ -209,10 +218,10 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlSelect">Jenis Organisasi</label> <br>
-                            <input type="checkbox" class="check_all" name="organisasi_id" id="sekaateruna" value="1" @if($user->organisasi_id == "1") checked @endif> Sekaa Teruna<br>
-                            <input type="checkbox" class="check_all" name="organisasi_id" id="sekaagong" value="2" @if($user->organisasi_id == "2") checked @endif> Sekaa Gong<br>
-                            <input type="checkbox" class="check_all" name="organisasi_id" id="sekaasanti" value="3" @if($user->organisasi_id == "3") checked @endif> Sekaa Santi<br>
-                            <input type="checkbox" class="check_all" name="organisasi_id" id="pkk" value="4" @if($user->organisasi_id == "4") checked @endif> PKK<br>
+                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaateruna" value="1" @if($user->organisasi_id == "1") checked @endif> Sekaa Teruna<br>
+                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="2" @if($user->organisasi_id == "2") checked @endif> Sekaa Gong<br>
+                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaasanti" value="3" @if($user->organisasi_id == "3") checked @endif> Sekaa Santi<br>
+                            <input type="checkbox" class="check_all" name="organisasi_id[]" id="pkk" value="4" @if($user->organisasi_id == "4") checked @endif> PKK<br>
                         </div>
 
                         <div class="form-group">
@@ -245,7 +254,7 @@
                     
                     <div class="modal-body">
 
-                    <form method="POST" action="{{ route ('update_password') }}">
+                    <form method="POST" action="{{ route ('update_password_pengurus') }}">
                     @method('patch')
                     @csrf
 

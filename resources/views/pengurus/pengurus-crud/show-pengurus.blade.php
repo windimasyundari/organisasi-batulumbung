@@ -29,6 +29,10 @@
                 <td>{{$user->nik}}</td>
             </tr>
             <tr>
+                <th>Tempat, Tanggal Lahir</th>
+                <td>{{ $user->tempat_lahir}}, {{ $user->tgl_lahir}}</td>
+            </tr>
+            <tr>
                 <th>Jabatan</th>
                 <td>{{$user->level}}</td>
             </tr>

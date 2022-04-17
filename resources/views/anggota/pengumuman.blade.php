@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="card-body bg-purple"  style="font-weight: 800; color:white; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
+                <div class="card-body bg-purple"  style="font-weight: 800; color:white; text-align:center; font-size:30px">Tidak Ada Data</div>
             @endforelse
         </div>                 
     </div>          

@@ -17,7 +17,7 @@ class CreatePengeluaranTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('organisasi_id');
             $table->foreignId('user_id');
-            $table->string('total_pengeluaran');
+            $table->string('total');
             $table->date('tanggal');
             $table->date('nama_barang');
             $table->date('jmlh_barang');

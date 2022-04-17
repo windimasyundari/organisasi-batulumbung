@@ -229,9 +229,9 @@ class AbsensiController extends Controller
 
     public function indexAnggota(Request $request)
     {
-        // dd(Auth::guard('anggota')->user()->id);
-        $absensi = Auth::guard('anggota')->user()->id;
-        $data_absensi = Absensi::where('anggota_id', $absensi)
+        // dd(Auth::guard('web')->user()->id);
+        $absensi = Auth::guard('web')->user()->id;
+        $data_absensi = Absensi::where('user_id', $absensi)
             ->paginate(10);
 
         return view('anggota.absensi', compact('data_absensi'));

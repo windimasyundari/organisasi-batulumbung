@@ -27,12 +27,12 @@
             <div class="card bg-purple" style="width: 100rem;">
                 <div class="card-body" style="color:white">
                     <h4 class="card-title" style="font-weight: 800; ">{{$kegiatan->nama_kegiatan}}</h4>
-                    <p class="card-text">{{$kegiatan->deskripsi}}</p>
+                    <p class="card-text">{!! $kegiatan->deskripsi !!}</p>
                     <a href="/kegiatan/kegiatan_pdf/{{$kegiatan->id}}" class="btn btn-danger text-white"><i class="bi bi-download"></i> Download</a>
                 </div>
             </div>
             @empty
-            <div class="card-body bg-purple"  style="font-weight: 800; text-align:center; font-size:30px">Data Tidak Ditemukan</div>
+            <div class="card-body bg-purple"  style="font-weight: 800; color:white; text-align:center; font-size:30px">Tidak Ada Data</div>
             @endforelse
             </div>                 
         </div>          
