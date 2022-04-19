@@ -179,3 +179,4 @@ use App\Models\Absensi;
 
     // Route::get('/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@show')->name('showKegiatan');
 
+    Route::get('absensi/get_kegiatan/{id}','App\Http\Controllers\AbsensiController@get_kegiatan');

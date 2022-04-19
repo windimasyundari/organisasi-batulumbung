@@ -227,6 +227,7 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    @stack('script')
     <script src="{{asset('template')}}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{asset('template')}}/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

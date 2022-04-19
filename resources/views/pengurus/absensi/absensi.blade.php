@@ -18,7 +18,7 @@
             <div class="col-sm-12">
                 <div class="white-box">
 
-                
+
                 @if(session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                     {{ session('success') }}
@@ -32,19 +32,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-                          
-                
+
+
                 {{-- notifikasi form validasi --}}
                 @if ($errors->has('file'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('file') }}</strong>
                 </span>
                 @endif
-        
+
                 {{-- notifikasi sukses --}}
                 @if ($sukses = Session::get('sukses'))
                 <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                    <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{{ $sukses }}</strong>
                 </div>
                 @endif
@@ -63,15 +63,15 @@
                                 </div>
                                 <div class="modal-body">
                                     {{ csrf_field() }}
-                                    
+
                                     <div class="form-group">
-                                        <label for="nama_kegiatan">Nama Kegiatan</label> 
-                                        <select name="nama_kegiatan" id="nama_kegiatan" class="form-control @error('nama_kegiatan') is-invalid @enderror">
+                                        <label for="nama_kegiatan">Nama Kegiatan</label>
+                                        <select name="nama_kegiatan" id="nama_kegiatan" class="form-control @error('nama_kegiatan') is-invalid @enderror" onchange="getval(this);">
                                             <option value="" selected>Pilih Kegiatan</option>
                                             @foreach($kegiatan as $kegiatans)
-                                            <option value="{{$kegiatans->nama_kegiatan}}">{{$kegiatans->nama_kegiatan}}</option>
+                                            <option value="{{$kegiatans->id}}">{{$kegiatans->nama_kegiatan}}</option>
                                             @endforeach
-                                        </select> 
+                                        </select>
                                         @error ('nama_kegiatan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -79,10 +79,10 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="tanggal">Tanggal</label> 
-                                        <input type="date" name="tanggal" value="old ('tanggal')" class="form-control @error('tanggal') is-invalid @enderror" 
+                                        <label for="tanggal">Tanggal</label>
+                                        <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror"
                                         id="tanggal" placeholder="Masukkan Tanggal">
-                                       
+
                                         @error ('tanggal')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="file" class="form-label">Pilih File Excel</label>
-                                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror" 
+                                        <input type="file" name="file" class="form-control @error('file') is-invalid @enderror"
                                         id="file">
                                         @error ('file')
                                         <div class="invalid-feedback">
@@ -120,7 +120,7 @@
                                     </div>
 
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
@@ -141,7 +141,7 @@
                                     <th class="border-top-0">STATUS</th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody>
                             @foreach ($absensi as $result => $absen)
                                 <tr>
@@ -149,17 +149,38 @@
                                     <td>{{$absen->anggota_id}}</td>
                                     <td>{{$absen->nama}}</td>
                                     <td>{{$absen->nama_kegiatan}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('Y-m-d')}}</td> 
+                                    <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('Y-m-d')}}</td>
                                     <!-- carbon format (y-m-d) -->
                                     <td>{{$absen->organisasi->jenis}}</td>
                                     <td>{{$absen->status}}</td>
                             @endforeach
                             </tbody>
-                        </table>         
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
 </div>
 @endsection
+
+@push('script')
+    <script>
+        function getval(sel){
+            kegiatan = sel.value;
+            $.ajax({
+                url:"get_kegiatan/"+kegiatan,
+                type:"GET",
+                dataType:'json',
+                success:function (data) {
+                    $.each(data, function (key,value) {
+                        $("#exampleFormControlSelect").val(value.organisasi_id)
+                        $("#tanggal").val(value.tanggal)
+
+                    })
+                }
+            })
+        }
+
+    </script>
+@endpush

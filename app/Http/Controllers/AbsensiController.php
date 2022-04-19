@@ -236,4 +236,13 @@ class AbsensiController extends Controller
 
         return view('anggota.absensi', compact('data_absensi'));
     }
+
+    public function get_kegiatan($kegiatan)
+    {
+        $data = DB::table('kegiatan')
+        ->where('id','=',$kegiatan)
+        ->get();
+        return json_encode($data);
+
+    }
 }
