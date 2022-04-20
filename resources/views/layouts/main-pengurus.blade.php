@@ -25,6 +25,8 @@
     <!-- Custom CSS -->
     <link href="{{asset('template')}}/css/style.min.css" rel="stylesheet">
     <link href="{{asset('template')}}/css/main.css" rel="stylesheet">
+    @stack('link')
+    @stack('script1')
 </head>
 
 <body>

@@ -180,3 +180,6 @@ use App\Models\Absensi;
     // Route::get('/kegiatan/{kegiatan}', 'App\Http\Controllers\KegiatanController@show')->name('showKegiatan');
 
     Route::get('absensi/get_kegiatan/{id}','App\Http\Controllers\AbsensiController@get_kegiatan');
+    Route::get('absensi/get_absen/{id}','App\Http\Controllers\AbsensiController@get_absen');
+    Route::get('absensi/hapus_absen/{id}','App\Http\Controllers\AbsensiController@hapus');
+    Route::post('absensi/update_absen','App\Http\Controllers\AbsensiController@update_absen');

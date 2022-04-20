@@ -2,6 +2,18 @@
 
 @section('title', 'Absensi')
 
+@push('link')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+@endpush
+
+@push('script1')
+
+@endpush
+{{-- @endpush --}}
+
+
+
 @section('content')
 <div class="page-wrapper">
 
@@ -69,7 +81,7 @@
                                         <select name="nama_kegiatan" id="nama_kegiatan" class="form-control @error('nama_kegiatan') is-invalid @enderror" onchange="getval(this);">
                                             <option value="" selected>Pilih Kegiatan</option>
                                             @foreach($kegiatan as $kegiatans)
-                                            <option value="{{$kegiatans->id}}">{{$kegiatans->nama_kegiatan}}</option>
+                                            <option value="{{$kegiatans->nama_kegiatan}}">{{$kegiatans->nama_kegiatan}}</option>
                                             @endforeach
                                         </select>
                                         @error ('nama_kegiatan')
@@ -129,7 +141,8 @@
                 <a href="{{ route ('daftar_absensi') }}" class="btn btn-success my-3 text-light">LIHAT DAFTAR ABSENSI</a>
 
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                        <table class="table table-striped" id="myTable">
                             <thead>
                                 <tr>
                                     <th class="border-top-0">NO</th>
@@ -139,13 +152,14 @@
                                     <th class="border-top-0">TANGGAL</th>
                                     <th class="border-top-0">JENIS ORGANISASI</th>
                                     <th class="border-top-0">STATUS</th>
+                                    <th class="border-top-0">ACTION</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                             @foreach ($absensi as $result => $absen)
                                 <tr>
-                                    <th scope="row">{{ $result + $absensi->firstitem() }}</th>
+                                    <td scope="row">{{ $result + $absensi->firstitem() }}</td>
                                     <td>{{$absen->anggota_id}}</td>
                                     <td>{{$absen->nama}}</td>
                                     <td>{{$absen->nama_kegiatan}}</td>
@@ -153,9 +167,95 @@
                                     <!-- carbon format (y-m-d) -->
                                     <td>{{$absen->organisasi->jenis}}</td>
                                     <td>{{$absen->status}}</td>
+                                    <td><button value="{{$absen->id}}" onclick="edit({{$absen->id}})" class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class="bi bi-pencil m-r-5"></i>Edit</a></button> | <a href="hapus_absen/{{$absen->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>
                             @endforeach
                             </tbody>
                         </table>
+                        {{-- modaledit --}}
+                        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">update</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ csrf_field() }}
+                                            <input type="text" name="id_absen" class="form-control " id="id_absen">
+                                            <div class="form-group">
+                                                <label for="nama_angota">nama_anggota</label>
+                                                <input type="text" name="nama_anggota" class="form-control " id="nama_anggota" placeholder="Masukkan nama angota">
+                                                @error ('nama_angota')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nama_kegiatan">nama_kegiatan</label>
+                                                <select name="nama_kegiatan" id="nama_kegiatan" class="form-control @error('nama_kegiatan') is-invalid @enderror" onchange="getvalanggota(this);">
+                                                    <option value="">Pilih kegiatan</option>
+                                                    @foreach($kegiatan as $kegiatans)
+                                                        <option value="{{$kegiatans->nama_kegiatan}}">{{$kegiatans->nama_kegiatan}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error ('nama_kegiatan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tanggal">Tanggal</label>
+                                                <input type="date" name="tanggal_absen" class="form-control @error('tanggal') is-invalid @enderror"
+                                                id="tanggal_absen" placeholder="Tanggal">
+
+                                                @error ('tanggal')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect">Jenis Organisasi</label>
+                                                <select name="organisasi_id" class="form-control @error('organisasi_id') is-invalid @enderror" id="jenis_absen">
+                                                    <option value="">--Pilih--</option>
+                                                    <option value="1">Sekaa Teruna</option>
+                                                    <option value="2">Sekaa Gong</option>
+                                                    <option value="3">Sekaa Santi</option>
+                                                    <option value="4">PKK</option>
+                                                </select>
+                                                @error ('organisasi_id')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect">status</label>
+                                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
+                                                    <option value="">--Pilih--</option>
+                                                    <option value="t">AKTIF</option>
+                                                    <option value="F">TIDAK AKTIF</option>
+                                                    
+                                                </select>
+                                                @error ('status')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button onclick="update()" type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                            {{-- end modal edit --}}
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,7 +265,27 @@
 @endsection
 
 @push('script')
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+            }
+
         function getval(sel){
             kegiatan = sel.value;
             $.ajax({
@@ -178,6 +298,43 @@
                         $("#tanggal").val(value.tanggal)
 
                     })
+                }
+            })
+        }
+
+        function edit(params) {
+            $.ajax({
+                url:"get_absen/"+params,
+                type:"GET",
+                dataType:'json',
+                success:function (data) {
+                    $.each(data, function (key,value) {
+                        $("#id_absen").val(value.id);
+                        $("#nama_anggota").val(value.nama);
+                        $("#nama_kegiatan").val(value.nama_kegiatan).change();
+                        $("#jenis_absen").val(value.organisasi_id).change();
+                        $("#tanggal_absen").val(value.tanggal)
+                        $("#status").val(value.status)
+                    })
+                }
+            })
+        }
+
+         function update() {
+            $.ajax({
+                url:"update_absen/",
+                type:"post",
+                data:{
+                    id:$("#id_absen").val(),
+                    nama_anggota:$("#nama_anggota").val();
+                    nama_kegiatan:$("#nama_kegiatan").val();
+                    jenis_absen:$("#jenis_absen").val();
+                    tanggal:$("#tanggal_absen").val();
+                    status:$("#status").val();
+                    }
+                dataType:'json',
+                success:function (data) {
+                    
                 }
             })
         }

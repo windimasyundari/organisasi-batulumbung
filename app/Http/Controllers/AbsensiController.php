@@ -66,7 +66,7 @@ class AbsensiController extends Controller
         if($request->sampai == ''){
             return redirect()->back()->withInput()->with('status', 'Tanggal akhir filter harus diisi');
         }
-        
+
         if($request->dari > $request->sampai){
             return redirect()->back()->withInput()->with('status', 'Tanggal awal tidak boleh lebih dari tanggal akhir filter');
         }
@@ -98,14 +98,14 @@ class AbsensiController extends Controller
     //     // import data
     //     Excel::import(new AbsensiImport, public_path('files_absensi/' . $nama_file));
     //     }
-       
+
     //     // alihkan halaman kembali
     //     return redirect('/absensi/absensi');
     // }
 
     public function export_excel()
     {
-        
+
         $nama_file = 'absensi' . date('Y-m-d_H-i-s') . '.xlsx';
         return Excel::download(new AbsensiExport, $nama_file);
     }
@@ -155,19 +155,19 @@ class AbsensiController extends Controller
         $excel_absensi = ExcelAbsensi::all();
         foreach($excel_absensi as $key){
         $create_data = [
-            'nama_kegiatan' => $request->nama_kegiatan,
+            'nama_kegiatan' => $request->tanggalnama_kegiatan,
             'tanggal'       => $request->tanggal,
             'organisasi_id' => $request->organisasi_id,
             'anggota_id'    => $key->anggota_id,
-            'nama'          => $key->nama,      
-            'status'        => $key->status,      
+            'nama'          => $key->nama,
+            'status'        => $key->status,
         ];
-        
+
         Absensi::create($create_data);
     }
-    
+
     DB::table('excel_absensi')->truncate();
-       
+
         return redirect('/absensi/absensi')->with('success', 'Data Absensi Berhasil Ditambahkan!');
     }
 
@@ -240,9 +240,29 @@ class AbsensiController extends Controller
     public function get_kegiatan($kegiatan)
     {
         $data = DB::table('kegiatan')
-        ->where('id','=',$kegiatan)
+        ->where('nama_kegiatan','=',$kegiatan)
         ->get();
         return json_encode($data);
 
+    }
+
+    public function get_absen($params)
+    {
+        $data = DB::table('absensi')
+        ->where('id','=',$params)
+        ->get();
+        return json_encode($data);
+
+    }
+
+    // public function update()
+    // {
+    //     # code...
+    // }
+
+    public function hapus($id)
+    {
+        DB::table('absensi')->where('id',$id)->delete();
+        return redirect('/absensi/absensi')->with('status', 'Data Absensi Berhasil Dihapus!');
     }
 }
