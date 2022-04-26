@@ -167,14 +167,16 @@
                                     <!-- carbon format (y-m-d) -->
                                     <td>{{$absen->organisasi->jenis}}</td>
                                     <td>{{$absen->status}}</td>
-                                    <td><button value="{{$absen->id}}" onclick="edit({{$absen->id}})" class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class="bi bi-pencil m-r-5"></i>Edit</a></button> | <a href="hapus_absen/{{$absen->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>
+                                    <td>
+                                        <button value="{{$absen->id}}" onclick="form_edit({{$absen->id}})" class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class="bi bi-pencil m-r-5"></i>Edit</button> |
+                                        <a href="hapus_absen/{{$absen->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>
                             @endforeach
                             </tbody>
                         </table>
                         {{-- modaledit --}}
                         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <form method="post" enctype="multipart/form-data">
+                                <form method="post">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">update</h5>
@@ -237,7 +239,7 @@
                                                     <option value="">--Pilih--</option>
                                                     <option value="t">AKTIF</option>
                                                     <option value="F">TIDAK AKTIF</option>
-                                                    
+
                                                 </select>
                                                 @error ('status')
                                                 <div class="invalid-feedback">
@@ -247,7 +249,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button onclick="update()" type="submit" class="btn btn-primary">Save</button>
+                                                <button onclick="update()" type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
                                             </div>
                                             {{-- end modal edit --}}
                                         </div>
@@ -282,7 +284,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-                }       
+                }
             }
             }
 
@@ -302,7 +304,8 @@
             })
         }
 
-        function edit(params) {
+        function form_edit(params) {
+             $('#edit').modal('show');
             $.ajax({
                 url:"get_absen/"+params,
                 type:"GET",
@@ -320,21 +323,26 @@
             })
         }
 
-         function update() {
+        function update() {
+            
             $.ajax({
-                url:"update_absen/",
-                type:"post",
+                url:"update_absen",
+                type:"POST",
                 data:{
+                    _token: '{{csrf_token()}}',
                     id:$("#id_absen").val(),
-                    nama_anggota:$("#nama_anggota").val();
-                    nama_kegiatan:$("#nama_kegiatan").val();
-                    jenis_absen:$("#jenis_absen").val();
-                    tanggal:$("#tanggal_absen").val();
-                    status:$("#status").val();
-                    }
+                    nama_anggota:$("#nama_anggota").val(),
+                    nama_kegiatan:$("#nama_kegiatan").val(),
+                    jenis_absen:$("#jenis_absen").val(),
+                    tanggal:$("#tanggal_absen").val(),
+                    status:$("#status").val(),
+                },
                 dataType:'json',
                 success:function (data) {
                     
+                },
+                complete: function (data) {
+                    $('#edit').modal('hide');
                 }
             })
         }

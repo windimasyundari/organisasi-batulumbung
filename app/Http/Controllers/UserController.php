@@ -13,7 +13,14 @@ class UserController extends Controller
 {
     public function indexAnggota()
     {
-        $user = User::where('level', '=', 'Anggota')->paginate(10);
+        $user = User::where('level', '=', 'Anggota')
+        ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+        ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+        ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+        ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+        ->groupBy('user.id','user.nik','nama','level')
+         ->paginate(10);
+        // $user = User::where('level', '=', 'Anggota')->paginate(10);
         // $jenis = DetailUser::where('user_id', $user->id)->get();
         $jenis = DetailUser::all();
         $organisasi = Organisasi::all();
@@ -33,8 +40,55 @@ class UserController extends Controller
 
     public function cariAnggota(Request $request)
 	{
+        // $query = DB::table('user')
+        // ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+        // ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+        //  ->where('level', '=', 'Anggota')->where('detail_user.organisasi_id','=',$request->jenis)->get();
+
+          $where_jenis = $where_anggota = '';
+        if (!empty($request->jenis)) {
+            $user = User::where('level', '=', 'Anggota')
+            ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+            ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+            ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+            ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+            ->where('detail_user.organisasi_id','=',$request->jenis)
+            ->groupBy('user.nik','nama','level')
+            ->paginate(10);
+        }else if (!empty($request->cariAnggota)) {
+            $user = User::where('level', '=', 'Anggota')
+            ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+            ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+            ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+            ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+            ->groupBy('user.nik','nama','level')
+            ->where('nama','like','%'.$request->cariAnggota.'%')
+            ->paginate(10);
+        }elseif(!empty($request->jenis) && !empty($request->cariAnggota)){
+            $user = $user = User::where('level', '=', 'Anggota')
+            ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+            ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+            ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+            ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+            ->where('detail_user.organisasi_id','=',$request->jenis)
+            ->where('nama','like','%'.$request->cariAnggota.'%')
+            ->groupBy('user.nik','nama','level')
+            ->paginate(10);
+        }else{
+            $user = User::where('level', '=', 'Anggota')
+            ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+            ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+            ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+            ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+            ->groupBy('user.nik','nama','level')
+            ->paginate(10);
+        }
+
 		$organisasi = Organisasi::all();
-        $user = User::where('level', '=', 'Anggota')->filter(request(['cariAnggota', 'jenis']))->paginate(10)->withQueryString();
+        // dd($organisasi);
+        // $user = User::leftJoin('detail_user','user.id','=','detail_user.user_id')
+        // ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+        // ->where('level', '=', 'Anggota')->filter(request(['cariAnggota']))->paginate(10)->withQueryString();
        
 		return view('pengurus/anggota/anggota', compact('organisasi', 'user'));
     }

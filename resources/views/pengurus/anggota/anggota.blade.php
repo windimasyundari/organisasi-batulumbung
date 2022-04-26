@@ -24,7 +24,7 @@
                                 <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
                                     <option value="" selected>Filter Organisasi</option>
                                     @foreach($organisasi as $organisasis)
-                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    <option value="{{$organisasis->id}}">{{$organisasis->jenis}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -264,19 +264,13 @@
                             @forelse($user as $result => $users)
                                 <tr>
                                     <th scope="row">{{ $result + $user->firstItem() }}</th>
-                                    <td>
-                                        @foreach( $jenis as $organisasi)
-                                            {{ $organisasi->organisasi->kode }}
-                                        @endforeach
-                                        {{$users->id}}
+                                    <td> 
+                                        {{$users->kode_orga}}
                                     </td>
                                     <td>{{$users->nik}}</td>
                                     <td>{{$users->nama}}</td>
                                     <td>{{$users->level}}</td>
-                                    <td>@foreach( $jenis as $organisasi)
-                                            {{ $organisasi->organisasi->jenis }}
-                                        @endforeach</td>
-                                   
+                                    <td>{{$users->jenis}}</td>
                                     <td><a href="\anggota\anggota\{{ $users->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>
                                 @empty

@@ -255,10 +255,14 @@ class AbsensiController extends Controller
 
     }
 
-    // public function update()
-    // {
-    //     # code...
-    // }
+    public function update_absen(Request $request)
+    {
+
+        $data = DB::table('absensi')
+            ->where('id', $request->id)
+            ->update(['nama' => $request->nama_anggota,'nama_kegiatan'=>$request->nama_kegiatan,"organisasi_id"=>$request->jenis_absen,'tanggal'=>$request->tanggal,'status'=>$request->status]);
+            return redirect('/absensi/absensi')->with('status', 'Data Absensi Berhasil Diupdate!');
+    }
 
     public function hapus($id)
     {
