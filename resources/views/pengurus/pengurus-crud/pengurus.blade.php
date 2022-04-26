@@ -24,7 +24,7 @@
                                 <select name="jenis" id="jenis" class="form-control" onchange="this.form.submit()" >
                                     <option value="" selected>Filter Organisasi</option>
                                     @foreach($organisasi as $organisasis)
-                                    <option value="{{$organisasis->jenis}}">{{$organisasis->jenis}}</option>
+                                    <option value="{{$organisasis->id}}">{{$organisasis->jenis}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -269,7 +269,7 @@
                                     <td>{{$users->nik}}</td>
                                     <td>{{$users->nama}}</td>
                                     <td>{{$users->level}}</td>
-                                    <td></td>
+                                    <td>{{$users->jenis}}</td>
                                     
                                     <td><a href="\pengurus-crud\pengurus\{{ $users->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Detail</a></td>
                                 </tr>

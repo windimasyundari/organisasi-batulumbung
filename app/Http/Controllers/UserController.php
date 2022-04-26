@@ -96,11 +96,61 @@ class UserController extends Controller
     public function cariPengurus(Request $request)
 	{
 		$organisasi = Organisasi::all();
-        $user = User::where('level', '=', 'Ketua')
+        if (!empty($request->jenis)){
+            $user = User::where('level', '=', 'Ketua')
                 ->orWhere('level', '=', 'Wakil Ketua')
                 ->orWhere('level', '=', 'Sekretaris')
                 ->orWhere('level', '=', 'Bendahara')
-                ->filter(request(['cariPengurus', 'jenis']))->paginate(10)->withQueryString();
+                ->where('detail_user.organisasi_id','=',$request->jenis)
+                ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+                ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+                ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+                ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+                ->groupBy('user.id','user.nik','nama','level')
+                ->paginate(10);
+        }else if (!empty($request->cariAnggota)) {
+            $user = User::where('level', '=', 'Ketua')
+                ->orWhere('level', '=', 'Wakil Ketua')
+                ->orWhere('level', '=', 'Sekretaris')
+                ->orWhere('level', '=', 'Bendahara')
+                ->where('detail_user.organisasi_id','=',$request->cariAnggota)
+                ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+                ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+                ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+                ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+                ->groupBy('user.id','user.nik','nama','level')
+                ->paginate(10);
+        }elseif(!empty($request->jenis) && !empty($request->cariAnggota)){
+            $user = User::where('level', '=', 'Ketua')
+                ->orWhere('level', '=', 'Wakil Ketua')
+                ->orWhere('level', '=', 'Sekretaris')
+                ->orWhere('level', '=', 'Bendahara')
+                ->where('detail_user.organisasi_id','=',$request->jenis)
+                ->where('detail_user.organisasi_id','=',$request->cariAnggota)
+                ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+                ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+                ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+                ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+                ->groupBy('user.id','user.nik','nama','level')
+                ->paginate(10);
+        }else{
+            $user = User::where('level', '=', 'Ketua')
+                ->orWhere('level', '=', 'Wakil Ketua')
+                ->orWhere('level', '=', 'Sekretaris')
+                ->orWhere('level', '=', 'Bendahara')
+                ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+                ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+                ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+                ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+                ->groupBy('user.id','user.nik','nama','level')
+                ->paginate(10);
+        }
+        
+        // $user = User::where('level', '=', 'Ketua')
+        //         ->orWhere('level', '=', 'Wakil Ketua')
+        //         ->orWhere('level', '=', 'Sekretaris')
+        //         ->orWhere('level', '=', 'Bendahara')
+        //         ->filter(request(['cariPengurus', 'jenis']))->paginate(10)->withQueryString();
        
 		return view('pengurus/pengurus-crud/pengurus', compact('organisasi', 'user'));
 
