@@ -9,6 +9,7 @@ use App\Models\Kegiatan;
 use App\Models\Pengumuman;
 use App\Models\Organisasi;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Carbon;
@@ -51,12 +52,12 @@ class LoginController extends Controller
         }
 
         $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-        $id = User::where('email', $request->email)->value('id');  
+        $id = User::where('email', $request->email)->value('id');
                 session([
                     'idlogin' => $id,
-                    // 'namalogin' => $tampilnama, 
+                    // 'namalogin' => $tampilnama,
                 ]);
-        
+
         if($loginpengurus)
         {
             $request->session()->regenerate();
@@ -74,13 +75,13 @@ class LoginController extends Controller
         // {
         //     return redirect()->back()->with('status', 'Akun tidak terdaftar');
         // }
-        
+
     }
-    
+
     public function dashboardPengurus(Request $request)
     {
         $id = $request->session()->get('idlogin');
-        $semua = User::where('id', $id)->get(); 
+        $semua = User::where('id', $id)->get();
         $kegiatan = Kegiatan::whereYear('tanggal', date('Y'))->whereMonth('tanggal', date('m'))->get();
         $organisasi = Organisasi::all();
         $pengumuman = Pengumuman::whereYear('tanggal', date('Y'))->whereMonth('tanggal', date('m'))->get();
@@ -91,7 +92,20 @@ class LoginController extends Controller
         $hitungevent = Event::all()->count();
         $hitungkegiatan = Kegiatan::all()->count();
         $hitungpengumuman = Pengumuman::all()->count();
-        return view('/pengurus/dashboard', compact(['kegiatan', 'organisasi', 'pengumuman', 'event', 'hitunganggota', 'hitungevent', 'hitungkegiatan', 'hitungpengumuman']));
+
+        $grafik = DB::table('absensi as a')
+            ->select('jenis','a.nama_kegiatan',DB::raw('count(*) as jumlah'))
+            ->leftJoin('kegiatan as k','a.nama_kegiatan','=','k.nama_kegiatan')
+            ->leftJoin('organisasi as o','a.organisasi_id','=','o.id')
+            ->groupBy('a.nama_kegiatan','jenis')
+            ->get();
+        $grafik1 = DB::table('absensi as a')
+            ->select('a.nama_kegiatan',DB::raw('count(*) as jumlah'))
+            ->leftJoin('kegiatan as k','a.nama_kegiatan','=','k.nama_kegiatan')
+            ->groupBy('a.nama_kegiatan')
+            ->get();
+
+        return view('/pengurus/dashboard', compact(['kegiatan', 'organisasi', 'pengumuman', 'event', 'hitunganggota', 'hitungevent', 'hitungkegiatan', 'hitungpengumuman','grafik1','grafik']));
 
     }
 
@@ -129,29 +143,29 @@ class LoginController extends Controller
         }
 
         $loginanggota = Auth::guard('anggota')->attempt(['email' => $request->email, 'password' => $request->password]);
-        $id = User::where('email', $request->email)->value('id');  
+        $id = User::where('email', $request->email)->value('id');
                 session([
                     'idlogin' => $id,
-                    // 'namalogin' => $tampilnama, 
+                    // 'namalogin' => $tampilnama,
                 ]);
-        
+
         if($loginanggota)
         {
             $request->session()->regenerate();
-           
+
             return redirect()->intended('/dashboard-anggota');
         }
         // else
         // {
         //     return redirect()->back()->with('status', 'Akun tidak terdaftar');
         // }
-        
+
     }
 
     public function dashboardAnggota(Request $request)
     {
         $id = $request->session()->get('idlogin');
-        $semua = User::where('id', $id)->get(); 
+        $semua = User::where('id', $id)->get();
         $organisasis = DetailUser::where('user_id', $id)->get();
 
         return view('/anggota/dashboard-anggota', (compact(['semua', 'organisasis'])));
@@ -165,7 +179,7 @@ class LoginController extends Controller
     //     $request->session()->regenerateToken();
     //     return redirect('/anggota/login');
     // }
-    
 
-    
+
+
 }

@@ -26,6 +26,7 @@
     <link href="{{asset('template')}}/css/style.min.css" rel="stylesheet">
     <link href="{{asset('template')}}/css/main.css" rel="stylesheet">
     @stack('link')
+    @stack('style')
     @stack('script1')
 </head>
 
@@ -78,7 +79,7 @@
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                   
+
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
@@ -101,7 +102,7 @@
                         <li>
                             <a class="profile-pic" href="/pengurus-crud/profil-pengurus">
                             <img src="{{asset('template')}}/plugins/images/user.png" alt="" width="36"
-                                    class="img-circle"> <span class="text-white font-medium"> 
+                                    class="img-circle"> <span class="text-white font-medium">
                                     {{ Auth::guard('web')->user()->nama }} </span></a>
                         </li>
 
@@ -256,7 +257,7 @@
             selector: '#mytextarea'
         });
     </script>
-   
+
 </body>
 
 </html>
