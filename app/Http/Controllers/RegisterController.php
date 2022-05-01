@@ -6,6 +6,7 @@ use App\Models\Register;
 use App\Models\User;
 use App\Models\DetailUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('pengurus.register');   
+        return view('pengurus.register');
     }
 
     /**
@@ -46,21 +47,21 @@ class RegisterController extends Controller
             'unique'   => 'NIK sudah terdaftar'
         ];
 
-        $request->validate([
-            'nama'              => 'required',
-            'nik'               => 'required|unique',
-            'tempat_lahir'      => 'required',
-            'tgl_lahir'         => 'required',
-            'email'             => 'required',
-            'password'          => 'required|min:5|max:10',
-            'konfirmpassword'   => 'required|min:5|max:10',
-            'no_telp'           => 'required',
-            'jenis_kelamin'     => 'required',
-            'pekerjaan'         => 'required',
-            'alamat'            => 'required',
-            'level'             => 'required',
-            'status'            => 'required'
-        ], $message);
+//        $request->validate([
+//            'nama'              => 'required',
+//            'nik'               => 'required|unique',
+//            'tempat_lahir'      => 'required',
+//            'tgl_lahir'         => 'required',
+//            'email'             => 'required',
+//            'password'          => 'required|min:5|max:10',
+//            'konfirmpassword'   => 'required|min:5|max:10',
+//            'no_telp'           => 'required',
+//            'jenis_kelamin'     => 'required',
+//            'pekerjaan'         => 'required',
+//            'alamat'            => 'required',
+//            'level'             => 'required',
+//            'status'            => 'required'
+//        ], $message);
 
         $user = User :: create([
                 'nama'              => $request->nama,
@@ -75,20 +76,34 @@ class RegisterController extends Controller
                 'alamat'            => $request->alamat,
                 'level'             => $request->level,
                 'status'            => $request->status
-            ]); 
+            ]);
 
             $organisasi = collect($request->organisasi_id);
             $indeks = count($organisasi);
-        
+
             for($i=0;$i<$indeks;$i++){
                 DetailUser::create([
                     'user_id' => $user->id,
                     'organisasi_id' => $organisasi[$i],
                 ]);
             }
-        
+
     // dd ($request->all());
         return redirect('/pengurus/login')->with('success', 'Registrasi Berhasil!');
+    }
+
+    public function verifikasi_akun()
+    {
+        $data_user = DB::table('user')->where('status','=','Tidak Aktif')->get();
+        return view('pengurus.verifikasi.index',compact('data_user'));
+    }
+
+    public function update_akun($id)
+    {
+        DB::table('user')
+            ->where('id','=',$id)
+            ->update(['status'=>'Aktif']);
+        return redirect('verifikasi-akun');
     }
 
 }

@@ -38,15 +38,15 @@ use App\Models\Absensi;
 
     // Logout
     Route::get('/logout', 'App\Http\Controllers\LoginController@logout');
-    
 
-   
+
+
 //});
 
 
 //Route::group(['middleware' => ['auth:anggota']], function (){
     Route::get('/pengurus/dashboard', 'App\Http\Controllers\LoginController@dashboardPengurus');
-    
+
     // Anggota
     Route::get('/anggota/anggota', 'App\Http\Controllers\UserController@indexAnggota');
     //tambah anggota
@@ -60,7 +60,7 @@ use App\Models\Absensi;
     //cari anggota
     Route::get('/anggota/cariAnggota','App\Http\Controllers\UserController@cariAnggota')->name('cariAnggota');
 
-    
+
     // // Pengurus
     Route::get('/pengurus-crud/pengurus', 'App\Http\Controllers\UserController@indexPengurus');
     // Route::get('/pengurus/pengurus-crud/pengurus', 'App\Http\Controllers\PengurusController@create');
@@ -72,7 +72,7 @@ use App\Models\Absensi;
     Route::patch('/pengurus-crud/profil-pengurus/{user}', 'App\Http\Controllers\UserController@updateProfilPengurus')->name('updateProfilPengurus');
     Route::get('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\UserController@profilPengurus');
     Route::get('/pengurus/cariPengurus','App\Http\Controllers\UserController@cariPengurus')->name('cariPengurus');
-  
+
     // Route::get('/pengurus-crud/profil-pengurus/change-password', 'App\Http\Controllers\PengurusController@changePassword')->name('change_password');
     Route::patch('/pengurus-crud/profil-pengurus', 'App\Http\Controllers\UserController@updatePasswordPengurus')->name('update_password_pengurus');
 
@@ -118,7 +118,7 @@ use App\Models\Absensi;
     Route::patch('/pengumuman/pengumuman/{pengumuman}', 'App\Http\Controllers\PengumumanController@update');
     Route::get('/pengumuman/download/{id}', 'App\Http\Controllers\PengumumanController@downloadPengumuman')->name('file.download');
     Route::get('/pengumuman/cariPengumuman','App\Http\Controllers\PengumumanController@cariPengumuman')->name('cariPengumuman');
-    
+
     // Absensi
     Route::get('/absensi/absensi', 'App\Http\Controllers\AbsensiController@index');
     Route::get('/pengurus/absensi/create-absensi', 'App\Http\Controllers\AbsensiController@create');
@@ -163,16 +163,16 @@ use App\Models\Absensi;
     //Register
     Route::get('/register', 'App\Http\Controllers\RegisterController@index');
     Route::post('/register/store', 'App\Http\Controllers\RegisterController@store')->name('register');
- 
+
      Route::get('/pengumuman', 'App\Http\Controllers\PengumumanController@indexAnggota');
-    
+
      Route::get('/kegiatan', 'App\Http\Controllers\KegiatanController@indexAnggota');
      Route::get('/absensi', 'App\Http\Controllers\AbsensiController@indexAnggota');
      Route::get('/laporan-keuangan', 'App\Http\Controllers\LaporanKeuanganController@indexAnggota');
      Route::get('/pengumuman/cariPengumumanAnggota','App\Http\Controllers\PengumumanController@cariPengumumanAnggota')->name('cariPengumumanAnggota');
      Route::get('/kegiatan/cariKegiatanAnggota','App\Http\Controllers\KegiatanController@cariKegiatanAnggota')->name('cariKegiatanAnggota');
-    
-     
+
+
      // Logout
     //  Route::get('/logout', 'App\Http\Controllers\LoginController@logoutAnggota');
 
@@ -183,3 +183,5 @@ use App\Models\Absensi;
     Route::get('absensi/get_absen/{id}','App\Http\Controllers\AbsensiController@get_absen');
     Route::get('absensi/hapus_absen/{id}','App\Http\Controllers\AbsensiController@hapus');
     Route::post('absensi/update_absen','App\Http\Controllers\AbsensiController@update_absen');
+    Route::get('verifikasi-akun','App\Http\Controllers\RegisterController@verifikasi_akun');
+    Route::get('proses-verif/{id}','App\Http\Controllers\RegisterController@update_akun');

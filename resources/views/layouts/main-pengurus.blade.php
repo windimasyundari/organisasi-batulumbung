@@ -192,6 +192,14 @@
                         </li>
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/verifikasi-akun"
+                               aria-expanded="false">
+                                <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
+                                <span class="hide-menu">Verifikasi</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout"
                                 aria-expanded="false">
                                 <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
