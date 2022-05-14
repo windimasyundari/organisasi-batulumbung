@@ -24,13 +24,13 @@ class UserController extends Controller
         // $jenis = DetailUser::where('user_id', $user->id)->get();
         $jenis = DetailUser::all();
         $organisasi = Organisasi::all();
-     
+
         return view('pengurus/anggota/anggota', compact(['user', 'organisasi', 'jenis']));
     }
 
     public function indexPengurus()
     {
-        $user = User::where('level', '=', 'Ketua') 
+        $user = User::where('level', '=', 'Ketua')
                 ->orWhere('level', '=', 'Wakil Ketua')
                 ->orWhere('level', '=', 'Sekretaris')
                 ->orWhere('level', '=', 'Bendahara')->paginate(10);
@@ -40,28 +40,23 @@ class UserController extends Controller
 
     public function cariAnggota(Request $request)
 	{
-        // $query = DB::table('user')
-        // ->leftJoin('detail_user','user.id','=','detail_user.user_id')
-        // ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
-        //  ->where('level', '=', 'Anggota')->where('detail_user.organisasi_id','=',$request->jenis)->get();
 
-          $where_jenis = $where_anggota = '';
         if (!empty($request->jenis)) {
-            $user = User::where('level', '=', 'Anggota')
+            $user = User::where('level','=', 'Anggota')
             ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
             ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
             ->leftJoin('detail_user','user.id','=','detail_user.user_id')
             ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
             ->where('detail_user.organisasi_id','=',$request->jenis)
-            ->groupBy('user.nik','nama','level')
+            ->groupBy('user.id','user.nik','nama','level')
             ->paginate(10);
         }else if (!empty($request->cariAnggota)) {
-            $user = User::where('level', '=', 'Anggota')
+            $user = User::where('level','=', 'Anggota')
             ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
             ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
             ->leftJoin('detail_user','user.id','=','detail_user.user_id')
             ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
-            ->groupBy('user.nik','nama','level')
+            ->groupBy('user.id','user.nik','nama','level')
             ->where('nama','like','%'.$request->cariAnggota.'%')
             ->paginate(10);
         }elseif(!empty($request->jenis) && !empty($request->cariAnggota)){
@@ -89,18 +84,16 @@ class UserController extends Controller
         // $user = User::leftJoin('detail_user','user.id','=','detail_user.user_id')
         // ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
         // ->where('level', '=', 'Anggota')->filter(request(['cariAnggota']))->paginate(10)->withQueryString();
-       
+
 		return view('pengurus/anggota/anggota', compact('organisasi', 'user'));
     }
 
     public function cariPengurus(Request $request)
 	{
+
 		$organisasi = Organisasi::all();
         if (!empty($request->jenis)){
-            $user = User::where('level', '=', 'Ketua')
-                ->orWhere('level', '=', 'Wakil Ketua')
-                ->orWhere('level', '=', 'Sekretaris')
-                ->orWhere('level', '=', 'Bendahara')
+            $user = User::where([['level', '=', 'Ketua'],['level', '=', 'Wakil Ketua'],['level', '=', 'Sekretaris'],['level', '=', 'Bendahara']])
                 ->where('detail_user.organisasi_id','=',$request->jenis)
                 ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
                 ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
@@ -108,25 +101,19 @@ class UserController extends Controller
                 ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
                 ->groupBy('user.id','user.nik','nama','level')
                 ->paginate(10);
-        }else if (!empty($request->cariAnggota)) {
-            $user = User::where('level', '=', 'Ketua')
-                ->orWhere('level', '=', 'Wakil Ketua')
-                ->orWhere('level', '=', 'Sekretaris')
-                ->orWhere('level', '=', 'Bendahara')
-                ->where('detail_user.organisasi_id','=',$request->cariAnggota)
+        }else if (!empty($request->cariPengurus)) {
+            $user = User::where([['level', '=', 'Ketua'],['level', '=', 'Wakil Ketua'],['level', '=', 'Sekretaris'],['level', '=', 'Bendahara']])
+                ->where('nama','like','%'.$request->cariPengurus.'%')
                 ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
                 ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
                 ->leftJoin('detail_user','user.id','=','detail_user.user_id')
                 ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
                 ->groupBy('user.id','user.nik','nama','level')
                 ->paginate(10);
-        }elseif(!empty($request->jenis) && !empty($request->cariAnggota)){
-            $user = User::where('level', '=', 'Ketua')
-                ->orWhere('level', '=', 'Wakil Ketua')
-                ->orWhere('level', '=', 'Sekretaris')
-                ->orWhere('level', '=', 'Bendahara')
+        }elseif(!empty($request->jenis) && !empty($request->cariPengurus)){
+            $user = User::where([['level', '=', 'Ketua'],['level', '=', 'Wakil Ketua'],['level', '=', 'Sekretaris'],['level', '=', 'Bendahara']])
                 ->where('detail_user.organisasi_id','=',$request->jenis)
-                ->where('detail_user.organisasi_id','=',$request->cariAnggota)
+                ->where('nama','like','%'.$request->cariPengurus.'%')
                 ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
                 ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
                 ->leftJoin('detail_user','user.id','=','detail_user.user_id')
@@ -145,13 +132,13 @@ class UserController extends Controller
                 ->groupBy('user.id','user.nik','nama','level')
                 ->paginate(10);
         }
-        
+
         // $user = User::where('level', '=', 'Ketua')
         //         ->orWhere('level', '=', 'Wakil Ketua')
         //         ->orWhere('level', '=', 'Sekretaris')
         //         ->orWhere('level', '=', 'Bendahara')
         //         ->filter(request(['cariPengurus', 'jenis']))->paginate(10)->withQueryString();
-       
+
 		return view('pengurus/pengurus-crud/pengurus', compact('organisasi', 'user'));
 
     }
@@ -181,8 +168,8 @@ class UserController extends Controller
         //     'status'          => 'required'
         // ], $message);
 
-           
-            
+
+
         $user = User::create([
             'nama'            => $request->nama,
             'nik'             => $request->nik,
@@ -200,7 +187,7 @@ class UserController extends Controller
 
         $organisasi = collect($request->organisasi_id);
         $indeks = count($organisasi);
-        
+
         for($i=0;$i<$indeks;$i++){
             DetailUser::create([
                 'user_id' => $user->id,
@@ -210,11 +197,11 @@ class UserController extends Controller
 
         if($user->level == "Anggota"){
             return redirect('/anggota/anggota')-> with('success', 'Data Anggota Berhasil Ditambahkan!');
-        } 
+        }
         else{
             return redirect('/pengurus-crud/pengurus')-> with('success', 'Data Pengurus Berhasil Ditambahkan!');
         }
-       
+
     }
 
     public function showUser(User $user)
@@ -248,13 +235,13 @@ class UserController extends Controller
 
         $organisasi = collect($request->organisasi_id);
         $indeks = count($organisasi);
-       
+
         for($i=0;$i<$indeks;$i++){
             DetailUser::create([
                 'user_id' => $user->id,
                 'organisasi_id' => $organisasi[$i],
             ]);
-            
+
         }
 
         if($user->level == "Anggota"){
@@ -263,10 +250,10 @@ class UserController extends Controller
         else{
             return redirect('/pengurus/pengurus')-> with('success', 'Data Pengurus Berhasil Diubah!');
         }
-        
-        
+
+
     }
-    
+
     public function destroyUser(User $user)
     {
         User::where('id', $user->id)->delete();
@@ -309,9 +296,9 @@ class UserController extends Controller
     public function profilPengurus(Request $request)
     {
         $id = $request->session()->get('idlogin');
-        $user = User::where('id', $id)->get(); 
+        $user = User::where('id', $id)->get();
         $jenis = DetailUser::where('user_id', $id)->get();
-        
+
         return view('pengurus.pengurus-crud.profil-pengurus', ['user' => $user, 'jenis' =>$jenis]);
     }
 
@@ -332,16 +319,16 @@ class UserController extends Controller
 
         User::where('id', $user->id)
                 ->update($validateData);
-        
+
         $organisasi = collect($request->organisasi_id);
         $indeks = count($organisasi);
-        
+
         for($i=0;$i<$indeks;$i++){
             DetailUser::create([
                 'user_id' => $user->id,
                 'organisasi_id' => $organisasi[$i],
             ]);
-            
+
         }
 
         return redirect('pengurus-crud/profil-pengurus')-> with('success', 'Data Berhasil Diubah!');
@@ -373,13 +360,13 @@ class UserController extends Controller
 
         $organisasi = collect($request->organisasi_id);
         $indeks = count($organisasi);
-        
+
         for($i=0;$i<$indeks;$i++){
             DetailUser::create([
                 'user_id' => $user->id,
                 'organisasi_id' => $organisasi[$i],
             ]);
-            
+
         }
 
         return redirect('/dashboard-anggota')-> with('success', 'Data Berhasil Diubah!');
@@ -413,5 +400,5 @@ class UserController extends Controller
         }
     }
 
-    
+
 }

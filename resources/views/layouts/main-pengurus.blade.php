@@ -25,6 +25,7 @@
     <!-- Custom CSS -->
     <link href="{{asset('template')}}/css/style.min.css" rel="stylesheet">
     <link href="{{asset('template')}}/css/main.css" rel="stylesheet">
+    <script src="{{asset('template')}}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     @stack('link')
     @stack('style')
     @stack('script1')
@@ -239,7 +240,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     @stack('script')
-    <script src="{{asset('template')}}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{asset('template')}}/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('template')}}/js/app-style-switcher.js"></script>

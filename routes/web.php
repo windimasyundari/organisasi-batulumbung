@@ -185,3 +185,7 @@ use App\Models\Absensi;
     Route::post('absensi/update_absen','App\Http\Controllers\AbsensiController@update_absen');
     Route::get('verifikasi-akun','App\Http\Controllers\RegisterController@verifikasi_akun');
     Route::get('proses-verif/{id}','App\Http\Controllers\RegisterController@update_akun');
+
+    Route::get('pemasukan','App\Http\Controllers\PemasukanController@index');
+    Route::get('form-pemasukan','App\Http\Controllers\PemasukanController@form');
+

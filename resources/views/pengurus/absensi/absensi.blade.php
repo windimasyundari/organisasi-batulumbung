@@ -183,7 +183,7 @@
                                         </div>
                                         <div class="modal-body">
                                             {{ csrf_field() }}
-                                            <input type="text" name="id_absen" class="form-control " id="id_absen">
+                                            <input type="text" hidden name="id_absen" class="form-control " id="id_absen">
                                             <div class="form-group">
                                                 <label for="nama_angota">nama_anggota</label>
                                                 <input type="text" name="nama_anggota" class="form-control " id="nama_anggota" placeholder="Masukkan nama angota">
@@ -324,7 +324,7 @@
         }
 
         function update() {
-            
+
             $.ajax({
                 url:"update_absen",
                 type:"POST",
@@ -339,7 +339,7 @@
                 },
                 dataType:'json',
                 success:function (data) {
-                    
+
                 },
                 complete: function (data) {
                     $('#edit').modal('hide');
