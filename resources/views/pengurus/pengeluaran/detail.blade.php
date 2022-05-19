@@ -35,8 +35,8 @@
                 <div class="col-sm-12">
                     <div class="white-box">
 
-                        <a href="{{url('form-pengeluaran')}}" class="btn btn-primary mr-5">
-                            TAMBAH DATA PEMASUKAN
+                        <a href="{{url('download/'.$id)}}" class="btn btn-primary mr-5">
+                            download
                         </a>
 
                         <!-- Import Excel -->

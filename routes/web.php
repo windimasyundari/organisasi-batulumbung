@@ -199,4 +199,5 @@ use App\Models\Absensi;
     Route::get('view/{id}','App\Http\Controllers\PengeluaranController@view');
     Route::get('hapus-pengeluaran/{id}','App\Http\Controllers\PengeluaranController@hapus');
     Route::get('detil/{id}','App\Http\Controllers\PengeluaranController@detil');
+    Route::get('download/{id}','App\Http\Controllers\PengeluaranController@download');
 

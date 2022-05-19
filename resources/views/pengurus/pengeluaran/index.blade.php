@@ -25,7 +25,7 @@
         <div class="page-breadcrumb bg-white">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Daftar Absensi</h4>
+                    <h4 class="page-title">Daftar Pengeluaran</h4>
                 </div>
             </div>
         </div>
@@ -36,12 +36,8 @@
                     <div class="white-box">
 
                         <a href="{{url('form-pengeluaran')}}" class="btn btn-primary mr-5">
-                            TAMBAH DATA PEMASUKAN
+                            TAMBAH DATA PENGELUARAN
                         </a>
-
-                        <!-- Import Excel -->
-
-                        <a href="{{ route ('daftar_absensi') }}" class="btn btn-success my-3 text-light">LIHAT DAFTAR ABSENSI</a>
 
                         <div class="table-responsive mt-3">
                             <table class="table table-striped" id="myTable" style="width:100%">
@@ -73,21 +69,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-{{--                                <?php $no=1 ?>--}}
-{{--                                @foreach($data as $row)--}}
-{{--                                    <tr>--}}
-{{--                                        <td>{{$no++}}</td>--}}
-{{--                                        <td>{{$row->jmlh_pemasukan}}</td>--}}
-{{--                                        <td>{{$row->tanggal}}</td>--}}
-{{--                                        <td>{{$row->sumber_dana}}</td>--}}
-{{--                                        <td>{{$row->jenis}}</td>--}}
-{{--                                        <td>{{$row->keterangan}}</td>--}}
-{{--                                        <td>--}}
-{{--                                            <a href="form-edit-pemasukan/{{$row->id}}" value="{{$row->id}}" id="btn-update" class="btn btn-primary"><i class="bi bi-pencil m-r-5"></i>Edit</a> |--}}
-{{--                                            <a href="hapus-pemasukan/{{$row->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                @endforeach--}}
+
                                 </tbody>
                             </table>
 
