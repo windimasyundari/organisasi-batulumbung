@@ -58,35 +58,21 @@
                                 </thead>
 
                                 <tbody>
-                                <?php $i=0 ?>
+                                <?php $no=1 ?>
                                 @foreach($data as $row)
                                 <tr>
                                     <td>{{$no++}}</td>
                                     <td>{{$row->jmlh_pemasukan}}</td>
                                     <td>{{$row->tanggal}}</td>
                                     <td>{{$row->sumber_dana}}</td>
-                                    <td>{{$row->pengurus_id}}</td>
+                                    <td>{{$row->jenis}}</td>
                                     <td>{{$row->keterangan}}</td>
                                     <td>
-                                        <button value="{{$row->id}}" onclick="form_edit({{$row->id}})" class="btn btn-primary" data-toggle="modal" data-target="#edit"><i class="bi bi-pencil m-r-5"></i>Edit</button> |
-                                        <a href="hapus_absen/{{$row->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>
+                                        <a href="form-edit-pemasukan/{{$row->id}}" value="{{$row->id}}" id="btn-update" class="btn btn-primary"><i class="bi bi-pencil m-r-5"></i>Edit</a> |
+                                        <a href="hapus-pemasukan/{{$row->id}}" class="btn btn-primary"><i class="bi bi-archive m-r-5"></i>Delete</a></td>
                                     </td>
                                 </tr>
                                 @endforeach
-{{--                                @foreach ($absensi as $result => $absen)--}}
-{{--                                    <tr>--}}
-{{--                                        <td scope="row">{{ $result + $absensi->firstitem() }}</td>--}}
-{{--                                        <td>{{$absen->anggota_id}}</td>--}}
-{{--                                        <td>{{$absen->nama}}</td>--}}
-{{--                                        <td>{{$absen->nama_kegiatan}}</td>--}}
-{{--                                        <td>{{ \Carbon\Carbon::parse($absen->tanggal)->format('Y-m-d')}}</td>--}}
-{{--                                        <!-- carbon format (y-m-d) -->--}}
-{{--                                        <td>{{$absen->organisasi->jenis}}</td>--}}
-{{--                                        <td>{{$absen->status}}</td>--}}
-{{--                                        <td>--}}
-{{--                                            --}}
-{{--                                            --}}
-{{--                                @endforeach--}}
                                 </tbody>
                             </table>
 
@@ -96,6 +82,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('script')
@@ -157,6 +144,7 @@
             },
 
         });
+
     } );
 </script>
 @endpush

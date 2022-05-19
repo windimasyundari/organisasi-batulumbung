@@ -4,9 +4,6 @@
 
 @push('link')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
-    {{--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">--}}
-
-
 @endpush
 
 @push('script1')
@@ -15,9 +12,6 @@
 
 
 @endpush
-{{-- @endpush --}}
-
-
 
 @section('content')
     <div class="page-wrapper">
@@ -34,12 +28,14 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <form method="post" action="simpan-pemasukan">
+                        <form method="post" action="{{url('update_pemasukan')}}">
                             <div class="modal-content">
-
+@foreach($datas as $data)
                                 <div class="modal-body">
                                     {{ csrf_field() }}
 
+                                    <input type="text" name="id" class="form-control"
+                                           id="id" value="{{$data->id}}">
                                     <div class="form-group">
                                         <label for="nama_kegiatan">organisasi</label>
                                         <select name="nama_kegiatan" id="nama_kegiatan" class="form-control">
@@ -52,22 +48,22 @@
                                     <div class="form-group">
                                         <label>Jumlah Pemasukan</label>
                                         <input type="number" name="jumlah_pemasukan" class="form-control"
-                                               id="jumlah_pemasukkan" placeholder="Masukkan Jumlah Pemasukan">
+                                               id="jumlah_pemasukkan" placeholder="Masukkan Jumlah Pemasukan" value="{{$data->jmlh_pemasukan}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
                                         <input type="date" name="tanggal" class="form-control"
-                                               id="tanggal" placeholder="Masukkan Tanggal">
+                                               id="tanggal" placeholder="Masukkan Tanggal" value="{{$data->tanggal}}">
                                     </div>
                                     <div class="form-group">
                                         <label>Sumber Dana</label>
                                         <input type="text" name="sumber_dana" class="form-control"
-                                               id="jumlah_pemasukkan" placeholder="Masukkan Sumber Dana">
+                                               id="jumlah_pemasukkan" placeholder="Masukkan Sumber Dana" value="{{$data->sumber_dana}}">
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
                                         <input type="text" name="keterangan" class="form-control"
-                                               id="keterangan" placeholder="Masukkan Keterangan">
+                                               id="keterangan" placeholder="Masukkan Keterangan" value="{{$data->keterangan}}">
                                     </div>
 
                                     <div class="modal-footer">
@@ -76,7 +72,7 @@
                                     </div>
 
                                 </div>
-
+                                @endforeach
                             </div>
                         </form>
                     </div>
@@ -87,5 +83,9 @@
 @endsection
 
 @push('script')
-
+<script>
+    $(document).ready(function () {
+        $('#nama_kegiatan').val("{{$datas[0]->organisasi_id}}")
+    })
+</script>
 @endpush

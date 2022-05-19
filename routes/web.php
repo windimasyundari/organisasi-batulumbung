@@ -188,4 +188,15 @@ use App\Models\Absensi;
 
     Route::get('pemasukan','App\Http\Controllers\PemasukanController@index');
     Route::get('form-pemasukan','App\Http\Controllers\PemasukanController@form');
+    Route::post('simpan-pemasukan','App\Http\Controllers\PemasukanController@simpan');
+    Route::get('hapus-pemasukan/{id}','App\Http\Controllers\PemasukanController@hapus');
+    Route::get('form-edit-pemasukan/{id}','App\Http\Controllers\PemasukanController@form_edit');
+    Route::post('update_pemasukan','App\Http\Controllers\PemasukanController@update_pemasukan');
+
+    Route::get('pengeluaran','App\Http\Controllers\PengeluaranController@index');
+    Route::get('form-pengeluaran','App\Http\Controllers\PengeluaranController@form_pengeluaran');
+    Route::post('simpan-pengeluaran','App\Http\Controllers\PengeluaranController@simpan');
+    Route::get('view/{id}','App\Http\Controllers\PengeluaranController@view');
+    Route::get('hapus-pengeluaran/{id}','App\Http\Controllers\PengeluaranController@hapus');
+    Route::get('detil/{id}','App\Http\Controllers\PengeluaranController@detil');
 
