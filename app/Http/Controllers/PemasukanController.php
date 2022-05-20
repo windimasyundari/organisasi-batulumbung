@@ -30,7 +30,8 @@ class PemasukanController extends Controller
             "jmlh_pemasukan"=>$request->jumlah_pemasukan,
             "tanggal"=>"$request->tanggal",
             "sumber_dana"=>"$request->sumber_dana",
-            "keterangan"=>"$request->keterangan"
+            "keterangan"=>"$request->keterangan",
+            "user_id"=>Auth::user()->id
         );
         $pemasukan = DB::table('pemasukan')->insert($data);
         return redirect('pemasukan');
