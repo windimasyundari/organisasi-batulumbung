@@ -38,7 +38,7 @@
 
                                     <div class="form-group">
                                         <label for="nama_kegiatan">organisasi</label>
-                                        <select name="nama_kegiatan" id="nama_kegiatan" class="form-control">
+                                        <select name="nama_kegiatan" id="nama_kegiatan" class="form-control" required>
                                             <option value="" selected>Pilih organisasi</option>
                                             @foreach($organisasi as $row)
                                                 <option value="{{$row->id}}">{{$row->jenis}}</option>
@@ -48,7 +48,7 @@
 
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
-                                        <input type="date" name="tanggal" class="form-control"
+                                        <input type="date" name="tanggal" class="form-control" required
                                                id="tanggal" placeholder="Masukkan Tanggal">
                                     </div>
 
@@ -69,14 +69,14 @@
                                         <tr>
                                             <td colspan="3" align="right">&nbsp jumlah</td>
                                             <td>
-                                                <input type="number" name="sum" id="sum" class="form-control sum" />
+                                                <input type="number" name="sum" id="sum" class="form-control sum" required readonly/>
                                             </td>
                                         </tr>
                                         </tfoot>
                                     </table>
                                     <div class="form-group">
                                         <label>Sumber Dana</label>
-                                        <select name="sumber_dana" id="sumber_dana" class="form-control ">
+                                        <select name="sumber_dana" id="sumber_dana" class="form-control" required>
                                             <option value="" selected>Pilih Sumber Dana</option>
                                             @foreach($sumber_dana as $row)
                                                 <option value="{{$row->id}}">{{$row->sumber_dana}}</option>
@@ -117,10 +117,10 @@
         function dynamic_field(number)
         {
             html = '<tr>';
-            html += '<td><input type="text" name="nama_barang[]" class="form-control" /></td>';
-            html += '<td><input type="text" name="jumlah_barang[]" class="form-control jumlah_barang" onchange="jumlah()" /></td>';
-            html += '<td><input type="text" name="harga_barang[]" class="form-control harga_barang" onchange="jumlah()" /></td>';
-            html += '<td><input type="text" name="total[]" class="form-control total" /></td>';
+            html += '<td><input type="text" name="nama_barang[]" class="form-control" required/></td>';
+            html += '<td><input type="text" name="jumlah_barang[]" class="form-control jumlah_barang" onchange="jumlah()" required/></td>';
+            html += '<td><input type="text" name="harga_barang[]" class="form-control harga_barang" onchange="jumlah()" required/></td>';
+            html += '<td><input type="text" name="total[]" class="form-control total" required/></td>';
             if(number > 1)
             {
                 html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Remove</button></td></tr>';

@@ -84,8 +84,10 @@
 
 @push('script')
 <script>
+    console.log("{!! $datas[0]->organisasi_id !!}")
     $(document).ready(function () {
-        $('#nama_kegiatan').val("{{$datas[0]->organisasi_id}}")
+
+        $('#nama_kegiatan').val({!! $datas[0]->organisasi_id !!})
     })
 </script>
 @endpush

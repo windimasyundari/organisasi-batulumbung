@@ -195,7 +195,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_kegiatan">nama_kegiatan</label>
-                                                <select name="nama_kegiatan" id="nama_kegiatan" class="form-control @error('nama_kegiatan') is-invalid @enderror" onchange="getvalanggota(this);">
+                                                <select name="nama_kegiatan" id="nama_kegiataan" class="form-control @error('nama_kegiatan') is-invalid @enderror" onchange="getvalanggota(this);">
                                                     <option value="">Pilih kegiatan</option>
                                                     @foreach($kegiatan as $kegiatans)
                                                         <option value="{{$kegiatans->nama_kegiatan}}">{{$kegiatans->nama_kegiatan}}</option>
@@ -314,7 +314,7 @@
                     $.each(data, function (key,value) {
                         $("#id_absen").val(value.id);
                         $("#nama_anggota").val(value.nama);
-                        $("#nama_kegiatan").val(value.nama_kegiatan).change();
+                        $("#nama_kegiataan").val(value.nama_kegiatan).change();
                         $("#jenis_absen").val(value.organisasi_id).change();
                         $("#tanggal_absen").val(value.tanggal)
                         $("#status").val(value.status)
@@ -332,14 +332,14 @@
                     _token: '{{csrf_token()}}',
                     id:$("#id_absen").val(),
                     nama_anggota:$("#nama_anggota").val(),
-                    nama_kegiatan:$("#nama_kegiatan").val(),
+                    nama_kegiatan:$("#nama_kegiataan").val(),
                     jenis_absen:$("#jenis_absen").val(),
                     tanggal:$("#tanggal_absen").val(),
                     status:$("#status").val(),
                 },
                 dataType:'json',
                 success:function (data) {
-
+                    // window.location.href = "/absensi/absensi";
                 },
                 complete: function (data) {
                     $('#edit').modal('hide');

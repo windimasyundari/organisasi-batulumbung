@@ -153,15 +153,18 @@ class AbsensiController extends Controller
         }
 
         $excel_absensi = ExcelAbsensi::all();
+
         foreach($excel_absensi as $key){
         $create_data = [
-            'nama_kegiatan' => $request->tanggalnama_kegiatan,
+            'nama_kegiatan' => $request->nama_kegiatan,
             'tanggal'       => $request->tanggal,
             'organisasi_id' => $request->organisasi_id,
             'anggota_id'    => $key->anggota_id,
             'nama'          => $key->nama,
             'status'        => $key->status,
+            'user_id'        => Auth::user()->id,
         ];
+
 
         Absensi::create($create_data);
     }
