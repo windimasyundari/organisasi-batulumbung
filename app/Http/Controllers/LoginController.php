@@ -52,7 +52,6 @@ class LoginController extends Controller
         }
 
         $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>"Aktif"]);
-//        dd($loginpengurus);
         if($loginpengurus == false)
         {
             //dd('password salah');
