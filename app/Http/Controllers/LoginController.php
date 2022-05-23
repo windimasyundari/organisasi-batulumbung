@@ -51,7 +51,13 @@ class LoginController extends Controller
             return redirect()->back()->with('status', 'Password salah');
         }
 
-        $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
+        $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>"Aktif"]);
+//        dd($loginpengurus);
+        if($loginpengurus == false)
+        {
+            //dd('password salah');
+            return redirect()->back()->with('status', 'mennggu konformasi dari admin');
+        }
         $id = User::where('email', $request->email)->value('id');
                 session([
                     'idlogin' => $id,
