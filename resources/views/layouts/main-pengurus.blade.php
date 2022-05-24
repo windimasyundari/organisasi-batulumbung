@@ -195,7 +195,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/verifikasi-akun"
                                aria-expanded="false">
-                                <i class="bi bi-file-earmark-text-fill" aria-hidden="true"></i>
+                               <i class="bi bi-clipboard-check" aria-hidden="true"></i>
                                 <span class="hide-menu">Verifikasi</span>
                             </a>
                         </li>
@@ -203,7 +203,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pemasukan"
                                aria-expanded="false">
-                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                               <i class="bi bi-clipboard-plus" aria-hidden="true"></i>
                                 <span class="hide-menu">Pemasukan</span>
                             </a>
                         </li>
@@ -211,8 +211,8 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pengeluaran"
                                aria-expanded="false">
-                                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-                                <span class="hide-menu">pengelaran</span>
+                               <i class="bi bi-clipboard-minus" aria-hidden="true"></i>
+                                <span class="hide-menu">Pengeluaran</span>
                             </a>
                         </li>
 
