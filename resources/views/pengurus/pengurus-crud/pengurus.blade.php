@@ -265,7 +265,9 @@
                             @forelse($user as $result => $users)
                                 <tr>
                                     <th scope="row">{{ $result + $user->firstItem() }}</th>
-                                    <td>{{$users->id}}</td>
+                                    <td> 
+                                        {{$users->kode_orga}}{{$users->id}}
+                                    </td>
                                     <td>{{$users->nik}}</td>
                                     <td>{{$users->nama}}</td>
                                     <td>{{$users->level}}</td>

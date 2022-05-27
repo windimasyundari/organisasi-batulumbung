@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('pekerjaan');
             $table->text('alamat');
             $table->string('level');
-            $table->string('status');
+            $table->boolean('status')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

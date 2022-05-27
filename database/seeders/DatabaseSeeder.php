@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'alamat'          => 'Br. Batulumbung, Gulingan',
             'no_telp'         => '08567809809',
             'pekerjaan'       => 'Mahasiswa',
+            'jenis'           => 'Sekaa Teruna',
             'status'          => 'Aktif',
         ]);
 

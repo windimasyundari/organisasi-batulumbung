@@ -18,7 +18,7 @@
         <table class="table table-light table-borderless">
             <tr>
                 <th width ="200px">ID Anggota</th>
-                <td></td>
+                <td>{{$user->id}}</td>
             </tr>
 
             <tr>

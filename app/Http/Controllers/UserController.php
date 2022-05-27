@@ -19,7 +19,7 @@ class UserController extends Controller
         ->leftJoin('detail_user','user.id','=','detail_user.user_id')
         ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
         ->groupBy('user.id','user.nik','nama','level')
-         ->paginate(10);
+        ->paginate(10);
         // $user = User::where('level', '=', 'Anggota')->paginate(10);
         // $jenis = DetailUser::where('user_id', $user->id)->get();
         $jenis = DetailUser::all();
@@ -33,9 +33,16 @@ class UserController extends Controller
         $user = User::where('level', '=', 'Ketua')
                 ->orWhere('level', '=', 'Wakil Ketua')
                 ->orWhere('level', '=', 'Sekretaris')
-                ->orWhere('level', '=', 'Bendahara')->paginate(10);
+                ->orWhere('level', '=', 'Bendahara')
+                ->selectRaw('GROUP_CONCAT(kode) as kode_orga')
+                ->select('user.id','nik','nama','level',DB::raw("GROUP_CONCAT(jenis) as jenis"),DB::raw("GROUP_CONCAT(kode) as kode_orga"))
+                ->leftJoin('detail_user','user.id','=','detail_user.user_id')
+                ->leftJoin('organisasi','detail_user.organisasi_id','=','organisasi.id')
+                ->groupBy('user.id','user.nik','nama','level')
+                ->paginate(10);
+        $jenis = DetailUser::all();
         $organisasi = Organisasi::all();
-        return view('pengurus/pengurus-crud/pengurus', compact('user', 'organisasi'));
+        return view('pengurus/pengurus-crud/pengurus', compact('user', 'organisasi', 'jenis'));
     }
 
     public function cariAnggota(Request $request)

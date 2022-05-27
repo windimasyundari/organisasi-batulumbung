@@ -265,7 +265,7 @@
                                 <tr>
                                     <th scope="row">{{ $result + $user->firstItem() }}</th>
                                     <td> 
-                                        {{$users->kode_orga}}
+                                        {{$users->kode_orga}}{{$users->id}}
                                     </td>
                                     <td>{{$users->nik}}</td>
                                     <td>{{$users->nama}}</td>
