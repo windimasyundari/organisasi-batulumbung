@@ -66,7 +66,6 @@
             
             <tr>
                 <th>Jenis Organisasi</th>
-                
                 <td>
                     @foreach( $organisasis as $organisasi)
                         {{ $organisasi->organisasi->jenis }},

@@ -60,7 +60,6 @@ class RegisterController extends Controller
 //            'pekerjaan'         => 'required',
 //            'alamat'            => 'required',
 //            'level'             => 'required',
-//            'status'            => 'required'
 //        ], $message);
 
         $user = User :: create([
@@ -93,7 +92,7 @@ class RegisterController extends Controller
 
     public function verifikasi_akun()
     {
-        $data_user = DB::table('user')->where('status','=','Tidak Aktif')->get();
+        $data_user = DB::table('user')->where('status','=','0')->get();
         return view('pengurus.verifikasi.index',compact('data_user'));
     }
 
@@ -101,7 +100,7 @@ class RegisterController extends Controller
     {
         DB::table('user')
             ->where('id','=',$id)
-            ->update(['status'=>'Aktif']);
+            ->update(['status'=>'1']);
         return redirect('verifikasi-akun');
     }
 

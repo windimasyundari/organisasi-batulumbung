@@ -173,19 +173,9 @@
             </div>
 
             <div class="login100-form">
-            <label for="level" class="form-label">Jabatan</label> <br/>
-            <input type="checkbox" class="check_all" name="level" id="anggota" value="Anggota" checked> Anggota<br/>
-               
+                <label for="level" class="form-label">Jabatan</label> <br/>
+                <input type="checkbox" class="check_all" name="level" id="anggota" value="Anggota" checked>Anggota<br/>   
             </div>`
-
-            <div class="login100-form">
-                <label for="exampleFormControlSelect">Status</label>
-                <select name="status" value="{{ old ('status') }}" class="form-control" id="exampleFormControlSelect">
-                    <option value="">--Pilih--</option>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tidak Aktif">Tidak Aktif</option>
-                </select>
-            </div>
 
             <div class="container-login100-form-btn m-t-26 m-b-26 m-l-225">
                 <button class="login100-form-btn">

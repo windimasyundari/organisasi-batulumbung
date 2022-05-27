@@ -201,3 +201,5 @@ use App\Models\Absensi;
     Route::get('detil/{id}','App\Http\Controllers\PengeluaranController@detil');
     Route::get('download/{id}','App\Http\Controllers\PengeluaranController@download');
 
+    
+

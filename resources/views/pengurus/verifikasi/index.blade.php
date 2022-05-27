@@ -37,7 +37,7 @@
                                         <td>{{$users->nik}}</td>
                                         <td>{{$users->nama}}</td>
                                         <td>{{$users->level}}</td>
-                                        <td><a href="\proses-verif\{{ $users->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>verif</a></td>
+                                        <td><a href="\proses-verif\{{ $users->id }}" class="btn btn-primary"><i class="bi bi-eye-fill m-r-5"></i>Verifikasi</a></td>
                                     </tr>
                                 @empty
                                     <td colspan="8" class="table-active text-center">Tidak Ada Data</td>

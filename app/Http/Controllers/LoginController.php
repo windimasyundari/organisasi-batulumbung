@@ -34,7 +34,7 @@ class LoginController extends Controller
     public function prosesLogin(Request $request)
     {
         //login anggota
-        $emaillogin = User::where('email', $request->email)->first();
+        $emaillogin = User::where('email', $request->email)->where('status',true)->first();
         // dd($emaillogin);
 
         if(!$emaillogin)
@@ -51,11 +51,11 @@ class LoginController extends Controller
             return redirect()->back()->with('status', 'Password salah');
         }
 
-        $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>"Aktif"]);
+        $loginpengurus = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>"1"]);
         if($loginpengurus == false)
         {
             //dd('password salah');
-            return redirect()->back()->with('status', 'mennggu konformasi dari admin');
+            return redirect()->back()->with('status', 'Menunggu konfirmasi dari admin');
         }
         $id = User::where('email', $request->email)->value('id');
                 session([
@@ -174,7 +174,6 @@ class LoginController extends Controller
         $organisasis = DetailUser::where('user_id', $id)->get();
 
         return view('/anggota/dashboard-anggota', (compact(['semua', 'organisasis'])));
-
     }
 
     // public function logoutAnggota(Request $request)
