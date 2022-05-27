@@ -228,8 +228,8 @@
                                             <label for="exampleFormControlSelect">Status</label>
                                             <select name="status" value="{{ old ('status') }}" class="form-control @error ('status') is-invalid @enderror" id="exampleFormControlSelect">
                                                 <option value="">--Pilih--</option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="Tidak Aktif">Tidak Aktif</option>
+                                                <option value="1">Aktif</option>
+                                                <option value="0">Tidak Aktif</option>
                                             </select>
                                             @error ('status')
                                             <div class="invalid-feedback">

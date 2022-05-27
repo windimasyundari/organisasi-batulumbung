@@ -221,7 +221,7 @@ class UserController extends Controller
         }
     }
 
-    public function updateUser(Request $request, Usur $user)
+    public function updateUser(Request $request, User $user)
     {
         $validateData = $request->validate([
             'nama'          => 'required',
@@ -255,7 +255,7 @@ class UserController extends Controller
             return redirect('/anggota/anggota')-> with('success', 'Data Anggota Berhasil Diubah!');
         }
         else{
-            return redirect('/pengurus/pengurus')-> with('success', 'Data Pengurus Berhasil Diubah!');
+            return redirect('/pengurus-crud/pengurus')-> with('success', 'Data Pengurus Berhasil Diubah!');
         }
 
 
