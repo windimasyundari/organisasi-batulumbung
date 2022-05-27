@@ -23,13 +23,13 @@
             <tr>
                 <td>{{$y->nama_barang}}</td>
                 <td>{{$y->jmlh_barang}}</td>
-                <td>{{$y->satuan_harga}}</td>
-                <td>{{$y->jmlh_barang*$y->satuan_harga}}</td>
+                <td>Rp {{ number_format($y->satuan_harga) }}</td>
+                <td>Rp {{ number_format($y->jmlh_barang*$y->satuan_harga) }}</td>
             </tr>
             @endforeach
         </table>
 <br>
-        <p>subtotal : {{$x->total}}</p>
+        <p>subtotal : Rp {{ number_format($x->total) }}</p>
         <p>sumber dana :  {{$x->sumber_dana}}</p>
         <p>organisasi :  {{$x->jenis}}</p>
         <p>keterangan : {{$x->keterangan}}</p>

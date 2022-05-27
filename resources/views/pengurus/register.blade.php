@@ -182,8 +182,6 @@
                     DAFTAR
                 </button>
             </div>
-
-            <!-- <button type="submit" class="btn btn-primary">DAFTAR</button> -->
         
           <div class="txt1">
             <p>Sudah punya akun?

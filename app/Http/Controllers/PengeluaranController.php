@@ -24,23 +24,23 @@ class PengeluaranController extends Controller
 
     public function simpan(Request $request)
     {
-
-        for ($i = 0;$i<count($request->post('nama_barang')); $i++){
-            $nama_barang = $request->nama_barang[$i];
-            $data = array(
-                "organisasi_id"=>$request->nama_kegiatan,
-                "user_id"=>Auth::user()->id,
-                "total"=>$request->sum,
-                "tanggal"=>"$request->tanggal",
-                "nama_barang"=>$nama_barang,
-                "jmlh_barang"=>$request->jumlah_barang[$i],
-                "satuan_harga"=>$request->harga_barang[$i],
-                "sumber_dana"=>$request->sumber_dana,
-                "keterangan"=>"$request->keterangan"
-            );
-//            $pemasukan = Pengeluaran::Insert_pemasukan($data);
-            $pemasukan = DB::table('pengeluaran')->insert($data);
-        }
+            // dd($request->all());
+            foreach ($request->nama_barang as $key => $value) {
+                $data = [
+                        "organisasi_id"=> $request->nama_kegiatan,
+                        "user_id"=>Auth::user()->id,
+                        "total"=> $request->sum,
+                        "tanggal"=>"$request->tanggal",
+                        "nama_barang"=>$value,
+                        "jmlh_barang"=>$request->jumlah_barang[$key],
+                        "satuan_harga"=>$request->harga_barang[$key],
+                        "sumber_dana"=>$request->sumber_dana,
+                        "keterangan"=>"$request->keterangan"
+                ];
+                Pengeluaran::create($data);
+                Pengeluaran::create($data);
+            }
+//         
         return redirect('pengeluaran');
 
     }

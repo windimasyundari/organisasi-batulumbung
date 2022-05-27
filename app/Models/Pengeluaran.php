@@ -14,6 +14,9 @@ class Pengeluaran extends Model
      *
      * @var string
      */
+
+    protected $guarded = ['id'];
+    
     protected $table = 'pengeluaran';
 
     public function scopeGet_data()

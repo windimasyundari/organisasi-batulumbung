@@ -231,14 +231,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect">Jenis Organisasi</label>
-                                    <select name="organisasi_id" value="{{ $user->organisasi_id }}" class="form-control @error('organisasi_id') is-invalid @enderror" 
-                                    id="exampleFormControlSelect">
-                                        <option value="1" @if($user->organisasi_id == "1") selected @endif>Sekaa Teruna</option>
-                                        <option value="2" @if($user->organisasi_id == "2") selected @endif>Sekaa Gong</option>
-                                        <option value="3" @if($user->organisasi_id == "3") selected @endif>Sekaa Santi</option>
-                                        <option value="4" @if($user->organisasi_id == "4") selected @endif>PKK</option>
-                                    </select>
+                                    <label for="exampleFormControlSelect">Jenis Organisasi</label> <br>
+                                    <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaateruna" value="1" @if($user->organisasi_id == "1") checked @endif> Sekaa Teruna<br>
+                                    <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaagong" value="2" @if($user->organisasi_id == "2") checked @endif> Sekaa Gong<br>
+                                    <input type="checkbox" class="check_all" name="organisasi_id[]" id="sekaasanti" value="3" @if($user->organisasi_id == "3") checked @endif> Sekaa Santi<br>
+                                    <input type="checkbox" class="check_all" name="organisasi_id[]" id="pkk" value="4" @if($user->organisasi_id == "4") checked @endif> PKK<br>
                                 </div>
 
                                 <div class="form-group">

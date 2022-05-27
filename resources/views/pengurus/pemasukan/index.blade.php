@@ -1,6 +1,6 @@
 @extends('layouts.main-pengurus')
 
-@section('title', 'Absensi')
+@section('title', 'Pemasukan')
 
 @push('link')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
@@ -58,7 +58,7 @@
                                 @foreach($data as $row)
                                 <tr>
                                     <td>{{$no++}}</td>
-                                    <td>{{$row->jmlh_pemasukan}}</td>
+                                    <td>Rp {{ number_format($row->jmlh_pemasukan) }}</td>
                                     <td>{{$row->tanggal}}</td>
                                     <td>{{$row->sumber_dana}}</td>
                                     <td>{{$row->jenis}}</td>
